@@ -1,5 +1,9 @@
-# Ignore myagent folder
+# Ignore myagent folder and all files in it
 myagent/
+myagent/*
+
+
+
 ```
 
 
