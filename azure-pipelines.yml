@@ -13,14 +13,14 @@ jobs:
 - job: DeployResources
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
-  - task: UseAzureCLI@2
-    displayName: 'Install Azure CLI'
+  - task: AzureCLI@2
+    displayName: 'Login to Azure'
     inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
+      azureSubscription: 'ozblech'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
       inlineScript: |
-        az --version
+        az account show
 
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
