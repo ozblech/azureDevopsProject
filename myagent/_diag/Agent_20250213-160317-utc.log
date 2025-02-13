@@ -1,0 +1,423 @@
+[2025-02-13 16:03:17Z INFO AgentProcess] Agent package linux-x64.
+[2025-02-13 16:03:17Z INFO AgentProcess] Running on Linux (X64).
+[2025-02-13 16:03:17Z INFO AgentProcess] RuntimeInformation: Ubuntu 24.04.1 LTS.
+[2025-02-13 16:03:17Z INFO AgentProcess] Version: 4.251.0
+[2025-02-13 16:03:17Z INFO AgentProcess] Commit: 69c65179f56dda56424bcb957bb233f612875444
+[2025-02-13 16:03:17Z INFO AgentProcess] Culture: en-US
+[2025-02-13 16:03:17Z INFO AgentProcess] UI Culture: en-US
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO AgentProcess] Validating directory permissions for: '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO CommandSettings] Run {
+  "Commit": false,
+  "Diagnostics": false,
+  "RunOnce": false,
+  "StartupType": null,
+  "DebugMode": false,
+  "Help": false,
+  "Version": false
+}
+[2025-02-13 16:03:17Z INFO AgentProcess] Arguments parsed
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Proxy': '/home/oz/work/azure-home-assignment/myagent/.proxy'
+[2025-02-13 16:03:17Z INFO VstsAgentWebProxy] No proxy setting found.
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Certificates': '/home/oz/work/azure-home-assignment/myagent/.certificates'
+[2025-02-13 16:03:17Z INFO AgentCertificateManager] No certificate setting found.
+[2025-02-13 16:03:17Z INFO Agent] ExecuteCommand
+[2025-02-13 16:03:17Z INFO ConfigurationStore] currentAssemblyLocation: /home/oz/work/azure-home-assignment/myagent/bin/Agent.Listener.dll
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] binPath: /home/oz/work/azure-home-assignment/myagent/bin
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] RootFolder: /home/oz/work/azure-home-assignment/myagent
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Agent': '/home/oz/work/azure-home-assignment/myagent/.agent'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] ConfigFilePath: /home/oz/work/azure-home-assignment/myagent/.agent
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Credentials': '/home/oz/work/azure-home-assignment/myagent/.credentials'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] CredFilePath: /home/oz/work/azure-home-assignment/myagent/.credentials
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Service': '/home/oz/work/azure-home-assignment/myagent/.service'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] ServiceConfigFilePath: /home/oz/work/azure-home-assignment/myagent/.service
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Autologon': '/home/oz/work/azure-home-assignment/myagent/.autologon'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] AutoLogonSettingsFilePath: /home/oz/work/azure-home-assignment/myagent/.autologon
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'Options': '/home/oz/work/azure-home-assignment/myagent/.options'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] RuntimeOptionsFilePath: /home/oz/work/azure-home-assignment/myagent/.options
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'SetupInfo': '/home/oz/work/azure-home-assignment/myagent/.setup_info'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] SetupInfoFilePath: /home/oz/work/azure-home-assignment/myagent/.setup_info
+[2025-02-13 16:03:17Z INFO ConfigurationManager] LoadSettings
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-13 16:03:17Z INFO ConfigurationManager] Is configured: True
+[2025-02-13 16:03:17Z INFO ConfigurationStore] Read setting file: 217 chars
+[2025-02-13 16:03:17Z INFO ConfigurationManager] Settings Loaded
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsServiceConfigured()
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsServiceConfigured: False
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-13 16:03:17Z INFO ConfigurationManager] Is configured: True
+[2025-02-13 16:03:17Z INFO Agent] Could not parse the argument value '' for StartupType. Defaulting to Manual
+[2025-02-13 16:03:17Z INFO Agent] Set agent startup type - Manual
+[2025-02-13 16:03:17Z INFO CommandSettings] Flag 'debug': 'False'
+[2025-02-13 16:03:17Z INFO ConfigurationStore] HasCredentials()
+[2025-02-13 16:03:17Z INFO ConfigurationStore] stored True
+[2025-02-13 16:03:17Z INFO CredentialManager] GetCredentialProvider
+[2025-02-13 16:03:17Z INFO CredentialManager] Creating type OAuth
+[2025-02-13 16:03:17Z INFO CredentialManager] Creating credential type: OAuth
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:17Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:17Z INFO HostContext] Well known config file 'RSACredentials': '/home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams'
+[2025-02-13 16:03:17Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:17Z INFO ConfigurationManager] LoadSettings
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 16:03:17Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-13 16:03:17Z INFO ConfigurationManager] Is configured: True
+[2025-02-13 16:03:17Z INFO ConfigurationManager] Settings Loaded
+[2025-02-13 16:03:18Z WARN VisualStudioServices] Authentication failed with status code 401.
+Cache-Control: no-cache
+Pragma: no-cache
+P3P: CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+WWW-Authenticate: Basic realm="https://tfsprodcus13.visualstudio.com/", Bearer, TFS-Federated
+X-TFS-ProcessId: 46ce56b8-15d4-4aa1-9db5-9b678cfd55dc
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+ActivityId: 9dc123d8-219a-45a0-aed9-cf28857199d2
+X-TFS-Session: a1891e5a-61af-44fb-ab0c-dd370846380f
+X-VSS-E2EID: 644a72bc-4820-4aeb-929e-094e399c9be3
+X-VSS-SenderDeploymentId: ffa23735-a915-004d-3591-e95d09183d86
+X-Frame-Options: SAMEORIGIN
+X-TFS-FedAuthRealm: https://tfsprodcus13.visualstudio.com/
+X-TFS-FedAuthIssuer: https://dev.azure.com/ozblech87/
+X-VSS-AuthorizationEndpoint: https://vssps.dev.azure.com/ozblech87/
+X-VSS-ResourceTenant: 00000000-0000-0000-0000-000000000000
+X-VSS-S2STargetService: 00000002-0000-8888-8000-000000000000/visualstudio.com
+X-TFS-FedAuthRedirect: https://spsprodwus31.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fozblech87%2F_apis%2FCustomerIntelligence%2FEvents&redirect=1&hid=4012fa78-283b-4b4f-a7d1-676d16d3c5d5&context=eyJodCI6MiwiaGlkIjoiNGZmYmI2ZTktMjc0Yy00Y2EwLTljMjAtYmIzNThlNzJiZjEyIiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2
+Request-Context: appId=cid-v1:a381ef9f-1674-452d-a55b-6c43cf8255cc
+Access-Control-Expose-Headers: Request-Context
+X-Content-Type-Options: nosniff
+X-Cache: CONFIG_NOCACHE
+X-MSEdge-Ref: Ref A: A832352B301340AF95C4541CC783709C Ref B: TLV30EDGE0513 Ref C: 2025-02-13T16:03:17Z
+Date: Thu, 13 Feb 2025 16:03:17 GMT
+
+[2025-02-13 16:03:18Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:18Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:19Z INFO VisualStudioServices] AAD Correlation ID for this token request: Unknown
+[2025-02-13 16:03:19Z INFO CommandSettings] Flag 'once': 'False'
+[2025-02-13 16:03:19Z INFO CommandSettings] Flag 'once': 'False'
+[2025-02-13 16:03:19Z INFO Agent] RunAsync
+[2025-02-13 16:03:19Z INFO ConfigurationManager] LoadSettings
+[2025-02-13 16:03:19Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 16:03:19Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-13 16:03:19Z INFO ConfigurationManager] Is configured: True
+[2025-02-13 16:03:19Z INFO ConfigurationManager] Settings Loaded
+[2025-02-13 16:03:19Z INFO MessageListener] {
+  "AcceptTeeEula": true,
+  "AgentId": 9,
+  "AgentName": "oz-Lenovo-IdeaPad-S540-14IML",
+  "PoolId": 10,
+  "PoolName": "myUbuntuAgentPool",
+  "ServerUrl": "https://dev.azure.com/ozblech87/",
+  "WorkFolder": "_work"
+}
+[2025-02-13 16:03:19Z INFO Terminal] WRITE LINE: Scanning for tool capabilities.
+[2025-02-13 16:03:19Z INFO ExtensionManager] Getting extensions for interface: 'Microsoft.VisualStudio.Services.Agent.Capabilities.ICapabilitiesProvider'
+[2025-02-13 16:03:19Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.AgentCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:03:19Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.EnvironmentCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:03:19Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.NixCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:03:19Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.UserCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding '_': '/home/oz/work/azure-home-assignment/myagent/bin/Agent.Listener'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'COLORTERM': 'truecolor'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com '
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'DESKTOP_SESSION': 'ubuntu'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'DISPLAY': ':0'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GDMSESSION': 'ubuntu'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_SETUP_DISPLAY': ':1'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_SHELL_SESSION_MODE': 'ubuntu'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/499bff25_c07a_47a9_91da_3cded0d461dc'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_TERMINAL_SERVICE': ':1.2644'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GRADLE_HOME': '/home/oz/.sdkman/candidates/gradle/current'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'GTK_MODULES': 'gail:atk-bridge'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'HOME': '/home/oz'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'IM_CONFIG_PHASE': '1'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'LANG': 'en_US.UTF-8'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'LESSCLOSE': '/usr/bin/lesspipe %s %s'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'LESSOPEN': '| /usr/bin/lesspipe %s'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'LOGNAME': 'oz'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Skipping: 'LS_COLORS'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA='
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_BIN': '/home/oz/.nvm/versions/node/v22.11.0/bin'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_CD_FLAGS': ''
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_DIR': '/home/oz/.nvm'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_INC': '/home/oz/.nvm/versions/node/v22.11.0/include/node'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'OLDPWD': '/home/oz/work/azure-home-assignment'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'PATH': '/home/oz/.sdkman/candidates/gradle/current/bin:/home/oz/.nvm/versions/node/v22.11.0/bin:/home/oz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/oz/.local/bin:/home/oz/work/Programs/apache-maven-3.9.9/bin:/home/oz/.local/bin'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'PWD': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'QT_ACCESSIBILITY': '1'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'QT_IM_MODULE': 'ibus'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_CANDIDATES_API': 'https://api.sdkman.io/2'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_CANDIDATES_DIR': '/home/oz/.sdkman/candidates'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_DIR': '/home/oz/.sdkman'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_PLATFORM': 'linuxx64'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SESSION_MANAGER': 'local/oz-Lenovo-IdeaPad-S540-14IML:@/tmp/.ICE-unix/2609,unix/oz-Lenovo-IdeaPad-S540-14IML:/tmp/.ICE-unix/2609'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SHELL': '/bin/bash'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Skipping: 'SHLVL'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'SYSTEMD_EXEC_PID': '2656'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Skipping: 'TERM'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'USER': 'oz'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'USERNAME': 'oz'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'VTE_VERSION': '7600'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'WAYLAND_DISPLAY': 'wayland-0'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.13FT02'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_MENU_PREFIX': 'gnome-'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_RUNTIME_DIR': '/run/user/1000'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_CLASS': 'user'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_DESKTOP': 'ubuntu'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_TYPE': 'wayland'
+[2025-02-13 16:03:19Z INFO EnvironmentCapabilitiesProvider] Adding 'XMODIFIERS': '@im=ibus'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'android'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: 'tools/android'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/home/oz/Library/Developer/Xamarin/android-sdk-macosx/tools/android'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'ant'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'waagent'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'bundle'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'clang'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'cmake'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'curl'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'curl': '/usr/bin/curl'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'docker'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'docker': '/usr/bin/docker'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'dotnet'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'git'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'git': '/usr/bin/git'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'gulp'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'java'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'java': '/usr/bin/java'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'javac'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'JDK': '/usr/bin/javac'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'make'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'make': '/usr/bin/make'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'mvn'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'maven': '/home/oz/work/Programs/apache-maven-3.9.9/bin/mvn'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'xbuild'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Mono.framework/Commands/xbuild'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'msbuild'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Mono.framework/Commands/msbuild'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'node'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'node.js': '/home/oz/.nvm/versions/node/v22.11.0/bin/node'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'nodejs'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'npm'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'npm': '/home/oz/.nvm/versions/node/v22.11.0/bin/npm'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'python'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'python3'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'python3': '/usr/bin/python3'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'sh'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Adding 'sh': '/usr/bin/sh'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'svn'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'ruby'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'rake'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'svn'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'mdtool'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Applications/Xamarin Studio.app/Contents/MacOS/mdtool'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Applications/Visual Studio.app/Contents/MacOS/vstool'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'generator'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Xamarin.Android.framework/Commands/generator'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Xamarin.Android.framework/Versions/Current/Version'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Which: 'xcode-select'
+[2025-02-13 16:03:19Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:03:19Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:19Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.Name': 'oz-Lenovo-IdeaPad-S540-14IML'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.OS': 'Linux'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.OSArchitecture': 'X64'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'InteractiveSession': 'True'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.Version': '4.251.0'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.ComputerName': 'oz-Lenovo-IdeaPad-S540-14IML'
+[2025-02-13 16:03:19Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:03:19Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:19Z INFO AgentCapabilitiesProvider] Adding 'Agent.HomeDirectory': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:03:19Z INFO MessageListener] Loading Credentials
+[2025-02-13 16:03:19Z INFO ConfigurationStore] HasCredentials()
+[2025-02-13 16:03:19Z INFO ConfigurationStore] stored True
+[2025-02-13 16:03:19Z INFO CredentialManager] GetCredentialProvider
+[2025-02-13 16:03:19Z INFO CredentialManager] Creating type OAuth
+[2025-02-13 16:03:19Z INFO CredentialManager] Creating credential type: OAuth
+[2025-02-13 16:03:19Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:19Z INFO Terminal] WRITE LINE: Connecting to the server.
+[2025-02-13 16:03:19Z INFO MessageListener] Attempt to create session.
+[2025-02-13 16:03:19Z INFO MessageListener] Connecting to the Agent Server...
+[2025-02-13 16:03:19Z INFO AgentServer] Establish connection with 100 seconds timeout.
+[2025-02-13 16:03:19Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:03:20Z WARN VisualStudioServices] Authentication failed with status code 401.
+Cache-Control: no-cache
+Pragma: no-cache
+P3P: CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+WWW-Authenticate: Basic realm="https://tfsprodcus13.visualstudio.com/", Bearer, TFS-Federated
+X-TFS-ProcessId: faf3139c-69ff-4f7b-9188-267a32655d06
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+ActivityId: da0834f6-8c15-41b9-8c4a-d0e65eff17b9
+X-TFS-Session: a1891e5a-61af-44fb-ab0c-dd370846380f
+X-VSS-E2EID: 579e0071-0eb4-4109-bd95-56bfef4b56ec
+X-VSS-SenderDeploymentId: ffa23735-a915-004d-3591-e95d09183d86
+X-Frame-Options: SAMEORIGIN
+X-TFS-FedAuthRealm: https://tfsprodcus13.visualstudio.com/
+X-TFS-FedAuthIssuer: https://dev.azure.com/ozblech87/
+X-VSS-AuthorizationEndpoint: https://vssps.dev.azure.com/ozblech87/
+X-VSS-ResourceTenant: 00000000-0000-0000-0000-000000000000
+X-VSS-S2STargetService: 00000002-0000-8888-8000-000000000000/visualstudio.com
+X-TFS-FedAuthRedirect: https://spsprodwus31.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fozblech87%2F_apis%2FconnectionData%3FconnectOptions%3D0%26lastChangeId%3D32722962%26lastChangeId64%3D32722962&redirect=1&hid=4012fa78-283b-4b4f-a7d1-676d16d3c5d5&context=eyJodCI6MiwiaGlkIjoiNGZmYmI2ZTktMjc0Yy00Y2EwLTljMjAtYmIzNThlNzJiZjEyIiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2
+Request-Context: appId=cid-v1:a381ef9f-1674-452d-a55b-6c43cf8255cc
+Access-Control-Expose-Headers: Request-Context
+X-Content-Type-Options: nosniff
+X-Cache: CONFIG_NOCACHE
+X-MSEdge-Ref: Ref A: 5388DD4F7A6D48E39506AD11CB9B0DFD Ref B: TLV30EDGE0407 Ref C: 2025-02-13T16:03:19Z
+Date: Thu, 13 Feb 2025 16:03:19 GMT
+
+[2025-02-13 16:03:20Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:20Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:03:21Z INFO VisualStudioServices] AAD Correlation ID for this token request: Unknown
+[2025-02-13 16:03:21Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:03:21Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 16:03:21Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:03:21Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 16:03:21Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:03:22Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:03:22Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:03:22Z INFO MessageListener] VssConnection created
+[2025-02-13 16:03:23Z INFO MessageListener] Session created.
+[2025-02-13 16:03:23Z INFO Terminal] WRITE LINE: 2025-02-13 16:03:23Z: Listening for Jobs
+[2025-02-13 16:03:23Z INFO JobDispatcher] Set agent/worker IPC timeout to 30 seconds.
+[2025-02-13 16:04:13Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:04:13Z INFO MessageListener] Sleeping for 12.262 seconds before retrying.
+[2025-02-13 16:05:16Z INFO MessageListener] Sleeping for 12.054 seconds before retrying.
+[2025-02-13 16:05:33Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:06:18Z INFO MessageListener] Sleeping for 5.409 seconds before retrying.
+[2025-02-13 16:06:53Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:07:14Z INFO MessageListener] Sleeping for 10.247 seconds before retrying.
+[2025-02-13 16:08:14Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:08:14Z INFO MessageListener] Sleeping for 5.184 seconds before retrying.
+[2025-02-13 16:09:10Z INFO MessageListener] Sleeping for 14.79 seconds before retrying.
+[2025-02-13 16:09:34Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:10:15Z INFO MessageListener] Sleeping for 8.966 seconds before retrying.
+[2025-02-13 16:10:24Z INFO MessageListener] Sleeping for 12.916 seconds before retrying.
+[2025-02-13 16:10:38Z INFO MessageListener] Sleeping for 8.716 seconds before retrying.
+[2025-02-13 16:10:47Z INFO MessageListener] Sleeping for 6.852 seconds before retrying.
+[2025-02-13 16:10:54Z INFO MessageListener] Sleeping for 8.844 seconds before retrying.
+[2025-02-13 16:10:55Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:11:25Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:11:53Z INFO MessageListener] Sleeping for 5.557 seconds before retrying.
+[2025-02-13 16:11:59Z INFO MessageListener] Sleeping for 13.437 seconds before retrying.
+[2025-02-13 16:12:12Z INFO MessageListener] Sleeping for 10.551 seconds before retrying.
+[2025-02-13 16:12:23Z INFO MessageListener] Sleeping for 13.357 seconds before retrying.
+[2025-02-13 16:12:37Z INFO MessageListener] Sleeping for 12.611 seconds before retrying.
+[2025-02-13 16:12:45Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:13:16Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:13:40Z INFO MessageListener] Sleeping for 5.318 seconds before retrying.
+[2025-02-13 16:13:46Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:14:16Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:14:35Z INFO MessageListener] Sleeping for 14.84 seconds before retrying.
+[2025-02-13 16:14:50Z INFO MessageListener] Sleeping for 10.179 seconds before retrying.
+[2025-02-13 16:15:01Z INFO MessageListener] Sleeping for 9.935 seconds before retrying.
+[2025-02-13 16:15:36Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:16:01Z INFO MessageListener] Sleeping for 5.217 seconds before retrying.
+[2025-02-13 16:16:57Z INFO MessageListener] Sleeping for 7.191 seconds before retrying.
+[2025-02-13 16:16:57Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:17:55Z INFO MessageListener] Sleeping for 9.866 seconds before retrying.
+[2025-02-13 16:18:17Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:18:55Z INFO MessageListener] Sleeping for 14.743 seconds before retrying.
+[2025-02-13 16:19:37Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:20:00Z INFO MessageListener] Sleeping for 13.426 seconds before retrying.
+[2025-02-13 16:20:14Z INFO MessageListener] Sleeping for 13.085 seconds before retrying.
+[2025-02-13 16:20:27Z INFO MessageListener] Sleeping for 11.614 seconds before retrying.
+[2025-02-13 16:20:57Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:21:28Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:21:29Z INFO MessageListener] Sleeping for 6.738 seconds before retrying.
+[2025-02-13 16:22:26Z INFO MessageListener] Sleeping for 13.28 seconds before retrying.
+[2025-02-13 16:22:48Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:23:18Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:23:30Z INFO MessageListener] Sleeping for 10.344 seconds before retrying.
+[2025-02-13 16:24:30Z INFO MessageListener] Sleeping for 11.936 seconds before retrying.
+[2025-02-13 16:24:38Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:25:32Z INFO MessageListener] Sleeping for 8.947 seconds before retrying.
+[2025-02-13 16:25:59Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:26:31Z INFO MessageListener] Sleeping for 13.655 seconds before retrying.
+[2025-02-13 16:26:46Z INFO MessageListener] Sleeping for 9.439 seconds before retrying.
+[2025-02-13 16:26:55Z INFO MessageListener] Sleeping for 13.987 seconds before retrying.
+[2025-02-13 16:27:10Z INFO MessageListener] Sleeping for 13.891 seconds before retrying.
+[2025-02-13 16:27:19Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:28:14Z INFO MessageListener] Sleeping for 12.362 seconds before retrying.
+[2025-02-13 16:28:39Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:29:17Z INFO MessageListener] Sleeping for 14.479 seconds before retrying.
+[2025-02-13 16:29:59Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:30:22Z INFO MessageListener] Sleeping for 14.223 seconds before retrying.
+[2025-02-13 16:31:20Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:31:26Z INFO MessageListener] Sleeping for 6.814 seconds before retrying.
+[2025-02-13 16:32:23Z INFO MessageListener] Sleeping for 10.323 seconds before retrying.
+[2025-02-13 16:32:40Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:33:23Z INFO MessageListener] No message retrieved from session '0ed7f91d-14b1-4246-a1b3-b0e26056444a' within last 30 minutes.
+[2025-02-13 16:33:23Z INFO MessageListener] Sleeping for 12.227 seconds before retrying.
+[2025-02-13 16:34:00Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:34:27Z INFO MessageListener] Sleeping for 9.205 seconds before retrying.
+[2025-02-13 16:35:20Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:35:27Z INFO MessageListener] Sleeping for 11.512 seconds before retrying.
+[2025-02-13 16:36:28Z INFO MessageListener] Sleeping for 13.864 seconds before retrying.
+[2025-02-13 16:36:41Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:37:33Z INFO MessageListener] Sleeping for 11.307 seconds before retrying.
+[2025-02-13 16:38:01Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:38:34Z INFO MessageListener] Sleeping for 12.892 seconds before retrying.
+[2025-02-13 16:39:21Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:39:37Z INFO MessageListener] Sleeping for 13.333 seconds before retrying.
+[2025-02-13 16:40:41Z INFO MessageListener] Sleeping for 7.229 seconds before retrying.
+[2025-02-13 16:40:41Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:41:39Z INFO MessageListener] Sleeping for 8.388 seconds before retrying.
+[2025-02-13 16:42:02Z INFO MessageListener] Sent GetAgentMessage to keep alive agent 9, session '0ed7f91d-14b1-4246-a1b3-b0e26056444a'.
+[2025-02-13 16:42:38Z INFO MessageListener] Sleeping for 13.297 seconds before retrying.

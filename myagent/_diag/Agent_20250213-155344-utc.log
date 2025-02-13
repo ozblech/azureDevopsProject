@@ -1,0 +1,551 @@
+[2025-02-13 15:53:44Z INFO AgentProcess] Agent package linux-x64.
+[2025-02-13 15:53:44Z INFO AgentProcess] Running on Linux (X64).
+[2025-02-13 15:53:44Z INFO AgentProcess] RuntimeInformation: Ubuntu 24.04.1 LTS.
+[2025-02-13 15:53:44Z INFO AgentProcess] Version: 4.251.0
+[2025-02-13 15:53:44Z INFO AgentProcess] Commit: 69c65179f56dda56424bcb957bb233f612875444
+[2025-02-13 15:53:44Z INFO AgentProcess] Culture: en-US
+[2025-02-13 15:53:44Z INFO AgentProcess] UI Culture: en-US
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO AgentProcess] Validating directory permissions for: '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.Password
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.ProxyPassword
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.SslClientCert
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.Token
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.WindowsLogonPassword
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.TenantId
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.ClientId
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO HostContext] Setting up value for origin: Configure.ClientSecret
+[2025-02-13 15:53:44Z INFO HostContext] Value is empty.
+[2025-02-13 15:53:44Z INFO CommandSettings] Configure {
+  "AcceptTeeEula": false,
+  "AddDeploymentGroupTags": false,
+  "AddEnvironmentVirtualMachineResourceTags": false,
+  "AddMachineGroupTags": false,
+  "AlwaysExtractTask": false,
+  "Agent": null,
+  "CollectionName": null,
+  "DeploymentGroup": false,
+  "DeploymentGroupName": null,
+  "DeploymentGroupTags": null,
+  "DeploymentPool": false,
+  "DeploymentPoolName": null,
+  "EnableServiceSidTypeUnrestricted": false,
+  "EnvironmentVMResource": false,
+  "EnvironmentName": null,
+  "EnvironmentVMResourceTags": null,
+  "GitUseSChannel": false,
+  "DisableLogUploads": false,
+  "ReStreamLogsToFiles": false,
+  "MachineGroup": false,
+  "MachineGroupName": null,
+  "MachineGroupTags": null,
+  "MonitorSocketAddress": null,
+  "NotificationPipeName": null,
+  "NotificationSocketAddress": null,
+  "NoRestart": false,
+  "OverwriteAutoLogon": false,
+  "Pool": null,
+  "ProjectName": null,
+  "ProxyPassword": null,
+  "ProxyUserName": null,
+  "ProxyUrl": null,
+  "Replace": false,
+  "RunAsAutoLogon": false,
+  "RunAsService": false,
+  "RunOnce": false,
+  "PreventServiceStart": false,
+  "SslCACert": null,
+  "SslClientCert": null,
+  "SslClientCertArchive": null,
+  "SslClientCertKey": null,
+  "SslClientCertPassword": null,
+  "SslSkipCertValidation": false,
+  "Url": null,
+  "WindowsLogonAccount": null,
+  "WindowsLogonPassword": null,
+  "Work": null,
+  "Auth": null,
+  "LaunchBrowser": false,
+  "Password": null,
+  "Token": null,
+  "Unattended": false,
+  "UserName": null,
+  "ClientId": null,
+  "TenantId": null,
+  "ClientSecret": null,
+  "Help": false,
+  "Version": false
+}
+[2025-02-13 15:53:44Z INFO AgentProcess] Arguments parsed
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Proxy': '/home/oz/work/azure-home-assignment/myagent/.proxy'
+[2025-02-13 15:53:44Z INFO VstsAgentWebProxy] No proxy setting found.
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Certificates': '/home/oz/work/azure-home-assignment/myagent/.certificates'
+[2025-02-13 15:53:44Z INFO AgentCertificateManager] No certificate setting found.
+[2025-02-13 15:53:44Z INFO Agent] ExecuteCommand
+[2025-02-13 15:53:44Z INFO ConfigurationStore] currentAssemblyLocation: /home/oz/work/azure-home-assignment/myagent/bin/Agent.Listener.dll
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] binPath: /home/oz/work/azure-home-assignment/myagent/bin
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] RootFolder: /home/oz/work/azure-home-assignment/myagent
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Agent': '/home/oz/work/azure-home-assignment/myagent/.agent'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] ConfigFilePath: /home/oz/work/azure-home-assignment/myagent/.agent
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Credentials': '/home/oz/work/azure-home-assignment/myagent/.credentials'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] CredFilePath: /home/oz/work/azure-home-assignment/myagent/.credentials
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Service': '/home/oz/work/azure-home-assignment/myagent/.service'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] ServiceConfigFilePath: /home/oz/work/azure-home-assignment/myagent/.service
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Autologon': '/home/oz/work/azure-home-assignment/myagent/.autologon'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] AutoLogonSettingsFilePath: /home/oz/work/azure-home-assignment/myagent/.autologon
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'Options': '/home/oz/work/azure-home-assignment/myagent/.options'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] RuntimeOptionsFilePath: /home/oz/work/azure-home-assignment/myagent/.options
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO HostContext] Well known config file 'SetupInfo': '/home/oz/work/azure-home-assignment/myagent/.setup_info'
+[2025-02-13 15:53:44Z INFO ConfigurationStore] SetupInfoFilePath: /home/oz/work/azure-home-assignment/myagent/.setup_info
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: 
+  ___                      ______ _            _ _
+ / _ \                     | ___ (_)          | (_)
+/ /_\ \_____   _ _ __ ___  | |_/ /_ _ __   ___| |_ _ __   ___  ___
+|  _  |_  / | | | '__/ _ \ |  __/| | '_ \ / _ \ | | '_ \ / _ \/ __|
+| | | |/ /| |_| | | |  __/ | |   | | |_) |  __/ | | | | |  __/\__ \
+\_| |_/___|\__,_|_|  \___| \_|   |_| .__/ \___|_|_|_| |_|\___||___/
+                                   | |
+        agent v4.251.0             |_|          (commit 69c6517)
+
+[2025-02-13 15:53:44Z INFO ConfigurationManager] ConfigureAsync
+[2025-02-13 15:53:44Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 15:53:44Z INFO ConfigurationStore] IsConfigured: False
+[2025-02-13 15:53:44Z INFO ConfigurationManager] Is configured: False
+[2025-02-13 15:53:44Z INFO CommandSettings] Flag 'sslskipcertvalidation': 'False'
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: >> End User License Agreements:
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:53:44Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: Building sources from a TFVC repository requires accepting the Team Explorer Everywhere End User License Agreement. This step is not required for building sources from Git repositories.
+
+A copy of the Team Explorer Everywhere license agreement can be found at:
+  /home/oz/work/azure-home-assignment/myagent/license.html
+[2025-02-13 15:53:44Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:53:44Z INFO CommandSettings] Flag 'acceptteeeula': 'False'
+[2025-02-13 15:53:44Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 15:53:44Z INFO PromptManager] ReadValue
+[2025-02-13 15:53:44Z INFO Terminal] WRITE: Enter (Y/N) Accept the Team Explorer Everywhere license agreement now? (press enter for N) > 
+[2025-02-13 15:53:44Z INFO Terminal] READ LINE
+[2025-02-13 15:53:48Z INFO Terminal] Read value: 'y'
+[2025-02-13 15:53:48Z INFO CommandSettings] Flag 'deploymentgroup': 'False'
+[2025-02-13 15:53:48Z INFO CommandSettings] Flag 'deploymentpool': 'False'
+[2025-02-13 15:53:48Z INFO CommandSettings] Flag 'environment': 'False'
+[2025-02-13 15:53:48Z INFO ExtensionManager] Getting extensions for interface: 'Microsoft.VisualStudio.Services.Agent.Listener.Configuration.IConfigurationProvider'
+[2025-02-13 15:53:48Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Listener.Configuration.BuildReleasesAgentConfigProvider, Agent.Listener
+[2025-02-13 15:53:48Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Listener.Configuration.DeploymentGroupAgentConfigProvider, Agent.Listener
+[2025-02-13 15:53:48Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Listener.Configuration.SharedDeploymentAgentConfigProvider, Agent.Listener
+[2025-02-13 15:53:48Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Listener.Configuration.EnvironmentVMResourceConfigProvider, Agent.Listener
+[2025-02-13 15:53:48Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:53:48Z INFO Terminal] WRITE LINE: >> Connect:
+[2025-02-13 15:53:48Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:53:48Z INFO CommandSettings] Arg 'url': ''
+[2025-02-13 15:53:48Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 15:53:48Z INFO PromptManager] ReadValue
+[2025-02-13 15:53:48Z INFO Terminal] WRITE: Enter server URL > 
+[2025-02-13 15:53:48Z INFO Terminal] READ LINE
+[2025-02-13 15:55:57Z INFO Terminal] Read value: 'https://dev.azure.com/ozblech87/'
+[2025-02-13 15:55:57Z INFO ConfigurationManager] GetCredentialProvider
+[2025-02-13 15:55:57Z INFO CommandSettings] Arg 'auth': ''
+[2025-02-13 15:55:57Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 15:55:57Z INFO PromptManager] ReadValue
+[2025-02-13 15:55:57Z INFO Terminal] WRITE: Enter authentication type (press enter for PAT) > 
+[2025-02-13 15:55:57Z INFO Terminal] READ LINE
+[2025-02-13 15:56:08Z INFO Terminal] Read value: ''
+[2025-02-13 15:56:08Z INFO PromptManager] Falling back to the default: 'PAT'
+[2025-02-13 15:56:08Z INFO ConfigurationManager] Creating credential for auth: PAT
+[2025-02-13 15:56:08Z INFO CredentialManager] GetCredentialProvider
+[2025-02-13 15:56:08Z INFO CredentialManager] Creating type PAT
+[2025-02-13 15:56:08Z INFO CredentialManager] Creating credential type: PAT
+[2025-02-13 15:56:08Z INFO PersonalAccessToken] EnsureCredential
+[2025-02-13 15:56:08Z INFO CommandSettings] Arg 'token': ''
+[2025-02-13 15:56:08Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 15:56:08Z INFO PromptManager] ReadValue
+[2025-02-13 15:56:08Z INFO Terminal] WRITE: Enter personal access token > 
+[2025-02-13 15:56:08Z INFO Terminal] READ SECRET
+[2025-02-13 15:57:56Z INFO HostContext] Setting up value for origin: Terminal.ReadSecret
+[2025-02-13 15:57:56Z INFO Terminal] Read value: '***'
+[2025-02-13 15:57:56Z INFO ConfigurationManager] cred retrieved
+[2025-02-13 15:57:56Z INFO CommandSettings] Flag 'sslskipcertvalidation': 'False'
+[2025-02-13 15:57:56Z INFO PersonalAccessToken] GetVssCredentials
+[2025-02-13 15:57:56Z INFO PersonalAccessToken] token retrieved: 84 chars
+[2025-02-13 15:57:56Z INFO PersonalAccessToken] cred created
+[2025-02-13 15:57:56Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 15:57:57Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 15:57:57Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 15:57:58Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 15:57:58Z INFO PersonalAccessToken] GetVssCredentials
+[2025-02-13 15:57:58Z INFO PersonalAccessToken] token retrieved: 84 chars
+[2025-02-13 15:57:58Z INFO PersonalAccessToken] cred created
+[2025-02-13 15:57:58Z INFO Terminal] WRITE LINE: Connecting to server ...
+[2025-02-13 15:57:58Z INFO AgentServer] Establish connection with 100 seconds timeout.
+[2025-02-13 15:57:58Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 15:57:58Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 15:57:58Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 15:57:58Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 15:57:58Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 15:57:59Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 15:57:59Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 15:57:59Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 15:57:59Z INFO ConfigurationManager] Test Connection complete.
+[2025-02-13 15:57:59Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:57:59Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:57:59Z INFO HostContext] Well known config file 'RSACredentials': '/home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams'
+[2025-02-13 15:57:59Z INFO RSAFileKeyManager] Creating new RSA key using 2048-bit key length
+[2025-02-13 15:58:00Z INFO RSAFileKeyManager] Successfully saved RSA key parameters to file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 15:58:00Z INFO RSAFileKeyManager] Which: 'chmod'
+[2025-02-13 15:58:00Z INFO RSAFileKeyManager] Location: '{matches.First()}'
+[2025-02-13 15:58:00Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 15:58:00Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] Starting process:
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/chmod'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Arguments: '600 /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Working directory: '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   ContinueAfterCancelProcessTreeKillAttempt: 'False'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Sigint timeout: '00:00:07.5000000'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Sigterm timeout: '00:00:02.5000000'
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper]   Try to use graceful shutdown: False
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] Exited process 3266677 with exit code 0
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] Process started with process id 3266677, waiting for process exit.
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-02-13 15:58:00Z INFO ProcessInvokerWrapper] Finished process 3266677 with exit code 0, and elapsed time 00:00:00.0042114.
+[2025-02-13 15:58:00Z INFO RSAFileKeyManager] Successfully set permissions for RSA key parameters file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 15:58:00Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:58:00Z INFO Terminal] WRITE LINE: >> Register Agent:
+[2025-02-13 15:58:00Z INFO Terminal] WRITE LINE: 
+[2025-02-13 15:58:00Z INFO CommandSettings] Arg 'pool': ''
+[2025-02-13 15:58:00Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 15:58:00Z INFO PromptManager] ReadValue
+[2025-02-13 15:58:00Z INFO Terminal] WRITE: Enter agent pool (press enter for default) > 
+[2025-02-13 15:58:00Z INFO Terminal] READ LINE
+[2025-02-13 16:00:14Z INFO Terminal] Read value: 'myUbuntuAgentPool'
+[2025-02-13 16:00:15Z INFO BuildReleasesAgentConfigProvider] Found pool myUbuntuAgentPool with id 10 and name myUbuntuAgentPool
+[2025-02-13 16:00:15Z INFO CommandSettings] Arg 'agent': ''
+[2025-02-13 16:00:15Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 16:00:15Z INFO PromptManager] ReadValue
+[2025-02-13 16:00:15Z INFO Terminal] WRITE: Enter agent name (press enter for oz-Lenovo-IdeaPad-S540-14IML) > 
+[2025-02-13 16:00:15Z INFO Terminal] READ LINE
+[2025-02-13 16:00:40Z INFO Terminal] Read value: ''
+[2025-02-13 16:00:40Z INFO PromptManager] Falling back to the default: 'oz-Lenovo-IdeaPad-S540-14IML'
+[2025-02-13 16:00:40Z INFO Terminal] WRITE LINE: Scanning for tool capabilities.
+[2025-02-13 16:00:40Z INFO ExtensionManager] Getting extensions for interface: 'Microsoft.VisualStudio.Services.Agent.Capabilities.ICapabilitiesProvider'
+[2025-02-13 16:00:40Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.AgentCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:00:40Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.EnvironmentCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:00:40Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.NixCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:00:40Z INFO ExtensionManager] Creating instance: Microsoft.VisualStudio.Services.Agent.Capabilities.UserCapabilitiesProvider, Microsoft.VisualStudio.Services.Agent
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding '_': './bin/Agent.Listener'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'COLORTERM': 'truecolor'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com '
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'DESKTOP_SESSION': 'ubuntu'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'DISPLAY': ':0'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GDMSESSION': 'ubuntu'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_SETUP_DISPLAY': ':1'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_SHELL_SESSION_MODE': 'ubuntu'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/499bff25_c07a_47a9_91da_3cded0d461dc'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GNOME_TERMINAL_SERVICE': ':1.2644'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GRADLE_HOME': '/home/oz/.sdkman/candidates/gradle/current'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'GTK_MODULES': 'gail:atk-bridge'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'HOME': '/home/oz'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'IM_CONFIG_PHASE': '1'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'LANG': 'en_US.UTF-8'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'LESSCLOSE': '/usr/bin/lesspipe %s %s'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'LESSOPEN': '| /usr/bin/lesspipe %s'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'LOGNAME': 'oz'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Skipping: 'LS_COLORS'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA='
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_BIN': '/home/oz/.nvm/versions/node/v22.11.0/bin'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_CD_FLAGS': ''
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_DIR': '/home/oz/.nvm'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'NVM_INC': '/home/oz/.nvm/versions/node/v22.11.0/include/node'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'OLDPWD': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'PATH': '/home/oz/.sdkman/candidates/gradle/current/bin:/home/oz/.nvm/versions/node/v22.11.0/bin:/home/oz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/oz/.local/bin:/home/oz/work/Programs/apache-maven-3.9.9/bin:/home/oz/.local/bin'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'PWD': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'QT_ACCESSIBILITY': '1'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'QT_IM_MODULE': 'ibus'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_CANDIDATES_API': 'https://api.sdkman.io/2'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_CANDIDATES_DIR': '/home/oz/.sdkman/candidates'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_DIR': '/home/oz/.sdkman'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SDKMAN_PLATFORM': 'linuxx64'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SESSION_MANAGER': 'local/oz-Lenovo-IdeaPad-S540-14IML:@/tmp/.ICE-unix/2609,unix/oz-Lenovo-IdeaPad-S540-14IML:/tmp/.ICE-unix/2609'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SHELL': '/bin/bash'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Skipping: 'SHLVL'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'SYSTEMD_EXEC_PID': '2656'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Skipping: 'TERM'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'USER': 'oz'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'USERNAME': 'oz'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'VTE_VERSION': '7600'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'WAYLAND_DISPLAY': 'wayland-0'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.13FT02'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_MENU_PREFIX': 'gnome-'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_RUNTIME_DIR': '/run/user/1000'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_CLASS': 'user'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_DESKTOP': 'ubuntu'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XDG_SESSION_TYPE': 'wayland'
+[2025-02-13 16:00:40Z INFO EnvironmentCapabilitiesProvider] Adding 'XMODIFIERS': '@im=ibus'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'android'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: 'tools/android'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/home/oz/Library/Developer/Xamarin/android-sdk-macosx/tools/android'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'ant'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'waagent'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'bundle'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'clang'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'cmake'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'curl'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'curl': '/usr/bin/curl'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'docker'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'docker': '/usr/bin/docker'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'dotnet'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'git'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'git': '/usr/bin/git'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'gulp'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'java'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'java': '/usr/bin/java'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'javac'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'JDK': '/usr/bin/javac'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'make'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'make': '/usr/bin/make'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'mvn'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'maven': '/home/oz/work/Programs/apache-maven-3.9.9/bin/mvn'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'xbuild'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Mono.framework/Commands/xbuild'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'msbuild'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Mono.framework/Commands/msbuild'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'node'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'node.js': '/home/oz/.nvm/versions/node/v22.11.0/bin/node'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'nodejs'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'npm'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'npm': '/home/oz/.nvm/versions/node/v22.11.0/bin/npm'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'python'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'python3'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'python3': '/usr/bin/python3'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'sh'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Location: '{matches.First()}'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Adding 'sh': '/usr/bin/sh'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'svn'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'ruby'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'rake'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'svn'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'mdtool'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Applications/Xamarin Studio.app/Contents/MacOS/mdtool'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Applications/Visual Studio.app/Contents/MacOS/vstool'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'generator'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Xamarin.Android.framework/Commands/generator'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Checking file: '/Library/Frameworks/Xamarin.Android.framework/Versions/Current/Version'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Which: 'xcode-select'
+[2025-02-13 16:00:40Z INFO CapabilitiesBuilder] Not found.
+[2025-02-13 16:00:40Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:00:40Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.Name': 'oz-Lenovo-IdeaPad-S540-14IML'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.OS': 'Linux'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.OSArchitecture': 'X64'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'InteractiveSession': 'True'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.Version': '4.251.0'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.ComputerName': 'oz-Lenovo-IdeaPad-S540-14IML'
+[2025-02-13 16:00:40Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:00:40Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:00:40Z INFO AgentCapabilitiesProvider] Adding 'Agent.HomeDirectory': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:00:40Z INFO Terminal] WRITE LINE: Connecting to the server.
+[2025-02-13 16:00:41Z INFO Terminal] WRITE LINE: Successfully added the agent
+[2025-02-13 16:00:41Z INFO ConfigurationManager] Agent server url resolve by server: 'https://dev.azure.com/ozblech87/'.
+[2025-02-13 16:00:41Z INFO ConfigurationStore] Saving OAuth credential @ /home/oz/work/azure-home-assignment/myagent/.credentials
+[2025-02-13 16:00:41Z INFO ConfigurationStore] Credentials Saved.
+[2025-02-13 16:00:41Z INFO Terminal] WRITE LINE: Testing agent connection.
+[2025-02-13 16:00:41Z INFO ConfigurationStore] HasCredentials()
+[2025-02-13 16:00:41Z INFO ConfigurationStore] stored True
+[2025-02-13 16:00:41Z INFO CredentialManager] GetCredentialProvider
+[2025-02-13 16:00:41Z INFO CredentialManager] Creating type OAuth
+[2025-02-13 16:00:41Z INFO CredentialManager] Creating credential type: OAuth
+[2025-02-13 16:00:41Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:00:41Z INFO AgentServer] Establish connection with 100 seconds timeout.
+[2025-02-13 16:00:41Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:00:42Z WARN VisualStudioServices] Authentication failed with status code 401.
+Cache-Control: no-cache
+Pragma: no-cache
+P3P: CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+WWW-Authenticate: Basic realm="https://tfsprodcus13.visualstudio.com/", Bearer, TFS-Federated
+X-TFS-ProcessId: f87106ef-7478-4500-861f-3a855091ecc5
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+ActivityId: 2561d18d-b4f8-4ee4-b7f4-9e26905ff85b
+X-TFS-Session: b3f7319f-38d5-4270-9e7d-7d4abe6c827f
+X-VSS-E2EID: 9145bede-1b20-418b-a47e-bf84ac621b94
+X-VSS-SenderDeploymentId: ffa23735-a915-004d-3591-e95d09183d86
+X-Frame-Options: SAMEORIGIN
+X-TFS-FedAuthRealm: https://tfsprodcus13.visualstudio.com/
+X-TFS-FedAuthIssuer: https://dev.azure.com/ozblech87/
+X-VSS-AuthorizationEndpoint: https://vssps.dev.azure.com/ozblech87/
+X-VSS-ResourceTenant: 00000000-0000-0000-0000-000000000000
+X-VSS-S2STargetService: 00000002-0000-8888-8000-000000000000/visualstudio.com
+X-TFS-FedAuthRedirect: https://spsprodwus31.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fozblech87%2F_apis%2FconnectionData%3FconnectOptions%3D0%26lastChangeId%3D32722962%26lastChangeId64%3D32722962&redirect=1&hid=4012fa78-283b-4b4f-a7d1-676d16d3c5d5&context=eyJodCI6MiwiaGlkIjoiNGZmYmI2ZTktMjc0Yy00Y2EwLTljMjAtYmIzNThlNzJiZjEyIiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2
+Request-Context: appId=cid-v1:a381ef9f-1674-452d-a55b-6c43cf8255cc
+Access-Control-Expose-Headers: Request-Context
+X-Content-Type-Options: nosniff
+X-Cache: CONFIG_NOCACHE
+X-MSEdge-Ref: Ref A: B8EB096E3C534F31BA8D0E087C92069E Ref B: TLV30EDGE0506 Ref C: 2025-02-13T16:00:41Z
+Date: Thu, 13 Feb 2025 16:00:41 GMT
+
+[2025-02-13 16:00:42Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:00:42Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:00:43Z INFO VisualStudioServices] AAD Correlation ID for this token request: Unknown
+[2025-02-13 16:00:43Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:00:43Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 16:00:43Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:00:43Z INFO AgentServer] Establish connection with 60 seconds timeout.
+[2025-02-13 16:00:43Z INFO VisualStudioServices] Starting operation Location.GetConnectionData
+[2025-02-13 16:00:43Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:00:44Z INFO VisualStudioServices] Finished operation Location.GetConnectionData
+[2025-02-13 16:00:44Z INFO CommandSettings] Arg 'work': ''
+[2025-02-13 16:00:44Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-13 16:00:44Z INFO PromptManager] ReadValue
+[2025-02-13 16:00:44Z INFO Terminal] WRITE: Enter work folder (press enter for _work) > 
+[2025-02-13 16:00:44Z INFO Terminal] READ LINE
+[2025-02-13 16:01:00Z INFO Terminal] Read value: ''
+[2025-02-13 16:01:00Z INFO PromptManager] Falling back to the default: '_work'
+[2025-02-13 16:01:00Z INFO CommandSettings] Flag 'disableloguploads': 'False'
+[2025-02-13 16:01:00Z INFO CommandSettings] Flag 'restreamlogstofiles': 'False'
+[2025-02-13 16:01:00Z INFO CommandSettings] Flag 'alwaysextracttask': 'False'
+[2025-02-13 16:01:00Z INFO ConfigurationStore] Saving agent settings.
+[2025-02-13 16:01:00Z INFO ConfigurationStore] Settings Saved.
+[2025-02-13 16:01:00Z INFO Terminal] WRITE LINE: 2025-02-13 16:01:00Z: Settings Saved.
+[2025-02-13 16:01:00Z INFO SystemDControlManager] Service name 'vsts.agent.ozblech87.myUbuntuAgentPool.oz-Lenovo-IdeaPad-S540-14IML.service' display name 'Azure Pipelines Agent (ozblech87.myUbuntuAgentPool.oz-Lenovo-IdeaPad-S540-14IML)' will be used for service configuration.
+[2025-02-13 16:01:00Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:01:00Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:01:00Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:01:00Z INFO HostContext] Well known directory 'Bin': '/home/oz/work/azure-home-assignment/myagent/bin'
+[2025-02-13 16:01:00Z INFO HostContext] Well known directory 'Root': '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:01:00Z INFO UnixUtil] Which: 'chmod'
+[2025-02-13 16:01:00Z INFO UnixUtil] Location: '{matches.First()}'
+[2025-02-13 16:01:00Z INFO UnixUtil] Running /usr/bin/chmod 755 "/home/oz/work/azure-home-assignment/myagent/svc.sh"
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] Starting process:
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/chmod'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Arguments: '755 "/home/oz/work/azure-home-assignment/myagent/svc.sh"'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Working directory: '/home/oz/work/azure-home-assignment/myagent'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Require exit code zero: 'True'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   ContinueAfterCancelProcessTreeKillAttempt: 'False'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Sigint timeout: '00:00:07.5000000'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Sigterm timeout: '00:00:02.5000000'
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper]   Try to use graceful shutdown: False
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] Updated oom_score_adj to 500 for PID: 3267123.
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] Process started with process id 3267123, waiting for process exit.
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] Exited process 3267123 with exit code 0
+[2025-02-13 16:01:00Z INFO ProcessInvokerWrapper] Finished process 3267123 with exit code 0, and elapsed time 00:00:00.0012190.
+[2025-02-13 16:01:00Z INFO ConfigurationStore] HasCredentials()
+[2025-02-13 16:01:00Z INFO ConfigurationStore] stored True
+[2025-02-13 16:01:00Z INFO CredentialManager] GetCredentialProvider
+[2025-02-13 16:01:00Z INFO CredentialManager] Creating type OAuth
+[2025-02-13 16:01:00Z INFO CredentialManager] Creating credential type: OAuth
+[2025-02-13 16:01:00Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:01:00Z INFO ConfigurationManager] LoadSettings
+[2025-02-13 16:01:00Z INFO ConfigurationStore] IsConfigured()
+[2025-02-13 16:01:00Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-13 16:01:00Z INFO ConfigurationManager] Is configured: True
+[2025-02-13 16:01:00Z INFO ConfigurationStore] Read setting file: 217 chars
+[2025-02-13 16:01:00Z INFO ConfigurationManager] Settings Loaded
+[2025-02-13 16:01:01Z WARN VisualStudioServices] Authentication failed with status code 401.
+Cache-Control: no-cache
+Pragma: no-cache
+P3P: CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+WWW-Authenticate: Basic realm="https://tfsprodcus13.visualstudio.com/", Bearer, TFS-Federated
+X-TFS-ProcessId: f87106ef-7478-4500-861f-3a855091ecc5
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+ActivityId: 2561dcdc-b4f8-4ee4-b7f4-9e26905ff85b
+X-TFS-Session: b3f7319f-38d5-4270-9e7d-7d4abe6c827f
+X-VSS-E2EID: c7aa65d0-747b-4664-9d93-f5dda7cebc04
+X-VSS-SenderDeploymentId: ffa23735-a915-004d-3591-e95d09183d86
+X-Frame-Options: SAMEORIGIN
+X-TFS-FedAuthRealm: https://tfsprodcus13.visualstudio.com/
+X-TFS-FedAuthIssuer: https://dev.azure.com/ozblech87/
+X-VSS-AuthorizationEndpoint: https://vssps.dev.azure.com/ozblech87/
+X-VSS-ResourceTenant: 00000000-0000-0000-0000-000000000000
+X-VSS-S2STargetService: 00000002-0000-8888-8000-000000000000/visualstudio.com
+X-TFS-FedAuthRedirect: https://spsprodwus31.vssps.visualstudio.com/_signin?realm=dev.azure.com&reply_to=https%3A%2F%2Fdev.azure.com%2Fozblech87%2F_apis%2FCustomerIntelligence%2FEvents&redirect=1&hid=4012fa78-283b-4b4f-a7d1-676d16d3c5d5&context=eyJodCI6MiwiaGlkIjoiNGZmYmI2ZTktMjc0Yy00Y2EwLTljMjAtYmIzNThlNzJiZjEyIiwicXMiOnt9LCJyciI6IiIsInZoIjoiIiwiY3YiOiIiLCJjcyI6IiJ90#ctx=eyJTaWduSW5Db29raWVEb21haW5zIjpbImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSJdfQ2
+Request-Context: appId=cid-v1:a381ef9f-1674-452d-a55b-6c43cf8255cc
+Access-Control-Expose-Headers: Request-Context
+X-Content-Type-Options: nosniff
+X-Cache: CONFIG_NOCACHE
+X-MSEdge-Ref: Ref A: 0CF4B44037B24C7782F06CB57F4DCC97 Ref B: TLV30EDGE0506 Ref C: 2025-02-13T16:01:00Z
+Date: Thu, 13 Feb 2025 16:01:01 GMT
+
+[2025-02-13 16:01:01Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:01:01Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/oz/work/azure-home-assignment/myagent/.credentials_rsaparams
+[2025-02-13 16:01:01Z INFO VisualStudioServices] AAD Correlation ID for this token request: Unknown

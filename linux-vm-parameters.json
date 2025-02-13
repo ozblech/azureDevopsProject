@@ -1,0 +1,24 @@
+{
+    "vmName": {
+      "value": "MyLinuxVM"
+    },
+    "adminUsername": {
+      "value": "adminUser"
+    },
+    "adminPassword": {
+      "value": "adminPassword123!"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "vmSize": {
+      "value": "Standard_DS1_v2"
+    },
+    "osDiskSizeGB": {
+      "value": 30
+    },
+    "nicName": {
+      "value": "MyVMNic"
+    }
+}
+  

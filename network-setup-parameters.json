@@ -1,0 +1,18 @@
+{
+    "vnetName": {
+      "value": "MyVnet"
+    },
+    "subnetName": {
+      "value": "MySubnet"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "nicName": {
+      "value": "MyVMNic"
+    },
+    "publicIpName": {
+      "value": "MyPublicIP"
+    }
+  }
+  
