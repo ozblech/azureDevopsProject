@@ -1,9 +1,0 @@
-﻿{
-  "acceptTeeEula": true,
-  "agentId": 9,
-  "agentName": "oz-Lenovo-IdeaPad-S540-14IML",
-  "poolId": 10,
-  "poolName": "myUbuntuAgentPool",
-  "serverUrl": "https://dev.azure.com/ozblech87/",
-  "workFolder": "_work"
-}
