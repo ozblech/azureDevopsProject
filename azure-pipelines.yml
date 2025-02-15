@@ -20,7 +20,7 @@ jobs:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-        az account show
+        az account show  # Shows the account to verify the login
 
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
