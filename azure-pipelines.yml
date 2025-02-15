@@ -20,7 +20,8 @@ jobs:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-        az account show  # Shows the account to verify the login
+        az login  # This will prompt you to login interactively. You can also use service principal for non-interactive login
+
 
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
