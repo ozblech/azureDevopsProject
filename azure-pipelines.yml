@@ -5,7 +5,7 @@ pool:
   name: Default  # Make sure the agent pool is set to the one where your personal agent is added
 
 variables:
-  azureSubscription: 'your-service-connection-name'  # Azure DevOps service connection
+  azureSubscription: 'azureResourceManagerConnection'  # Use your actual AzureRM service connection name
   resourceGroup: 'OzResourceGroup'
   location: 'eastus'
 
@@ -16,7 +16,7 @@ jobs:
   - task: AzureCLI@2
     displayName: 'Login to Azure'
     inputs:
-      azureSubscription: 'ozblech'
+      azureSubscription: $(azureSubscription)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
