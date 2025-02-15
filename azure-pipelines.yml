@@ -2,7 +2,7 @@ trigger:
 - main  # Trigger on push to the main branch, change to your branch name if different
 
 pool:
-  name: Default  # Make sure the agent pool is set to the one where your personal agent is added
+  name: myUbuntuAgentPool  # Make sure the agent pool is set to the one where your personal agent is added
 
 variables:
   azureSubscription: 'azureResourceManagerConnection'  # Use your actual AzureRM service connection name
