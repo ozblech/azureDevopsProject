@@ -13,14 +13,15 @@ New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 Write-Host "Authenticating with Azure Managed Identity..."
 az login --identity
 
-# Create a container if it doesn't exist
-Write-Host "Ensuring container exists in both storage accounts..."
+
+# Delete the container if it exists, and recreate it
+Write-Host "Deleting and recreating the container in both storage accounts..."
+az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login --yes
+az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login --yes
+
+# Recreate the container
 az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
 az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
-
-# Delete all blobs in the container before uploading
-Write-Host "Deleting existing blobs in the container..."
-az storage blob delete-batch --account-name $sourceStorageAccount --source $containerName --auth-mode login
 
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
@@ -36,13 +37,15 @@ for ($i = 1; $i -le 100; $i++) {
         --auth-mode login
 }
 
+# Set environment variables for the source and destination storage accounts
+$env:AZURE_STORAGE_ACCOUNT = $sourceStorageAccount
+$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
+
 # Copy blobs from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
 az storage blob copy start-batch `
     --destination-container $containerName `
-    --destination-account-name $destinationStorageAccount `
     --source-container $containerName `
-    --source-account-name $sourceStorageAccount `
     --auth-mode login
 
 Write-Host "Blob migration completed successfully."

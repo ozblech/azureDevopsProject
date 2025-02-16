@@ -10,58 +10,58 @@ variables:
   location: 'eastus'
 
 jobs:
-- job: DeployResources
-  displayName: 'Deploy Resources (Network, Storage, and VM)'
-  steps:
+# - job: DeployResources
+#   displayName: 'Deploy Resources (Network, Storage, and VM)'
+#   steps:
 
-  - task: AzureCLI@2
-    displayName: 'Register Microsoft.Storage Provider'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az provider register --namespace Microsoft.Storage
-        az provider show --namespace Microsoft.Storage --query "registrationState"
+#   - task: AzureCLI@2
+#     displayName: 'Register Microsoft.Storage Provider'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: 'bash'
+#       scriptLocation: 'inlineScript'
+#       inlineScript: |
+#         az provider register --namespace Microsoft.Storage
+#         az provider show --namespace Microsoft.Storage --query "registrationState"
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Network Resources'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file network-setup.json \
-          --parameters @network-setup-parameters.json
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Network Resources'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file network-setup.json \
+#           --parameters @network-setup-parameters.json
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Virtual Machine'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file linux-vm.json \
-          --parameters @linux-vm-parameters.json \
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Virtual Machine'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file linux-vm.json \
+#           --parameters @linux-vm-parameters.json \
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Storage Account'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Storage Account'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file storage-accounts.json \
+#           --parameters @storage-accounts-parameters.json \
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  #dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
