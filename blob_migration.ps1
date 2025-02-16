@@ -19,7 +19,8 @@ Write-Host "Deleting and recreating the container in both storage accounts..."
 az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
 az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
-# Recreate the container
+# Recreate the containers after deletion
+Write-Host "Recreating the containers..."
 az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
 az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
