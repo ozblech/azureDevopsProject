@@ -18,6 +18,10 @@ Write-Host "Ensuring container exists in both storage accounts..."
 az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
 az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
+# Delete all blobs in the container before uploading
+Write-Host "Deleting existing blobs in the container..."
+az storage blob delete-batch --account-name $sourceStorageAccount --source $containerName --auth-mode login
+
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
 for ($i = 1; $i -le 100; $i++) {
