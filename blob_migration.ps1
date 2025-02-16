@@ -48,15 +48,11 @@ for ($i = 1; $i -le 100; $i++) {
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
 for ($i = 1; $i -le 100; $i++) {
-    $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/file$i.txt"
-    $destinationBlobName = "file$i.txt"
+    $blobName = "file$i.txt"
+    $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/$blobName"
+    $destinationBlobUrl = "https://$destinationStorageAccount.blob.core.windows.net/$containerName/$blobName"
 
-    az storage blob copy start `
-        --source-uri $sourceBlobUrl `
-        --destination-container $containerName `
-        --destination-blob $destinationBlobName `
-        --account-name $destinationStorageAccount `
-        --auth-mode login
+    azcopy copy $sourceBlobUrl $destinationBlobUrl --recursive=false
 
     Write-Host "Started copy for file$i.txt"
 }
