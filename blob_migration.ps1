@@ -5,9 +5,9 @@ param (
     [string]$resourceGroup = "OzResourceGroup"
 )
 
-# Define a writeable directory for temporary files
-$tempDir = "$env:TEMP\blobs"
-New-Item -ItemType Directory -Path $tempDir -Force
+# Define a writable directory (inside Azure DevOps agent working directory)
+$tempDir = "$HOME/work/temp_blobs"
+New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
 # Authenticate to Azure using Managed Identity
 Write-Host "Authenticating with Azure Managed Identity..."
