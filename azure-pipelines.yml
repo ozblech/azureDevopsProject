@@ -15,6 +15,16 @@ jobs:
   steps:
 
   - task: AzureCLI@2
+    displayName: 'Register Microsoft.Storage Provider'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az provider register --namespace Microsoft.Storage
+        az provider show --namespace Microsoft.Storage --query "registrationState"
+
+  - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
     inputs:
       azureSubscription: $(azureSubscription)
