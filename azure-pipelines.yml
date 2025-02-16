@@ -55,7 +55,22 @@ jobs:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
+        # Extract storage account prefix from the parameter file
+        STORAGE_PREFIX=$(jq -r '.parameters.storageAccountPrefix.value' storage-accounts-parameters.json)
+        
+        # Generate storage account names dynamically
+        STORAGE_ACCOUNTS=("${STORAGE_PREFIX}a" "${STORAGE_PREFIX}b")
+
+        for STORAGE_NAME in "${STORAGE_ACCOUNTS[@]}"; do
+          EXISTS=$(az storage account check-name --name $STORAGE_NAME --query "nameAvailable" --output tsv)
+
+          if [[ "$EXISTS" == "false" ]]; then
+            echo "Storage account $STORAGE_NAME already exists. Skipping deployment."
+          else
+            echo "Deploying storage account $STORAGE_NAME..."
+            az deployment group create \
+              --resource-group $(resourceGroup) \
+              --template-file storage-accounts.json \
+              --parameters @storage-accounts-parameters.json
+          fi
+        done
