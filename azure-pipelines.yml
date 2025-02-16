@@ -61,7 +61,7 @@ jobs:
 #           --parameters @storage-accounts-parameters.json \
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  #dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
