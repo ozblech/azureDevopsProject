@@ -13,9 +13,6 @@ New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 Write-Host "Authenticating with Azure Managed Identity..."
 az login --identity
 
-# Get the access token for storage
-$identityToken = az account get-access-token --resource https://storage.azure.com --query accessToken --output tsv
-
 # Create a container if it doesn't exist
 Write-Host "Ensuring container exists in both storage accounts..."
 az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
@@ -24,11 +21,11 @@ az storage container create --name $containerName --account-name $destinationSto
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
 for ($i = 1; $i -le 100; $i++) {
-    $filePath = "$tempDir\file$i.txt"
+    $filePath = "$tempDir/file$i.txt"  # Using forward slash for Ubuntu compatibility
     "This is test file $i" | Out-File -FilePath $filePath
 
     az storage blob upload `
-        --account-name $storageAccountA `
+        --account-name $sourceStorageAccount `
         --container-name $containerName `
         --file $filePath `
         --name "file$i.txt" `
@@ -39,9 +36,9 @@ for ($i = 1; $i -le 100; $i++) {
 Write-Host "Copying blobs from Storage Account A to B..."
 az storage blob copy start-batch `
     --destination-container $containerName `
-    --destination-account-name $storageAccountB `
+    --destination-account-name $destinationStorageAccount `
     --source-container $containerName `
-    --source-account-name $storageAccountA `
+    --source-account-name $sourceStorageAccount `
     --auth-mode login
 
 Write-Host "Blob migration completed successfully."
