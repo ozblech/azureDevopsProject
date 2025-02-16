@@ -93,6 +93,7 @@ jobs:
         runOptions: 'inline'
         inline: |
           # Ensure PowerShell Core is installed (if not already)
+          echo "Installing PowerShell Core..."
           sudo apt-get update
           sudo apt-get install -y wget apt-transport-https software-properties-common
           wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
@@ -100,10 +101,27 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y powershell
 
+          # Download and install the Microsoft signing key
+          echo "Downloading and installing the Microsoft signing key..."
+          curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+
+          # Add the Azure CLI repository
+          eco "Adding the Azure CLI repository..."
+          echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+              | sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+          # Update package lists and install Azure CLI
+          echo "Updating package lists and installing Azure CLI..."
+          sudo apt update
+          sudo apt install -y azure-cli
+
+
           # Change file permissions to make it executable
+          echo "Changing file permissions to make it executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
 
           # Run the PowerShell script
+          echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
 
 
