@@ -20,7 +20,8 @@ az storage container delete --name $containerName --account-name $sourceStorageA
 az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
 # Wait for a few seconds to ensure the container is fully deleted
-Start-Sleep -Seconds 10
+Write-Host "Waiting for 20 seconds..."
+Start-Sleep -Seconds 20
 
 # Recreate the containers after deletion
 Write-Host "Recreating the containers..."
