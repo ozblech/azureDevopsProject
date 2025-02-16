@@ -81,6 +81,8 @@ jobs:
           REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
 
           # Copy the script to the VM using SCP
+          echo "VM_IP: $(VM_IP)"
+          echo "vmUsername: $(vmUsername)"
           scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
     
     - task: SSH@0
