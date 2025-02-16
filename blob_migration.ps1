@@ -39,14 +39,22 @@ for ($i = 1; $i -le 100; $i++) {
 }
 
 # Set environment variables for the source and destination storage accounts
-$env:AZURE_STORAGE_ACCOUNT = $sourceStorageAccount
-$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
+#$env:AZURE_STORAGE_ACCOUNT = $sourceStorageAccount
+#$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
 
 # Copy blobs from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
-az storage blob copy start-batch `
-    --destination-container $containerName `
-    --source-container $containerName `
-    --auth-mode login
+for ($i = 1; $i -le 100; $i++) {
+    # Get the blob URL in the source container
+    $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/file$i.txt"
+    
+    # Start the copy operation for each blob
+    az storage blob copy start `
+        --destination-blob "file$i.txt" `
+        --destination-container $containerName `
+        --destination-account-name $destinationStorageAccount `
+        --source-uri $sourceBlobUrl `
+        --auth-mode login
+}
 
 Write-Host "Blob migration completed successfully."
