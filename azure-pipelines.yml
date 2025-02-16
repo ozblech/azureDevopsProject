@@ -68,14 +68,6 @@ jobs:
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
-      displayName: "Copy SSH Public Key via SCP"
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: |
-          scp -i ~/.ssh/id_ed25519 id_ed25519.pub $(vmUsername)@$(vmPublicIp):/home/$(vmUsername)/
-    - task: AzureCLI@2
       displayName: 'Copy blob_migration.ps1 to VM'
       inputs:
         azureSubscription: $(azureSubscription)
