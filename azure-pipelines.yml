@@ -37,7 +37,6 @@ jobs:
           --resource-group $(resourceGroup) \
           --template-file linux-vm.json \
           --parameters @linux-vm-parameters.json \
-          --location $(location)
 
   - task: AzureCLI@2
     displayName: 'Deploy Storage Account'
@@ -50,4 +49,3 @@ jobs:
           --resource-group $(resourceGroup) \
           --template-file storage-accounts.json \
           --parameters @storage-accounts-parameters.json \
-          --location $(location)
