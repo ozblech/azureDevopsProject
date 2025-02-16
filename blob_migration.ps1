@@ -30,7 +30,7 @@ az storage container create --name $containerName --account-name $destinationSto
 
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
-for ($i = 1; $i -le 100; $i++) {
+for ($i = 1; $i -le 5; $i++) {
     $filePath = "$tempDir/file$i.txt"  # Using forward slash for Ubuntu compatibility
     "This is test file $i" | Out-File -FilePath $filePath
 
@@ -47,7 +47,7 @@ for ($i = 1; $i -le 100; $i++) {
 #$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
-for ($i = 1; $i -le 100; $i++) {
+for ($i = 1; $i -le 5; $i++) {
     $blobName = "file$i.txt"
     $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/$blobName"
     $destinationBlobUrl = "https://$destinationStorageAccount.blob.core.windows.net/$containerName/$blobName"

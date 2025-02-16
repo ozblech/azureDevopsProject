@@ -8,68 +8,110 @@ variables:
   azureSubscription: 'MyAzureServiceConnection'  # Azure DevOps Service Connection name
   resourceGroup: 'OzResourceGroup'
   location: 'eastus'
+  sshServiceConnection: 'MyVM_SSH_Connection'  # Azure ssh service connection name
+  vmUsername: 'azureuser'
 
 jobs:
-# - job: DeployResources
-#   displayName: 'Deploy Resources (Network, Storage, and VM)'
-#   steps:
+- job: DeployResources
+  displayName: 'Deploy Resources (Network, Storage, and VM)'
+  steps:
 
-#   - task: AzureCLI@2
-#     displayName: 'Register Microsoft.Storage Provider'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: 'bash'
-#       scriptLocation: 'inlineScript'
-#       inlineScript: |
-#         az provider register --namespace Microsoft.Storage
-#         az provider show --namespace Microsoft.Storage --query "registrationState"
+  - task: AzureCLI@2
+    displayName: 'Register Microsoft.Storage Provider'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az provider register --namespace Microsoft.Storage
+        az provider show --namespace Microsoft.Storage --query "registrationState"
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Network Resources'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file network-setup.json \
-#           --parameters @network-setup-parameters.json
+  - task: AzureCLI@2
+    displayName: 'Deploy Network Resources'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file network-setup.json \
+          --parameters @network-setup-parameters.json
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Virtual Machine'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file linux-vm.json \
-#           --parameters @linux-vm-parameters.json \
+  - task: AzureCLI@2
+    displayName: 'Deploy Virtual Machine'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file linux-vm.json \
+          --parameters @linux-vm-parameters.json \
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Storage Account'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file storage-accounts.json \
-#           --parameters @storage-accounts-parameters.json \
+  - task: AzureCLI@2
+    displayName: 'Deploy Storage Account'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file storage-accounts.json \
+          --parameters @storage-accounts-parameters.json \
 
 - job: BlobMigration
-  #dependsOn: DeployResources
+  dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
-      displayName: 'Run Blob Migration Script with Managed Identity'
+      displayName: 'Copy blob_migration.ps1 to VM'
       inputs:
         azureSubscription: $(azureSubscription)
-        scriptType: pscore
+        scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
-          pwsh blob_migration.ps1 -sourceStorageAccount "ozstorageaccounta" -destinationStorageAccount "ozstorageaccountb" -containerName "mycontainer"
+          # Define VM details and the local script path
+          VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
+          LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
+          REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
+
+          # Copy the script to the VM using SCP
+          scp -i $(sshPrivateKey) $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
+    
+    - task: SSH@0
+      displayName: 'Run PowerShell script on VM'
+      inputs:
+        sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
+        runOptions: 'inline'
+        inline: |
+          # Ensure PowerShell Core is installed (if not already)
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          sudo dpkg -i packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
+          # Change file permissions to make it executable
+          sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
+
+          # Run the PowerShell script
+          pwsh /home/$(vmUsername)/blob_migration.ps1
+
+
+# - job: BlobMigration
+#   dependsOn: DeployResources
+#   displayName: 'Blob Migration Job'
+#   steps:
+#     - task: AzureCLI@2
+#       displayName: 'Run Blob Migration Script with Managed Identity'
+#       inputs:
+#         azureSubscription: $(azureSubscription)
+#         scriptType: pscore
+#         scriptLocation: inlineScript
+#         inlineScript: |
+#           pwsh blob_migration.ps1 -sourceStorageAccount "ozstorageaccounta" -destinationStorageAccount "ozstorageaccountb" -containerName "mycontainer"
 

@@ -32,6 +32,7 @@
         "apiVersion": "2019-07-01",
         "location": "[parameters('location')]",
         "name": "[parameters('vmName')]",
+        "hostName": "[parameters('vmName')]",
         "properties": {
           "hardwareProfile": {
             "vmSize": "[parameters('vmSize')]"
