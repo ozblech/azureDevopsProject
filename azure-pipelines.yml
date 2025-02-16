@@ -11,6 +11,7 @@ variables:
   sshServiceConnection: 'MyVM_SSH_Connection'  # Azure ssh service connection name
   vmUsername: 'adminUser'
   privateKey: '~/.ssh/id_ed25519'
+  vmName: 'MyLinuxVM'
 
 jobs:
 # - job: DeployResources
