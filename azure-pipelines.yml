@@ -59,3 +59,16 @@ jobs:
           --resource-group $(resourceGroup) \
           --template-file storage-accounts.json \
           --parameters @storage-accounts-parameters.json \
+
+- job: BlobMigration
+  displayName: 'Blob Migration Job'
+  steps:
+    - task: AzureCLI@2
+      displayName: 'Run Blob Migration Script with Managed Identity'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+          pwsh blob_migration.ps1 -sourceStorageAccount "ozstorageaccounta" -destinationStorageAccount "ozstorageaccountb" -containerName "mycontainer"
+
