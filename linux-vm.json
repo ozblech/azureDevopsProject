@@ -24,6 +24,9 @@
       },
       "nicName": {
         "type": "string"
+      },
+      "sshPublicKey": {
+        "type": "string"
       }
     },
     "resources": [
@@ -51,11 +54,21 @@
               "version": "latest"
             }
           },
-          "osProfile": {
-            "computerName": "[parameters('vmName')]",
-            "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPassword')]"
-          },
+        "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('sshPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
           "networkProfile": {
             "networkInterfaces": [
               {
