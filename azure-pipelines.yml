@@ -100,33 +100,32 @@ jobs:
         sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
         runOptions: 'inline'
         inline: |
-          # Ensure PowerShell Core is installed (if not already)
-          echo "Installing PowerShell Core..."
-          sudo apt-get update
-          sudo apt-get install -y wget apt-transport-https software-properties-common
-          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get update
-          sudo apt-get install -y powershell
+          # # Ensure PowerShell Core is installed (if not already)
+          # echo "Installing PowerShell Core..."
+          # sudo apt-get update
+          # sudo apt-get install -y wget apt-transport-https software-properties-common
+          # wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          # sudo dpkg -i packages-microsoft-prod.deb
+          # sudo apt-get update
+          # sudo apt-get install -y powershell
 
-          # Download and install the Microsoft signing key
-          echo "Downloading and installing the Microsoft signing key..."
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+          # # Download and install the Microsoft signing key
+          # echo "Downloading and installing the Microsoft signing key..."
+          # curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
 
-          # Add the Azure CLI repository
-          echo "Adding the Azure CLI repository..."
-          echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
-              | sudo tee /etc/apt/sources.list.d/azure-cli.list
+          # # Add the Azure CLI repository
+          # echo "Adding the Azure CLI repository..."
+          # echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+          #     | sudo tee /etc/apt/sources.list.d/azure-cli.list
 
-          # Update package lists and install Azure CLI
-          echo "Updating package lists and installing Azure CLI..."
-          sudo apt update
-          sudo apt install -y azure-cli
+          # # Update package lists and install Azure CLI
+          # echo "Updating package lists and installing Azure CLI..."
+          # sudo apt update
+          # sudo apt install -y azure-cli
 
           echo "Logging in to Azure CLI..."
-          echo $(AZURE_CLIENT_ID)
-          echo $(AZURE_CLIENT_SECRET)
-          echo $(AZURE_TENANT_ID)
+          echo " zure client id is $(AZURE_CLIENT_ID)"
+
           az login --service-principal -u $(AZURE_CLIENT_ID) -p $(AZURE_CLIENT_SECRET) --tenant $(AZURE_TENANT_ID)
 
           # Change file permissions to make it executable
