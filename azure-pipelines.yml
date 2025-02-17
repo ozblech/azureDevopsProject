@@ -5,7 +5,6 @@ pool:
   name: myUbuntuAgentPool  # Ensure the agent is correctly registered in this pool
 
 variables:
-- group: 'azureLogin'  # Azure DevOps Service Connection for Azure subscription
   azureSubscription: 'MyAzureServiceConnection'  # Azure DevOps Service Connection name
   resourceGroup: 'OzResourceGroup'
   location: 'eastus'
