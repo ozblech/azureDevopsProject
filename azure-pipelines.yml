@@ -13,6 +13,7 @@ variables:
   privateKey: '~/.ssh/id_ed25519'
   vmName: 'MyLinuxVM'
 
+
 jobs:
 # - job: DeployResources
 #   displayName: 'Deploy Resources (Network, Storage, and VM)'
@@ -106,7 +107,7 @@ jobs:
           curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
 
           # Add the Azure CLI repository
-          eco "Adding the Azure CLI repository..."
+          echo "Adding the Azure CLI repository..."
           echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
               | sudo tee /etc/apt/sources.list.d/azure-cli.list
 
@@ -115,6 +116,8 @@ jobs:
           sudo apt update
           sudo apt install -y azure-cli
 
+          echo "Logging in to Azure CLI..."
+          az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
 
           # Change file permissions to make it executable
           echo "Changing file permissions to make it executable..."
@@ -123,6 +126,10 @@ jobs:
           # Run the PowerShell script
           echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
+      env:
+        AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+        AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+        AZURE_TENANT_ID: $(AZURE_TENANT_ID)
 
 
 # - job: BlobMigration
