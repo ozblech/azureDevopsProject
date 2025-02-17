@@ -40,6 +40,11 @@ for ($i = 1; $i -le 5; $i++) {
         --file $filePath `
         --name "file$i.txt" `
         --auth-mode login
+    if ($?) {
+        Write-Host "Blob file$i.txt uploaded successfully"
+    } else {
+        Write-Host "Error occurred uploading file$i.txt"
+        exit 1
 }
 
 # Set environment variables for the source and destination storage accounts
