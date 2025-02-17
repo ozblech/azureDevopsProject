@@ -52,7 +52,7 @@ for ($i = 1; $i -le 5; $i++) {
     $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/$blobName"
     $destinationBlobUrl = "https://$destinationStorageAccount.blob.core.windows.net/$containerName/$blobName"
 
-    $srcBlobUri = New-AzStorageBlobSASToken -Container $containerName -Blob $srcBlobName -Permission rt -ExpiryTime (Get-Date).AddDays(7) -FullUri 
+    $srcBlobUri = New-AzStorageBlobSASToken -Container $containerName -Blob $blobName -Permission rt -ExpiryTime (Get-Date).AddDays(7) -FullUri 
     $destBlob = Copy-AzStorageBlob -AbsoluteUri $srcBlobUri -DestContainer "destcontainername" -DestBlob "destblobname"
 
     Write-Host "Started copy for file$i.txt"
