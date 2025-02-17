@@ -122,14 +122,14 @@ jobs:
         sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
         runOptions: 'inline'
         inline: |
-          # # Ensure PowerShell Core is installed (if not already)
-          # echo "Installing PowerShell Core..."          
-          # sudo apt-get update
-          # sudo apt-get install -y wget apt-transport-https software-properties-common
-          # wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          # sudo dpkg -i packages-microsoft-prod.deb
-          # sudo apt-get update
-          # sudo apt-get install -y powershell
+          # Ensure PowerShell Core is installed
+          echo "Installing PowerShell Core..."          
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          sudo dpkg -i packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
 
           # Download and install the Microsoft signing key
           echo "Downloading and installing the Microsoft signing key..."
