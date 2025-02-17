@@ -5,17 +5,21 @@ pool:
   name: myUbuntuAgentPool  # Ensure the agent is correctly registered in this pool
 
 variables:
-  azureSubscription: 'MyAzureServiceConnection'  # Azure DevOps Service Connection name
-  resourceGroup: 'OzResourceGroup'
-  location: 'eastus'
-  sshServiceConnection: 'MyVM_SSH_Connection'  # Azure ssh service connection name
-  vmUsername: 'adminUser'
-  privateKey: '~/.ssh/id_ed25519'
-  vmName: 'MyLinuxVM'
-
-# Reference the Azure DevOps variable group
--group: azureLogin
-
+- group: 'azureLogin'  # Azure DevOps Service Connection for Azure
+- name: azureSubscription   # Azure DevOps Service Connection name
+  value: 'MyAzureServiceConnection'
+- name: resourceGroup
+  value: 'OzResourceGroup'
+- name: location
+  value: 'eastus'
+- name: sshServiceConnection
+  value: 'MyVM_SSH_Connection'
+- name: vmUsername
+  value: 'adminUser'
+- name: privateKey
+  value: '~/.ssh/id_ed25519'
+- name: vmName
+  value: 'MyLinuxVM
 
 jobs:
 # - job: DeployResources
