@@ -22,59 +22,59 @@ variables:
   value: 'MyLinuxVM'
 
 jobs:
-# - job: DeployResources
-#   displayName: 'Deploy Resources (Network, Storage, and VM)'
-#   steps:
+- job: DeployResources
+  displayName: 'Deploy Resources (Network, Storage, and VM)'
+  steps:
 
-#   - task: AzureCLI@2
-#     displayName: 'Register Microsoft.Storage Provider'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: 'bash'
-#       scriptLocation: 'inlineScript'
-#       inlineScript: |
-#         az provider register --namespace Microsoft.Storage
-#         az provider show --namespace Microsoft.Storage --query "registrationState"
+  - task: AzureCLI@2
+    displayName: 'Register Microsoft.Storage Provider'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az provider register --namespace Microsoft.Storage
+        az provider show --namespace Microsoft.Storage --query "registrationState"
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Network Resources'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file network-setup.json \
-#           --parameters @network-setup-parameters.json
+  - task: AzureCLI@2
+    displayName: 'Deploy Network Resources'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file network-setup.json \
+          --parameters @network-setup-parameters.json
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Virtual Machine'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file linux-vm.json \
-#           --parameters @linux-vm-parameters.json \
-#           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)"
+  - task: AzureCLI@2
+    displayName: 'Deploy Virtual Machine'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file linux-vm.json \
+          --parameters @linux-vm-parameters.json \
+          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)"
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Storage Account'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file storage-accounts.json \
-#           --parameters @storage-accounts-parameters.json \
+  - task: AzureCLI@2
+    displayName: 'Deploy Storage Account'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file storage-accounts.json \
+          --parameters @storage-accounts-parameters.json \
 
 - job: BlobMigration
-  # dependsOn: DeployResources
+  dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
@@ -101,27 +101,39 @@ jobs:
           # Copy the script to the VM using SCP
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
           # scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
-    
+
+    - task: AzureCLI@2
+      displayName: 'Enable a Public DNS Name for VM'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Define VM details
+          echo "resourceGroup: $(resourceGroup) vmName: $(vmName)"
+          az network public-ip update \
+          --resource-group $(resourceGroup) \
+          --name MyPublicIP \
+          --dns-name mylinuxvm-dns
+  
     - task: SSH@0
       displayName: 'Run PowerShell script on VM'
       inputs:
         sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
         runOptions: 'inline'
         inline: |
-          # Ensure PowerShell Core is installed (if not already)
-          echo "Installing PowerShell Core..."
-          
-          sudo apt-get update
-          sudo apt-get install -y powershell
-          sudo apt-get install -y wget apt-transport-https software-properties-common
-          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get update
-          sudo apt-get install -y powershell
+          # # Ensure PowerShell Core is installed (if not already)
+          # echo "Installing PowerShell Core..."          
+          # sudo apt-get update
+          # sudo apt-get install -y wget apt-transport-https software-properties-common
+          # wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          # sudo dpkg -i packages-microsoft-prod.deb
+          # sudo apt-get update
+          # sudo apt-get install -y powershell
 
-          # Download and install the Microsoft signing key
-          echo "Downloading and installing the Microsoft signing key..."
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+          # # Download and install the Microsoft signing key
+          # echo "Downloading and installing the Microsoft signing key..."
+          # curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
 
           # Add the Azure CLI repository
           echo "Adding the Azure CLI repository..."
@@ -146,17 +158,3 @@ jobs:
           # Run the PowerShell script
           echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
-
-# - job: BlobMigration
-#   dependsOn: DeployResources
-#   displayName: 'Blob Migration Job'
-#   steps:
-#     - task: AzureCLI@2
-#       displayName: 'Run Blob Migration Script with Managed Identity'
-#       inputs:
-#         azureSubscription: $(azureSubscription)
-#         scriptType: pscore
-#         scriptLocation: inlineScript
-#         inlineScript: |
-#           pwsh blob_migration.ps1 -sourceStorageAccount "ozstorageaccounta" -destinationStorageAccount "ozstorageaccountb" -containerName "mycontainer"
-
