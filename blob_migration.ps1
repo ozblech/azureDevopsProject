@@ -47,14 +47,29 @@ for ($i = 1; $i -le 5; $i++) {
 #$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
+
+# Define the storage context for source and destination storage accounts
+$srcStorageContext = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageAccountKey
+$destStorageContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageAccountKey
+
 for ($i = 1; $i -le 5; $i++) {
     $blobName = "file$i.txt"
     $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/$blobName"
     $destinationBlobUrl = "https://$destinationStorageAccount.blob.core.windows.net/$containerName/$blobName"
 
-    $srcBlobUri = New-AzStorageBlobSASToken -Container $containerName -Blob $blobName -Permission rt -ExpiryTime (Get-Date).AddDays(7) -FullUri 
-    $destBlob = Copy-AzStorageBlob -AbsoluteUri $srcBlobUri -DestContainer "destcontainername" -DestBlob "destblobname"
+    # Generate the SAS token for the source blob
+    $srcBlobUri = New-AzStorageBlobSASToken -Container $containerName -Blob $blobName -Permission rt -ExpiryTime (Get-Date).AddDays(7) -Context $srcStorageContext -FullUri
+
+    # Ensure the SAS URI was generated successfully
+    if (-not $srcBlobUri) {
+        Write-Error "Failed to generate SAS token for $blobName"
+        continue
+    }
+
+    # Copy the blob to the destination container
+    $destBlob = Copy-AzStorageBlob -AbsoluteUri $srcBlobUri -DestContainer $destinationContainerName -DestBlob $blobName -Context $destStorageContext
 
     Write-Host "Started copy for file$i.txt"
 }
+
 Write-Host "Blob migration completed successfully."
