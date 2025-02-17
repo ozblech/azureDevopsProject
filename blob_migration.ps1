@@ -39,7 +39,7 @@ for ($i = 1; $i -le 5; $i++) {
 
     az storage blob upload `
         --account-name $sourceStorageAccount `
-        --container-name $containerName \
+        --container-name $containerName `
         --file $filePath `
         --name "file$i.txt" `
         --auth-mode login --debug
