@@ -14,7 +14,7 @@ variables:
   vmName: 'MyLinuxVM'
 
 # Reference the Azure DevOps variable group
-group: azureLogin
+-group: azureLogin
 
 
 jobs:
