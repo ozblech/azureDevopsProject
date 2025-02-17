@@ -48,6 +48,10 @@ for ($i = 1; $i -le 5; $i++) {
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
 
+# Get the storage account keys for source and destination
+$sourceStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroup -AccountName $sourceStorageAccount)[0].Value
+$destinationStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroup -AccountName $destinationStorageAccount)[0].Value
+
 # Define the storage context for source and destination storage accounts
 $srcStorageContext = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageAccountKey
 $destStorageContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageAccountKey
