@@ -45,6 +45,7 @@ for ($i = 1; $i -le 5; $i++) {
     } else {
         Write-Host "Error occurred uploading file$i.txt"
         exit 1
+    }
 }
 
 # Set environment variables for the source and destination storage accounts
