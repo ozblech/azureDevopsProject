@@ -132,14 +132,10 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -yq azure-cli -y powershell
           
-          # Stop dirmngr
-          echo "Stopping dirmngr..."
-          sudo gpgconf --kill dirmngr
-          sudo chown -R $(vmUsername) ~/.gnupg
 
           # Download and install the Microsoft signing key
           echo "Downloading and installing the Microsoft signing key..."
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+          curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
 
           # Add the Azure CLI repository
           echo "Adding the Azure CLI repository..."
