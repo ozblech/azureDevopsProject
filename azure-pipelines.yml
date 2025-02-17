@@ -86,13 +86,21 @@ jobs:
         inlineScript: |
           # Define VM details and the local script path
           echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
+          echo "Fetching VM IP..."
           VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
+          echo "VM_IP: $VM_IP"
+
+          if [ -z "$VM_IP" ]; then
+            echo "ERROR: Failed to retrieve VM public IP."
+            exit 1
+          fi
+
           LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
           REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
 
           # Copy the script to the VM using SCP
-          echo "VM_IP: $(VM_IP)"
-          echo "vmUsername: $(vmUsername)"
+          echo "VM_IP: $VM_IP"
+          echo "vmUsername: $vmUsername"
           scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
     
     - task: SSH@0
