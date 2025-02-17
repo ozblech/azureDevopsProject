@@ -149,7 +149,7 @@ jobs:
           # Update package lists and install Azure CLI
           echo "Updating package lists and installing Azure CLI..."
           sudo apt-get update -y
-          sudo apt-get install -y azure-cli
+          sudo apt-get install -y --only-upgrade azure-cli
 
           echo "Logging in to Azure CLI..."
           echo "Azure App ID: $(AZURE_APP_ID)"
