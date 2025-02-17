@@ -14,19 +14,19 @@ New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 # az login --identity
 
 
-# # Delete the container if it exists, and recreate it
-# Write-Host "Deleting and recreating the container in both storage accounts..."
-# az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
-# az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
+# Delete the container if it exists, and recreate it
+Write-Host "Deleting and recreating the container in both storage accounts..."
+az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
+az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
-# # Wait for a few seconds to ensure the container is fully deleted
-# Write-Host "Waiting for 100 seconds..."
-# Start-Sleep -Seconds 100
+# Wait for a few seconds to ensure the container is fully deleted
+Write-Host "Waiting for 100 seconds..."
+Start-Sleep -Seconds 100
 
-# # Recreate the containers after deletion
-# Write-Host "Recreating the containers..."
-# az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
-# az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
+# Recreate the containers after deletion
+Write-Host "Recreating the containers..."
+az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
+az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
