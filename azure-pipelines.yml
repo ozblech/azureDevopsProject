@@ -124,10 +124,11 @@ jobs:
           # sudo apt install -y azure-cli
 
           echo "Logging in to Azure CLI..."
-          echo " zure client id is $(AZURE_CLIENT_ID)"
-
-          az login --service-principal -u $(AZURE_CLIENT_ID) -p $(AZURE_CLIENT_SECRET) --tenant $(AZURE_TENANT_ID)
-
+          echo "Azure Client ID: $(AZURE_CLIENT_ID)"
+          echo "Azure Tenant ID: $(AZURE_TENANT_ID)"
+          echo "Azure Client Secret: $(AZURE_CLIENT_SECRET)"
+          az login --service-principal -u "$(AZURE_CLIENT_ID)" -p "$(AZURE_CLIENT_SECRET)" --tenant "$(AZURE_TENANT_ID)"
+ 
           # Change file permissions to make it executable
           echo "Changing file permissions to make it executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
