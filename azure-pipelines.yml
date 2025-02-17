@@ -135,10 +135,11 @@ jobs:
           # Download and install the Microsoft signing key
           echo "Downloading and installing the Microsoft signing key..."
           export DEBIAN_FRONTEND=noninteractive
+          sudo rm -f /usr/share/keyrings/microsoft-archive-keyring.gpg
           echo "Starting to install the Microsoft signing key..."
           curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
           echo "Signing key installed."
-          
+
           # Add the Azure CLI repository
           echo "Adding the Azure CLI repository..."
           echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
