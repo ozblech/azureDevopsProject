@@ -20,8 +20,6 @@ variables:
   value: '~/.ssh/id_ed25519'
 - name: vmName
   value: 'MyLinuxVM'
-- name: AZURE_CLIENT_ID
-  value: $[variables.AZURE_CLIENT_ID]
 
 jobs:
 # - job: DeployResources
@@ -127,9 +125,9 @@ jobs:
 
           echo "Logging in to Azure CLI..."
           echo $(AZURE_CLIENT_ID)
-          echo "$AZURE_CLIENT_SECRET"
-          echo "$AZURE_TENANT_ID"
-          az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
+          echo $(AZURE_CLIENT_SECRET)
+          echo $(AZURE_TENANT_ID)
+          az login --service-principal -u $(AZURE_CLIENT_ID) -p $(AZURE_CLIENT_SECRET) --tenant $(AZURE_TENANT_ID)
 
           # Change file permissions to make it executable
           echo "Changing file permissions to make it executable..."
@@ -138,9 +136,6 @@ jobs:
           # Run the PowerShell script
           echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
-      env:
-        AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
-        AZURE_TENANT_ID: $(AZURE_TENANT_ID)
 
 # - job: BlobMigration
 #   dependsOn: DeployResources
