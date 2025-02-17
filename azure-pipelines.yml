@@ -13,8 +13,8 @@ variables:
   privateKey: '~/.ssh/id_ed25519'
   vmName: 'MyLinuxVM'
 
-  # Reference the Azure DevOps variable group
-  - group: azureLogin
+# Reference the Azure DevOps variable group
+group: azureLogin
 
 
 jobs:
