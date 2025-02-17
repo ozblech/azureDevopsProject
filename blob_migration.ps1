@@ -47,33 +47,16 @@ for ($i = 1; $i -le 5; $i++) {
 #$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
-
-# Retrieve the storage account keys for both the source and destination storage accounts
-$sourceStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroup -AccountName $sourceStorageAccount)[0].Value
-$destinationStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroup -AccountName $destinationStorageAccount)[0].Value
-
-# Create storage contexts for both the source and destination storage accounts
-$sourceStorageContext = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageAccountKey
-$destinationStorageContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageAccountKey
-
-# List all blobs in the source container
-$blobs = Get-AzStorageBlob -Container $sourceContainerName -Context $sourceStorageContext
-
-# Loop through each blob and copy it to the destination container
-foreach ($blob in $blobs) {
-    Write-Host "Copying blob: $($blob.Name)"
-
-    # Copy the blob to the destination container
-    Start-AzStorageBlobCopy -SrcBlob $blob.Name -SrcContainer $sourceContainerName -Context $sourceStorageContext `
-                             -DestBlob $blob.Name -DestContainer $destinationContainerName -DestContext $destinationStorageContext
-
-    # Wait for the copy operation to complete (optional)
-    while ((Get-AzStorageBlobCopyState -Blob $blob.Name -Container $destinationContainerName -Context $destinationStorageContext).Status -eq "Pending") {
-        Write-Host "Waiting for blob copy to complete..."
-        Start-Sleep -Seconds 5
-    }
-
-    Write-Host "Finished copying blob: $($blob.Name)"
+for ($i = 1; $i -le 5; $i++) {
+    az storage blob copy start `
+        --account-name $destinationStorageAccount `
+        --destination-container $containerName `
+        --destination-blob "file$i.txt" `
+        --source-account-name $sourceStorageAccount `
+        --source-container $containerName `
+        --source-blob "file$i.txt" `
+        --auth-mode login
+        Write-Host "Copying file $i"
 }
 
 Write-Host "Blob migration completed successfully."
