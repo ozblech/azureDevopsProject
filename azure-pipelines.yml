@@ -85,6 +85,7 @@ jobs:
         scriptLocation: inlineScript
         inlineScript: |
           # Define VM details and the local script path
+          echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
           VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
           LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
           REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
