@@ -12,6 +12,10 @@ variables:
   vmUsername: 'adminUser'
   privateKey: '~/.ssh/id_ed25519'
   vmName: 'MyLinuxVM'
+  
+# Include the variable group that stores the Azure login credentials
+variables:
+- group: azureLogin
 
 
 jobs:
