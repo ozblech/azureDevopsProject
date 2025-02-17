@@ -124,9 +124,9 @@ jobs:
           # sudo apt install -y azure-cli
 
           echo "Logging in to Azure CLI..."
-          echo "Azure Client ID: $(AZURE_APP_ID)"
+          echo "Azure App ID: $(AZURE_APP_ID)"
           echo "Azure Tenant ID: $(AZURE_TENANT_ID)"
-          echo "Azure Client Secret: $(AZURE_PASSWORD)"
+          echo "Azure Client Password: $(AZURE_PASSWORD)"
           az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
  
           # Change file permissions to make it executable

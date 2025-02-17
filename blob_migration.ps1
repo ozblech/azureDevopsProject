@@ -20,8 +20,8 @@ az storage container delete --name $containerName --account-name $sourceStorageA
 az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
 # Wait for a few seconds to ensure the container is fully deleted
-Write-Host "Waiting for 50 seconds..."
-Start-Sleep -Seconds 50
+Write-Host "Waiting for 100 seconds..."
+Start-Sleep -Seconds 100
 
 # Recreate the containers after deletion
 Write-Host "Recreating the containers..."
@@ -52,7 +52,8 @@ for ($i = 1; $i -le 5; $i++) {
     $sourceBlobUrl = "https://$sourceStorageAccount.blob.core.windows.net/$containerName/$blobName"
     $destinationBlobUrl = "https://$destinationStorageAccount.blob.core.windows.net/$containerName/$blobName"
 
-    azcopy copy $sourceBlobUrl $destinationBlobUrl --recursive=false
+    $srcBlobUri = New-AzStorageBlobSASToken -Container $srcContainerName -Blob $srcBlobName -Permission rt -ExpiryTime (Get-Date).AddDays(7) -FullUri 
+    $destBlob = Copy-AzStorageBlob -AbsoluteUri $srcBlobUri -DestContainer "destcontainername" -DestBlob "destblobname"
 
     Write-Host "Started copy for file$i.txt"
 }
