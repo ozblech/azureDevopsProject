@@ -30,15 +30,18 @@ az storage container create --name $containerName --account-name $destinationSto
 
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
+Write-Host "tempdir is $tempDir"
+Write-Host "sourceStorageAccount is $sourceStorageAccount"
+Write-Host "containerName is $containerName"
 for ($i = 1; $i -le 5; $i++) {
     $filePath = "$tempDir/file$i.txt"  # Using forward slash for Ubuntu compatibility
     "This is test file $i" | Out-File -FilePath $filePath
 
-    az storage blob upload \
-        --account-name $sourceStorageAccount \
+    az storage blob upload `
+        --account-name $sourceStorageAccount `
         --container-name $containerName \
-        --file $filePath \
-        --name "file$i.txt" \
+        --file $filePath `
+        --name "file$i.txt" `
         --auth-mode login --debug
     if ($?) {
         Write-Host "Blob file$i.txt uploaded successfully"
@@ -48,9 +51,6 @@ for ($i = 1; $i -le 5; $i++) {
     }
 }
 
-# Set environment variables for the source and destination storage accounts
-#$env:AZURE_STORAGE_ACCOUNT = $sourceStorageAccount
-#$env:DESTINATION_STORAGE_ACCOUNT = $destinationStorageAccount
 # Copy each blob individually from Storage Account A to B
 Write-Host "Copying blobs from Storage Account A to B..."
 for ($i = 1; $i -le 5; $i++) {
