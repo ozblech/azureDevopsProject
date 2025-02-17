@@ -5,6 +5,7 @@ pool:
   name: myUbuntuAgentPool  # Ensure the agent is correctly registered in this pool
 
 variables:
+- group: 'azureLogin'  # Azure DevOps Service Connection for Azure subscription
   azureSubscription: 'MyAzureServiceConnection'  # Azure DevOps Service Connection name
   resourceGroup: 'OzResourceGroup'
   location: 'eastus'
@@ -133,8 +134,6 @@ jobs:
         AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
         AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
         AZURE_TENANT_ID: $(AZURE_TENANT_ID)
-variables:
-- group: azureLogin
 
 # - job: BlobMigration
 #   dependsOn: DeployResources
