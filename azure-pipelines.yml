@@ -19,7 +19,7 @@ variables:
 - name: privateKey
   value: '~/.ssh/id_ed25519'
 - name: vmName
-  value: 'MyLinuxVM
+  value: 'MyLinuxVM'
 
 jobs:
 # - job: DeployResources
