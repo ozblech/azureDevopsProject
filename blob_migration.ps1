@@ -3,7 +3,7 @@ param (
     [string]$destinationStorageAccount = "ozstorageaccountb",
     [string]$containerName = "mycontainer",
     [string]$resourceGroup = "OzResourceGroup",
-    [int]$blobCount = 2,
+    [int]$blobCount = 50,
     [int]$throttleLimit = 20
 )
 
@@ -11,45 +11,19 @@ param (
 $tempDir = "$HOME/work/temp_blobs"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-# Function to check if a container exists
-function Check-ContainerExistence {
-    param (
-        [string]$storageAccount,
-        [string]$containerName
-    )
-    # try to get the container, if it exists, it will return the name
-    try {
-        $container = az storage container show --name $containerName --account-name $storageAccount --auth-mode login --query "name" -o tsv
-    } catch {
-        return $false
-    }
-    return $container
-}
+## Creating container in source and destination storage accounts if not exists
+Write-Host "📦 Ensuring container $containerName exists in source and destination storage accounts..."
 
-# Creating container in source and destination storage accounts if not exists
-Write-Host "📦 Checking if container $containerName exists in source and destination storage accounts..."
+# Create container in source storage account (if not exists)
+Write-Host "🔹 Creating container $containerName in source storage account (if needed)..."
+az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login | Out-Null
+Write-Host "✅ Container $containerName is ready in source storage account."
 
-# Check if container exists in source storage account
-$sourceContainerExists = Check-ContainerExistence -storageAccount $sourceStorageAccount -containerName $containerName
-if ($sourceContainerExists) {
-    Write-Host "✅ Container $containerName already exists in source storage account."
-} else {
-    Write-Host "🔹 Creating container $containerName in source storage account..."
-    az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login | Out-Null
-    Write-Host "✅ Container $containerName created in source storage account."
-}
+# Create container in destination storage account (if not exists)
+Write-Host "🔹 Creating container $containerName in destination storage account (if needed)..."
+az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login | Out-Null
+Write-Host "✅ Container $containerName is ready in destination storage account."
 
-# Check if container exists in destination storage account
-$destinationContainerExists = Check-ContainerExistence -storageAccount $destinationStorageAccount -containerName $containerName
-if ($destinationContainerExists) {
-    Write-Host "✅ Container $containerName already exists in destination storage account."
-} else {
-    Write-Host "🔹 Creating container $containerName in destination storage account..."
-    az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login | Out-Null
-    Write-Host "✅ Container $containerName created in destination storage account."
-}
-
-Write-Host "✅ Container $containerName checked/created successfully in both source and destination storage accounts."
 
 Write-Host "🔄 Deleting all blobs in the source storage and destination storage..."
 az storage blob delete-batch --account-name $sourceStorageAccount --source $containerName --auth-mode login
