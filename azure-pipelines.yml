@@ -135,7 +135,7 @@ jobs:
 
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee 718484a1-f311-4498-b889-21b735209d33 --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
+          az role assignment create --assignee 718484a1-f311-4498-b889-21b735209d33 --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
           # az role assignment create --assignee 6f3fa905-ebcf-4c1b-8bda-29c03412a289 --role "User Access Administrator" --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
           # az role assignment create --assignee $principal_ID --role Contributor --scope /subscriptions/$(subscriptionId)
 
@@ -169,7 +169,7 @@ jobs:
             wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
             sudo dpkg -i packages-microsoft-prod.deb
             sudo apt-get update -qq
-            sudo apt-get install -yq -y powershell
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq -y powershell
           else
             echo "✅ PowerShell is already installed. Skipping installation."
           fi
@@ -258,4 +258,4 @@ jobs:
           # # Run the PowerShell script
           # echo "Running the PowerShell script..."
           # pwsh /home/$(vmUsername)/blob_migration.ps1
-          
+
