@@ -131,6 +131,7 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
           principal_ID=$(az account show --query user.name -o tsv)
+          echo "Principal ID: $principal_ID"
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
