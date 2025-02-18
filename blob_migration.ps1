@@ -55,18 +55,28 @@ for ($i = 1; $i -le 5; $i++) {
     }
 }
 
-# Copy each blob individually from Storage Account A to B
-Write-Host "Copying blobs from Storage Account A to B..."
+Write-Host "📦 Copying blobs from Storage Account A to B..."
+
 for ($i = 1; $i -le 5; $i++) {
-    az storage blob copy start `
-        --account-name $destinationStorageAccount `
-        --destination-container $containerName `
-        --destination-blob "file$i.txt" `
-        --source-account-name $sourceStorageAccount `
-        --source-container $containerName `
-        --source-blob "file$i.txt" `
-        --auth-mode login
-        Write-Host "Copying file $i"
+    try {
+        Write-Host "🚀 Copying file$i.txt..."
+        az storage blob copy start `
+            --account-name $destinationStorageAccount `
+            --destination-container $containerName `
+            --destination-blob "file$i.txt" `
+            --source-account-name $sourceStorageAccount `
+            --source-container $containerName `
+            --source-blob "file$i.txt" `
+            --auth-mode login 2>&1 | Out-Null
+
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "✅ Successfully copied file$i.txt"
+        } else {
+            throw "⚠️ Error copying file$i.txt"
+        }
+    } catch {
+        Write-Host "⚠️ Warning: Failed to copy file$i.txt, but continuing..."
+    }
 }
 
-Write-Host "Blob migration completed successfully."
+Write-Host "✅ Copy process completed."
