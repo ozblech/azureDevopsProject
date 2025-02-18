@@ -122,45 +122,103 @@ jobs:
         sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
         runOptions: 'inline'
         inline: |
-          # Ensure PowerShell Core is installed
+          # Ensure PowerShell Core and Azure CLI are installed
           export DEBIAN_FRONTEND=noninteractive
-          echo "Installing PowerShell Core..."          
+
+          echo "Checking if Azure CLI is installed..."
+          if ! command -v az &> /dev/null; then
+            echo "Azure CLI not found. Installing..."
+            sudo apt-get update -qq
+            sudo apt-get install -yq azure-cli -y powershell
+          else
+            echo "✅ Azure CLI is already installed. Skipping installation."
+          fi
+
+          echo "Checking if PowerShell is installed..."
+          if ! command -v pwsh &> /dev/null; then
+            echo "PowerShell not found. Installing..."
+            sudo apt-get update -qq
+            sudo apt-get install -yq wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get update -qq
+            sudo apt-get install -yq powershell
+          else
+            echo "✅ PowerShell is already installed. Skipping installation."
+          fi
+
+          echo "Checking if Microsoft signing key is installed..."
+          if [ ! -f "/usr/share/keyrings/microsoft-archive-keyring.gpg" ]; then
+            echo "Signing key not found. Installing..."
+            curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+          else
+            echo "✅ Microsoft signing key is already installed. Skipping."
+          fi
+
+          echo "Checking if Azure CLI repo is already added..."
+          if ! grep -q "https://packages.microsoft.com/repos/azure-cli/" /etc/apt/sources.list.d/azure-cli.list 2>/dev/null; then
+            echo "Azure CLI repo not found. Adding..."
+            echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+                | sudo tee /etc/apt/sources.list.d/azure-cli.list
+          else
+            echo "✅ Azure CLI repo already exists. Skipping."
+          fi
+
+          echo "Updating and upgrading Azure CLI..."
           sudo apt-get update -qq
-          sudo apt-get install -yq azure-cli -y wget apt-transport-https software-properties-common
-          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get update -qq
-          sudo apt-get install -yq azure-cli -y powershell
-          
-          # Download and install the Microsoft signing key
-          echo "Downloading and installing the Microsoft signing key..."
-          export DEBIAN_FRONTEND=noninteractive
-          sudo rm -f /usr/share/keyrings/microsoft-archive-keyring.gpg
-          echo "Starting to install the Microsoft signing key..."
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
-
-          echo "Signing key installed."
-
-          # Add the Azure CLI repository
-          echo "Adding the Azure CLI repository..."
-          echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
-              | sudo tee /etc/apt/sources.list.d/azure-cli.list
-
-          # Update package lists and install Azure CLI
-          echo "Updating package lists and installing Azure CLI..."
-          sudo apt-get update -y
           sudo apt-get install -y --only-upgrade azure-cli
 
           echo "Logging in to Azure CLI..."
-          echo "Azure App ID: $(AZURE_APP_ID)"
-          echo "Azure Tenant ID: $(AZURE_TENANT_ID)"
-          echo "Azure Client Password: $(AZURE_PASSWORD)"
           az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
- 
-          # Change file permissions to make it executable
-          echo "Changing file permissions to make it executable..."
+
+          echo "Changing file permissions to make the script executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
 
-          # Run the PowerShell script
           echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
+
+
+
+
+          # # Ensure PowerShell Core is installed
+          # export DEBIAN_FRONTEND=noninteractive
+          # echo "Installing PowerShell Core..."          
+          # sudo apt-get update -qq
+          # sudo apt-get install -yq azure-cli -y wget apt-transport-https software-properties-common
+          # wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          # sudo dpkg -i packages-microsoft-prod.deb
+          # sudo apt-get update -qq
+          # sudo apt-get install -yq azure-cli -y powershell
+          
+          # # Download and install the Microsoft signing key
+          # echo "Downloading and installing the Microsoft signing key..."
+          # export DEBIAN_FRONTEND=noninteractive
+          # sudo rm -f /usr/share/keyrings/microsoft-archive-keyring.gpg
+          # echo "Starting to install the Microsoft signing key..."
+          # curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+
+          # echo "Signing key installed."
+
+          # # Add the Azure CLI repository
+          # echo "Adding the Azure CLI repository..."
+          # echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+          #     | sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+          # # Update package lists and install Azure CLI
+          # echo "Updating package lists and installing Azure CLI..."
+          # sudo apt-get update -y
+          # sudo apt-get install -y --only-upgrade azure-cli
+
+          # echo "Logging in to Azure CLI..."
+          # echo "Azure App ID: $(AZURE_APP_ID)"
+          # echo "Azure Tenant ID: $(AZURE_TENANT_ID)"
+          # echo "Azure Client Password: $(AZURE_PASSWORD)"
+          # az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
+ 
+          # # Change file permissions to make it executable
+          # echo "Changing file permissions to make it executable..."
+          # sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
+
+          # # Run the PowerShell script
+          # echo "Running the PowerShell script..."
+          # pwsh /home/$(vmUsername)/blob_migration.ps1
