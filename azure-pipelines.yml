@@ -126,20 +126,25 @@ jobs:
         scriptLocation: 'inlineScript'
         inlineScript: |
           # Define variables
-          ASSIGNEE_ID="33"
-          SUBSCRIPTION_ID="b5692eb3-36bc-44f3-bead-3bb1b09d4117"
-          RESOURCE_GROUP="ozResourceGroup"
           STORAGE_ACCOUNTS=("ozstorageaccounta" "ozstorageaccountb")
 
+          echo "Giving the principal the Storage Blob Data Contributor role..."
+          # Capture the principal ID
+          principal_ID=$(az account show --query user.name -o tsv)
+
+          # # Assign the role for the source and destination storage accounts
+          # az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccountb
+          # az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccounta
+          
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
-            SCOPE="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
+            SCOPE="/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             
             # Check if the role is already assigned
-            if az role assignment list --assignee "$ASSIGNEE_ID" --scope "$SCOPE" --query "[?roleDefinitionName=='Storage Blob Data Contributor']" --output tsv | grep -q "Storage Blob Data Contributor"; then
+            if az role assignment list --assignee "$principal_ID" --scope "$SCOPE" --query "[?roleDefinitionName=='Storage Blob Data Contributor']" --output tsv | grep -q "Storage Blob Data Contributor"; then
               echo "✅ Role already assigned for $STORAGE_ACCOUNT. Skipping..."
             else
               echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-              az role assignment create --assignee "$ASSIGNEE_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE"
+              az role assignment create --assignee "$principal_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE"
             fi
           done
   
@@ -200,15 +205,7 @@ jobs:
 
           echo "Changing file permissions to make the script executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
-
-          echo "Giving the principal the Storage Blob Data Contributor role..."
-          # Capture the principal ID
-          principal_ID=$(az account show --query user.name -o tsv)
-
-          # Assign the role for the source and destination storage accounts
-          az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccountb
-          az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccounta
-          
+      
           echo "Running the PowerShell script..."
           pwsh /home/$(vmUsername)/blob_migration.ps1
 
