@@ -157,7 +157,7 @@ jobs:
 
           echo "Updating and upgrading Azure CLI..."
           sudo apt-get update -qq
-          sudo apt-get install -y --only-upgrade azure-cli
+          sudo apt-get install -y azure-cli
 
           echo "Logging in to Azure CLI..."
           az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
