@@ -24,99 +24,99 @@ variables:
   value: 'b5692eb3-36bc-44f3-bead-3bb1b09d4117'
 
 jobs:
-- job: DeployResources
-  displayName: 'Deploy Resources (Network, Storage, and VM)'
-  steps:
+# - job: DeployResources
+#   displayName: 'Deploy Resources (Network, Storage, and VM)'
+#   steps:
 
-  - task: AzureCLI@2
-    displayName: 'Register Microsoft.Storage Provider'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az provider register --namespace Microsoft.Storage
-        az provider show --namespace Microsoft.Storage --query "registrationState"
+#   - task: AzureCLI@2
+#     displayName: 'Register Microsoft.Storage Provider'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: 'bash'
+#       scriptLocation: 'inlineScript'
+#       inlineScript: |
+#         az provider register --namespace Microsoft.Storage
+#         az provider show --namespace Microsoft.Storage --query "registrationState"
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Network Resources'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file network-setup.json \
-          --parameters @network-setup-parameters.json
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Network Resources'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file network-setup.json \
+#           --parameters @network-setup-parameters.json
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Virtual Machine'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file linux-vm.json \
-          --parameters @linux-vm-parameters.json \
-          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)"
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Virtual Machine'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file linux-vm.json \
+#           --parameters @linux-vm-parameters.json \
+#           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)"
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Storage Account'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Storage Account'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file storage-accounts.json \
+#           --parameters @storage-accounts-parameters.json \
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  # dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
-    - task: AzureCLI@2
-      displayName: 'Copy blob_migration.ps1 to VM'
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: |
-          # Define VM details and the local script path
-          echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
-          echo "Fetching VM IP..."
-          VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
-          echo "VM_IP: $VM_IP"
+    # - task: AzureCLI@2
+    #   displayName: 'Copy blob_migration.ps1 to VM'
+    #   inputs:
+    #     azureSubscription: $(azureSubscription)
+    #     scriptType: bash
+    #     scriptLocation: inlineScript
+    #     inlineScript: |
+    #       # Define VM details and the local script path
+    #       echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
+    #       echo "Fetching VM IP..."
+    #       VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
+    #       echo "VM_IP: $VM_IP"
 
-          if [ -z "$VM_IP" ]; then
-            echo "ERROR: Failed to retrieve VM public IP."
-            exit 1
-          fi
+    #       if [ -z "$VM_IP" ]; then
+    #         echo "ERROR: Failed to retrieve VM public IP."
+    #         exit 1
+    #       fi
 
-          LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
-          REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
+    #       LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
+    #       REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
 
-          # Copy the script to the VM using SCP
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
-          # scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
+    #       # Copy the script to the VM using SCP
+    #       scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
+    #       # scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
 
-    - task: AzureCLI@2
-      displayName: 'Enable a Public DNS Name for VM'
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: |
-          # Define VM details
-          echo "resourceGroup: $(resourceGroup) vmName: $(vmName)"
-          az network public-ip update \
-          --resource-group $(resourceGroup) \
-          --name MyPublicIP \
-          --dns-name mylinuxvm-dns
+    # - task: AzureCLI@2
+    #   displayName: 'Enable a Public DNS Name for VM'
+    #   inputs:
+    #     azureSubscription: $(azureSubscription)
+    #     scriptType: bash
+    #     scriptLocation: inlineScript
+    #     inlineScript: |
+    #       # Define VM details
+    #       echo "resourceGroup: $(resourceGroup) vmName: $(vmName)"
+    #       az network public-ip update \
+    #       --resource-group $(resourceGroup) \
+    #       --name MyPublicIP \
+    #       --dns-name mylinuxvm-dns
 
     - task: AzureCLI@2
       displayName: 'Give permissions '
@@ -131,7 +131,8 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
           # principal_ID=$(az account show --query user.name -o tsv)
-          principal_ID="718484a1-f311-4498-b889-21b735209d33"
+          # principal_ID="718484a1-f311-4498-b889-21b735209d33"
+          principal_ID="6f3fa905-ebcf-4c1b-8bda-29c03412a289"
           echo "Principal ID: $principal_ID"
 
           # Assign the Contributor role at the subscription level
