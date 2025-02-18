@@ -3,7 +3,7 @@ param (
     [string]$destinationStorageAccount = "ozstorageaccountb",
     [string]$containerName = "mycontainer",
     [string]$resourceGroup = "OzResourceGroup",
-    [int]$blobCount = 100,
+    [int]$blobCount = 2,
     [int]$throttleLimit = 20
 )
 
