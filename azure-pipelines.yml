@@ -130,12 +130,13 @@ jobs:
 
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
-          principal_ID=$(az account show --query user.name -o tsv)
+          # principal_ID=$(az account show --query user.name -o tsv)
+          principal_ID="6f3fa905-ebcf-4c1b-8bda-29c03412a289"
           echo "Principal ID: $principal_ID"
 
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee 718484a1-f311-4498-b889-21b735209d33 --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
+          az role assignment create --assignee $principal_ID --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
           # az role assignment create --assignee 6f3fa905-ebcf-4c1b-8bda-29c03412a289 --role "User Access Administrator" --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
           # az role assignment create --assignee $principal_ID --role Contributor --scope /subscriptions/$(subscriptionId)
 
@@ -143,13 +144,10 @@ jobs:
             # Define the scope using the correct format
             SCOPE="/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             echo "Scope: $SCOPE"  # Debugging line to print scope
-            # Check if the role is already assigned
-            if az role assignment list --assignee "$principal_ID" --scope "$SCOPE" --query "[?roleDefinitionName=='Storage Blob Data Contributor']" --output tsv | grep -q "Storage Blob Data Contributor"; then
-              echo "✅ Role already assigned for $STORAGE_ACCOUNT. Skipping..."
-            else
-              echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-              az role assignment create --assignee "$principal_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE" || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
-            fi
+
+            echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
+            az role assignment create --assignee "$principal_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE" || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
+            
           done
 
     - task: SSH@0
