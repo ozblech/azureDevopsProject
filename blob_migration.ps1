@@ -17,8 +17,12 @@ function Check-ContainerExistence {
         [string]$storageAccount,
         [string]$containerName
     )
-    
-    $container = az storage container show --name $containerName --account-name $storageAccount --auth-mode login --query "name" -o tsv
+    # try to get the container, if it exists, it will return the name
+    try {
+        $container = az storage container show --name $containerName --account-name $storageAccount --auth-mode login --query "name" -o tsv
+    } catch {
+        return $false
+    }
     return $container
 }
 

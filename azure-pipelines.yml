@@ -131,7 +131,7 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
           # principal_ID=$(az account show --query user.name -o tsv)
-          principal_ID="6f3fa905-ebcf-4c1b-8bda-29c03412a289"
+          principal_ID="718484a1-f311-4498-b889-21b735209d33"
           echo "Principal ID: $principal_ID"
 
           # Assign the Contributor role at the subscription level
