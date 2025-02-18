@@ -75,7 +75,7 @@ jobs:
         az deployment group create \
           --resource-group $(resourceGroup) \
           --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \ \
+          --parameters @storage-accounts-parameters.json \
           || exit 1
 
 - job: BlobMigration
