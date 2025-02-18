@@ -183,6 +183,7 @@ jobs:
           # Capture the principal ID
           principal_ID=$(az account show --query user.name -o tsv)
           echo "Principal ID: $principal_ID"
+          az role assignment create --assignee $principal_ID --role Contributor --scope /subscriptions/$(subscriptionId)
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
