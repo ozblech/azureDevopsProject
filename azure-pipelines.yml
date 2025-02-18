@@ -48,7 +48,8 @@ jobs:
         az deployment group create \
           --resource-group $(resourceGroup) \
           --template-file network-setup.json \
-          --parameters @network-setup-parameters.json
+          --parameters @network-setup-parameters.json \
+          || exit 1
 
   - task: AzureCLI@2
     displayName: 'Deploy Virtual Machine'
@@ -61,7 +62,8 @@ jobs:
           --resource-group $(resourceGroup) \
           --template-file linux-vm.json \
           --parameters @linux-vm-parameters.json \
-          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)"
+          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
+          || exit 1
 
   - task: AzureCLI@2
     displayName: 'Deploy Storage Account'
@@ -73,7 +75,8 @@ jobs:
         az deployment group create \
           --resource-group $(resourceGroup) \
           --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
+          --parameters @storage-accounts-parameters.json \ \
+          || exit 1
 
 - job: BlobMigration
   dependsOn: DeployResources
@@ -101,7 +104,8 @@ jobs:
           REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
 
           # Copy the script to the VM using SCP
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH" || { echo "Failed to copy script"; exit 1; }
+          # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
           # scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
 
     - task: AzureCLI@2
@@ -131,15 +135,15 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
           # principal_ID=$(az account show --query user.name -o tsv)
-          # principal_ID="718484a1-f311-4498-b889-21b735209d33"
           principal_ID="6f3fa905-ebcf-4c1b-8bda-29c03412a289"
           echo "Principal ID: $principal_ID"
+          SP_OBJECT_ID=$(az ad sp list --display-name MyDevOpsServicePrincipal --query "[].id" -o tsv)
+          echo "Service Principal Object ID: $SP_OBJECT_ID"
+
 
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee-object-id $principal_ID --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
-          # az role assignment create --assignee 6f3fa905-ebcf-4c1b-8bda-29c03412a289 --role "User Access Administrator" --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
-          # az role assignment create --assignee $principal_ID --role Contributor --scope /subscriptions/$(subscriptionId)
+          az role assignment create --assignee-object-id $SP_OBJECT_ID --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
@@ -147,7 +151,7 @@ jobs:
             echo "Scope: $SCOPE"  # Debugging line to print scope
 
             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-            az role assignment create --assignee-object-id "$principal_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
+            az role assignment create --assignee-object-id "$SP_OBJECT_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
             
           done
 
@@ -210,51 +214,9 @@ jobs:
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
 
           echo "Running the PowerShell script..."
-          pwsh /home/$(vmUsername)/blob_migration.ps1
+          if ! pwsh /home/$(vmUsername)/blob_migration.ps1; then
+            echo "Failed to execute PowerShell script."
+            exit 1
+          fi
 
-
-
-
-          # # Ensure PowerShell Core is installed
-          # export DEBIAN_FRONTEND=noninteractive
-          # echo "Installing PowerShell Core..."          
-          # sudo apt-get update -qq
-          # sudo apt-get install -yq azure-cli -y wget apt-transport-https software-properties-common
-          # wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          # sudo dpkg -i packages-microsoft-prod.deb
-          # sudo apt-get update -qq
-          # sudo apt-get install -yq azure-cli -y powershell
-          
-          # # Download and install the Microsoft signing key
-          # echo "Downloading and installing the Microsoft signing key..."
-          # export DEBIAN_FRONTEND=noninteractive
-          # sudo rm -f /usr/share/keyrings/microsoft-archive-keyring.gpg
-          # echo "Starting to install the Microsoft signing key..."
-          # curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
-
-          # echo "Signing key installed."
-
-          # # Add the Azure CLI repository
-          # echo "Adding the Azure CLI repository..."
-          # echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
-          #     | sudo tee /etc/apt/sources.list.d/azure-cli.list
-
-          # # Update package lists and install Azure CLI
-          # echo "Updating package lists and installing Azure CLI..."
-          # sudo apt-get update -y
-          # sudo apt-get install -y --only-upgrade azure-cli
-
-          # echo "Logging in to Azure CLI..."
-          # echo "Azure App ID: $(AZURE_APP_ID)"
-          # echo "Azure Tenant ID: $(AZURE_TENANT_ID)"
-          # echo "Azure Client Password: $(AZURE_PASSWORD)"
-          # az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
- 
-          # # Change file permissions to make it executable
-          # echo "Changing file permissions to make it executable..."
-          # sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
-
-          # # Run the PowerShell script
-          # echo "Running the PowerShell script..."
-          # pwsh /home/$(vmUsername)/blob_migration.ps1
 
