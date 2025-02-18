@@ -2,7 +2,7 @@ param (
     [string]$sourceStorageAccount = "ozstorageaccounta",
     [string]$destinationStorageAccount = "ozstorageaccountb",
     [string]$containerName = "mycontainer",
-    [string]$resourceGroup = "OzResourceGroup"
+    [string]$resourceGroup = "OzResourceGroup",
     [int]$blobCount = 2
 )
 
