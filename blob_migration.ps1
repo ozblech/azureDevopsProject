@@ -15,6 +15,11 @@ az storage blob delete-batch --account-name $sourceStorageAccount --source $cont
 az storage blob delete-batch --account-name $destinationStorageAccount --source $containerName --auth-mode login
 Write-Host "✅ All blobs deleted."
 
+
+# Wait for a few seconds to ensure the container is fully deleted
+Write-Host "Waiting for 100 seconds..."
+Start-Sleep -Seconds 20
+
 # # Delete the container if it exists, and recreate it
 # Write-Host "Deleting and recreating the container in both storage accounts..."
 # az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
