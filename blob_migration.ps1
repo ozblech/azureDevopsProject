@@ -37,17 +37,21 @@ for ($i = 1; $i -le 5; $i++) {
     $filePath = "$tempDir/file$i.txt"  # Using forward slash for Ubuntu compatibility
     "This is test file $i" | Out-File -FilePath $filePath
 
-    az storage blob upload `
-        --account-name $sourceStorageAccount `
-        --container-name $containerName `
-        --file $filePath `
-        --name "file$i.txt" `
-        --auth-mode login --debug
-    if ($?) {
-        Write-Host "Blob file$i.txt uploaded successfully"
-    } else {
-        Write-Host "Error occurred uploading file$i.txt"
-        exit 1
+    try {
+        az storage blob upload `
+            --account-name $sourceStorageAccount `
+            --container-name $containerName `
+            --file $filePath `
+            --name "file$i.txt" `
+            --auth-mode login --debug 2>&1 | Out-Null
+
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "✅ Blob file$i.txt uploaded successfully"
+        } else {
+            Write-Host "⚠️ Warning: Error occurred uploading file$i.txt, but continuing..."
+        }
+    } catch {
+        Write-Host "⚠️ Warning: Exception occurred while uploading file$i.txt, but continuing..."
     }
 }
 
