@@ -136,7 +136,7 @@ jobs:
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
             SCOPE="/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
-
+            echo "Scope: $SCOPE"  # Debugging line to print scope
             # Check if the role is already assigned
             if az role assignment list --assignee "$principal_ID" --scope "$SCOPE" --query "[?roleDefinitionName=='Storage Blob Data Contributor']" --output tsv | grep -q "Storage Blob Data Contributor"; then
               echo "✅ Role already assigned for $STORAGE_ACCOUNT. Skipping..."
