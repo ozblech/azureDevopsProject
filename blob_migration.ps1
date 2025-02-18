@@ -3,37 +3,38 @@ param (
     [string]$destinationStorageAccount = "ozstorageaccountb",
     [string]$containerName = "mycontainer",
     [string]$resourceGroup = "OzResourceGroup"
+    [int]$blobCount = 2
 )
 
 # Define a writable directory (inside Azure DevOps agent working directory)
 $tempDir = "$HOME/work/temp_blobs"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-# Authenticate to Azure using Managed Identity
-# Write-Host "Authenticating with Azure Managed Identity..."
-# az login --identity
+Write-Host "🔄 Deleting all blobs in the source storage and destination storage..."
+az storage blob delete-batch --account-name $sourceStorageAccount --source $containerName --auth-mode login
+az storage blob delete-batch --account-name $destinationStorageAccount --source $containerName --auth-mode login
+Write-Host "✅ All blobs deleted."
 
+# # Delete the container if it exists, and recreate it
+# Write-Host "Deleting and recreating the container in both storage accounts..."
+# az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
+# az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
-# Delete the container if it exists, and recreate it
-Write-Host "Deleting and recreating the container in both storage accounts..."
-az storage container delete --name $containerName --account-name $sourceStorageAccount --auth-mode login
-az storage container delete --name $containerName --account-name $destinationStorageAccount --auth-mode login
+# # Wait for a few seconds to ensure the container is fully deleted
+# Write-Host "Waiting for 100 seconds..."
+# Start-Sleep -Seconds 100
 
-# Wait for a few seconds to ensure the container is fully deleted
-Write-Host "Waiting for 100 seconds..."
-Start-Sleep -Seconds 100
-
-# Recreate the containers after deletion
-Write-Host "Recreating the containers..."
-az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
-az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
+# # Recreate the containers after deletion
+# Write-Host "Recreating the containers..."
+# az storage container create --name $containerName --account-name $sourceStorageAccount --auth-mode login
+# az storage container create --name $containerName --account-name $destinationStorageAccount --auth-mode login
 
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
 Write-Host "tempdir is $tempDir"
 Write-Host "sourceStorageAccount is $sourceStorageAccount"
 Write-Host "containerName is $containerName"
-for ($i = 1; $i -le 5; $i++) {
+for ($i = 1; $i -le $blobCount; $i++) {
     $filePath = "$tempDir/file$i.txt"  # Using forward slash for Ubuntu compatibility
     "This is test file $i" | Out-File -FilePath $filePath
 
@@ -57,7 +58,7 @@ for ($i = 1; $i -le 5; $i++) {
 
 Write-Host "📦 Copying blobs from Storage Account A to B..."
 
-for ($i = 1; $i -le 5; $i++) {
+for ($i = 1; $i -le $blobCount; $i++) {
     try {
         Write-Host "🚀 Copying file$i.txt..."
         az storage blob copy start `
