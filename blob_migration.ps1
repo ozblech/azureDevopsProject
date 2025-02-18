@@ -15,11 +15,6 @@ az storage blob delete-batch --account-name $sourceStorageAccount --source $cont
 az storage blob delete-batch --account-name $destinationStorageAccount --source $containerName --auth-mode login
 Write-Host "✅ All blobs deleted."
 
-
-# Wait for a few seconds to ensure the container is fully deleted
-Write-Host "Waiting for 100 seconds..."
-Start-Sleep -Seconds 20
-
 # Create and upload 100 test blobs
 Write-Host "Creating and uploading 100 blobs..."
 Write-Host "tempdir is $tempDir"
@@ -29,7 +24,7 @@ Write-Host "containerName is $containerName"
 
 # Create and upload 100 test blobs in parallel
 Write-Host "Creating and uploading $blobCount blobs..."
-1..5 | ForEach-Object -Parallel {
+1..$blobCount | ForEach-Object -Parallel {
     $filePath = "$using:tempDir/file$_"  # Using forward slash for Ubuntu compatibility
     "This is test file $_" | Out-File -FilePath $filePath
 
