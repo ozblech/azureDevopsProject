@@ -135,15 +135,14 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."
           # Capture the principal ID
           # principal_ID=$(az account show --query user.name -o tsv)
-          principal_ID="6f3fa905-ebcf-4c1b-8bda-29c03412a289"
-          echo "Principal ID: $principal_ID"
-          SP_OBJECT_ID=$(az ad sp list --display-name MyDevOpsServicePrincipal --query "[].id" -o tsv)
-          echo "Service Principal Object ID: $SP_OBJECT_ID"
+          
+          #SP_OBJECT_ID=$(az ad sp list --display-name MyDevOpsServicePrincipal --query "[].id" -o tsv)
+          #echo "Service Principal Object ID: $SP_OBJECT_ID"
 
 
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee-object-id $SP_OBJECT_ID --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
+          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
@@ -151,7 +150,7 @@ jobs:
             echo "Scope: $SCOPE"  # Debugging line to print scope
 
             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-            az role assignment create --assignee-object-id "$SP_OBJECT_ID" --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
+            az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
             
           done
 
