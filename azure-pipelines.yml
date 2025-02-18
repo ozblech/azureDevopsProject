@@ -121,7 +121,7 @@ jobs:
     - task: AzureCLI@2
       displayName: 'Assign Storage Blob Data Contributor Role'
       inputs:
-        azureSubscription: '$(azureServiceConnection)'  # Replace with your Azure service connection name
+        azureSubscription: '$(azureSubscription)'  # Replace with your Azure service connection name
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -135,7 +135,7 @@ jobs:
           # # Assign the role for the source and destination storage accounts
           # az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccountb
           # az role assignment create --assignee $principal_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/ozstorageaccounta
-          
+
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             SCOPE="/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             
