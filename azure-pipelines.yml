@@ -79,7 +79,7 @@ jobs:
 #           || exit 1
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  # dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     # - task: AzureCLI@2
