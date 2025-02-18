@@ -161,11 +161,12 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             echo "PowerShell not found. Installing..."
             sudo apt-get update -qq
-            sudo apt-get install -yq wget apt-transport-https software-properties-common
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq wget apt-transport-https software-properties-common
             wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
             sudo dpkg -i packages-microsoft-prod.deb
             sudo apt-get update -qq
-            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq -y powershell
+            echo "Installing PowerShell..."
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq powershell
           else
             echo "✅ PowerShell is already installed. Skipping installation."
           fi
