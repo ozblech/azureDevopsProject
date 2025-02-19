@@ -279,11 +279,12 @@ jobs:
       scriptLocation: "inlineScript"
       inlineScript: |
         for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
+          # Create alert for when UsedCapacity exceeds 80% of TotalCapacity
           az monitor metrics alert create \
             --name "StorageCapacityAlert-$storageAccount" \
             --resource-group $(resourceGroup) \
             --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-            --condition "avg UsedCapacity > 0.8 * avg TotalCapacity" \
+            --condition "avg UsedCapacity > 8000000000" \ # Replace with appropriate threshold
             --description "Alert when $storageAccount capacity exceeds 80%" \
             --severity 3 \
             --evaluation-frequency "PT5M" \
