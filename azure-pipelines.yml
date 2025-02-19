@@ -5,7 +5,7 @@ pool:
   name: myUbuntuAgentPool  # Ensure the agent is correctly registered in this pool
 
 variables:
-- group: azureLogin # Azure DevOps Service Connection for Azure variables: AZURE_OBJECT_ID, AZURE_TENANT_ID, AZURE_APP_ID, AZURE_APP_PASSWORD, SUBSCRIPTION_ID
+- group: azureLogin # Azure DevOps Service Connection for Azure variables: AZURE_OBJECT_ID, AZURE_TENANT_ID, AZURE_APP_ID, AZURE_PASSWORD, SUBSCRIPTION_ID
 - name: azureSubscription   # Azure DevOps Service Connection name
   value: 'MyAzureServiceConnection'
 - name: resourceGroup
@@ -20,242 +20,244 @@ variables:
   value: '~/.ssh/id_ed25519'
 - name: vmName
   value: 'MyLinuxVM'
+- name: AdminEmail
+  value: 'ozblech87@gmail.com'
 
 jobs:
-# - job: CreateManagedIdentity
-#   displayName: 'Create User-Assigned Managed Identity'
-#   steps:
+- job: CreateManagedIdentity
+  displayName: 'Create User-Assigned Managed Identity'
+  steps:
 
-#   - task: AzureCLI@2
-#     displayName: 'Ensure Resource Group Exists'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az group create --name $(resourceGroup) --location $(location) --output none
+  - task: AzureCLI@2
+    displayName: 'Ensure Resource Group Exists'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --name $(resourceGroup) --location $(location) --output none
   
-#   - task: AzureCLI@2
-#     displayName: 'Create Managed Identity'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: 'bash'
-#       scriptLocation: 'inlineScript'
-#       inlineScript: |
-#         az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
+  - task: AzureCLI@2
+    displayName: 'Create Managed Identity'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
 
-#   - task: AzureCLI@2
-#     displayName: 'Assign Managed Identity to Role'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: 'bash'
-#       scriptLocation: 'inlineScript'
-#       inlineScript: |
-#         # Retrieve the correct Principal ID (objectId) of the Managed Identity
-#         PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
+  - task: AzureCLI@2
+    displayName: 'Assign Managed Identity to Role'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        # Retrieve the correct Principal ID (objectId) of the Managed Identity
+        PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
 
-#         if [ -z "$PRINCIPAL_ID" ]; then
-#           echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
-#           exit 1
-#         fi
+        if [ -z "$PRINCIPAL_ID" ]; then
+          echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
+          exit 1
+        fi
 
-#         echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
+        echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
         
-#         az role assignment create \
-#         --assignee-object-id $PRINCIPAL_ID \
-#         --role "Storage Blob Data Contributor" \
-#         --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
-#         --assignee-principal-type ServicePrincipal
+        az role assignment create \
+        --assignee-object-id $PRINCIPAL_ID \
+        --role "Storage Blob Data Contributor" \
+        --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
+        --assignee-principal-type ServicePrincipal
         
-# - job: DeployResources
-#   dependsOn: CreateManagedIdentity
-#   displayName: 'Deploy Resources (Network, Storage, and VM)'
-#   steps:
+- job: DeployResources
+  dependsOn: CreateManagedIdentity
+  displayName: 'Deploy Resources (Network, Storage, and VM)'
+  steps:
 
-#   - task: AzureCLI@2
-#     displayName: 'Register Microsoft.Storage Provider'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: 'bash'
-#       scriptLocation: 'inlineScript'
-#       inlineScript: |
-#         az provider register --namespace Microsoft.Storage
-#         az provider show --namespace Microsoft.Storage --query "registrationState"
+  - task: AzureCLI@2
+    displayName: 'Register Microsoft.Storage Provider'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az provider register --namespace Microsoft.Storage
+        az provider show --namespace Microsoft.Storage --query "registrationState"
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Network Resources'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file network-setup.json \
-#           --parameters @network-setup-parameters.json \
-#           || exit 1
+  - task: AzureCLI@2
+    displayName: 'Deploy Network Resources'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file network-setup.json \
+          --parameters @network-setup-parameters.json \
+          || exit 1
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Virtual Machine'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file linux-vm.json \
-#           --parameters @linux-vm-parameters.json \
-#           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
-#           || exit 1
+  - task: AzureCLI@2
+    displayName: 'Deploy Virtual Machine'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file linux-vm.json \
+          --parameters @linux-vm-parameters.json \
+          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
+          || exit 1
 
-#   - task: AzureCLI@2
-#     displayName: 'Deploy Storage Account'
-#     inputs:
-#       azureSubscription: $(azureSubscription)
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         az deployment group create \
-#           --resource-group $(resourceGroup) \
-#           --template-file storage-accounts.json \
-#           --parameters @storage-accounts-parameters.json \
-#           || exit 1
+  - task: AzureCLI@2
+    displayName: 'Deploy Storage Account'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create \
+          --resource-group $(resourceGroup) \
+          --template-file storage-accounts.json \
+          --parameters @storage-accounts-parameters.json \
+          || exit 1
 
-# - job: BlobMigration
-#   dependsOn: DeployResources
-#   displayName: 'Blob Migration Job'
-#   steps:
-#     - task: AzureCLI@2
-#       displayName: 'Copy blob_migration.ps1 to VM'
-#       inputs:
-#         azureSubscription: $(azureSubscription)
-#         scriptType: bash
-#         scriptLocation: inlineScript
-#         inlineScript: |
-#           # Define VM details and the local script path
-#           echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
-#           echo "Fetching VM IP..."
-#           VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
-#           if [ -z "$VM_IP" ]; then
-#             echo "ERROR: Failed to retrieve VM public IP."
-#             exit 1
-#           fi
+- job: BlobMigration
+  dependsOn: DeployResources
+  displayName: 'Blob Migration Job'
+  steps:
+    - task: AzureCLI@2
+      displayName: 'Copy blob_migration.ps1 to VM'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Define VM details and the local script path
+          echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
+          echo "Fetching VM IP..."
+          VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
+          if [ -z "$VM_IP" ]; then
+            echo "ERROR: Failed to retrieve VM public IP."
+            exit 1
+          fi
 
-#           LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
-#           REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
+          LOCAL_SCRIPT_PATH="$(Build.SourcesDirectory)/blob_migration.ps1"
+          REMOTE_PATH="/home/$(vmUsername)/blob_migration.ps1"
 
-#           # Copy the script to the VM using SCP
-#           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH" || { echo "Failed to copy script"; exit 1; }
+          # Copy the script to the VM using SCP
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH" || { echo "Failed to copy script"; exit 1; }
 
-#     - task: AzureCLI@2
-#       displayName: 'Enable a Public DNS Name for VM'
-#       inputs:
-#         azureSubscription: $(azureSubscription)
-#         scriptType: bash
-#         scriptLocation: inlineScript
-#         inlineScript: |
-#           # Define VM details
-#           echo "resourceGroup: $(resourceGroup) vmName: $(vmName)"
-#           az network public-ip update \
-#           --resource-group $(resourceGroup) \
-#           --name MyPublicIP \
-#           --dns-name mylinuxvm-dns
+    - task: AzureCLI@2
+      displayName: 'Enable a Public DNS Name for VM'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Define VM details
+          echo "resourceGroup: $(resourceGroup) vmName: $(vmName)"
+          az network public-ip update \
+          --resource-group $(resourceGroup) \
+          --name MyPublicIP \
+          --dns-name mylinuxvm-dns
 
-#     - task: AzureCLI@2
-#       displayName: 'Give permissions to the principal'
-#       inputs:
-#         azureSubscription: $(azureSubscription)
-#         scriptType: bash
-#         scriptLocation: inlineScript
-#         inlineScript: |
-#           # Define variables
-#           STORAGE_ACCOUNTS=("ozstorageaccounta" "ozstorageaccountb")
+    - task: AzureCLI@2
+      displayName: 'Give permissions to the principal'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          # Define variables
+          STORAGE_ACCOUNTS=("ozstorageaccounta" "ozstorageaccountb")
 
-#           echo "Giving the principal the Storage Blob Data Contributor role..."         
-#           # Assign the Contributor role at the subscription level
-#           echo "Assigning the Contributor role at the subscription level..."
-#           az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(SUBSCRIPTION_ID) --assignee-principal-type ServicePrincipal
+          echo "Giving the principal the Storage Blob Data Contributor role..."         
+          # Assign the Contributor role at the subscription level
+          echo "Assigning the Contributor role at the subscription level..."
+          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(SUBSCRIPTION_ID) --assignee-principal-type ServicePrincipal
 
-#           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
-#             # Define the scope using the correct format
-#             SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
-#             echo "Scope: $SCOPE"  # Debugging line to print scope
+          for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
+            # Define the scope using the correct format
+            SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
+            echo "Scope: $SCOPE"  # Debugging line to print scope
 
-#             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-#             az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
+            echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
+            az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
             
-#           done
+          done
 
-#     - task: SSH@0
-#       displayName: 'Run PowerShell script on VM'
-#       inputs:
-#         sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
-#         runOptions: 'inline'
-#         inline: |
-#           # Ensure PowerShell Core and Azure CLI are installed
-#           export DEBIAN_FRONTEND=noninteractive
+    - task: SSH@0
+      displayName: 'Run PowerShell script on VM'
+      inputs:
+        sshEndpoint: $(sshServiceConnection) # Azure DevOps Service Connection for SSH (you'll configure this)
+        runOptions: 'inline'
+        inline: |
+          # Ensure PowerShell Core and Azure CLI are installed
+          export DEBIAN_FRONTEND=noninteractive
 
-#           echo "Checking if PowerShell is installed..."
-#           if ! command -v pwsh &> /dev/null; then
-#             export DEBIAN_FRONTEND=noninteractive
-#             echo "PowerShell not found. Installing..."
-#             sudo apt-get update -qq
-#             sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq wget apt-transport-https software-properties-common
-#             wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-#             sudo dpkg -i packages-microsoft-prod.deb
-#             sudo apt-get update -qq
-#             echo "Installing PowerShell..."
-#             sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq powershell
-#           else
-#             echo "✅ PowerShell is already installed. Skipping installation."
-#           fi
+          echo "Checking if PowerShell is installed..."
+          if ! command -v pwsh &> /dev/null; then
+            export DEBIAN_FRONTEND=noninteractive
+            echo "PowerShell not found. Installing..."
+            sudo apt-get update -qq
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get update -qq
+            echo "Installing PowerShell..."
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq powershell
+          else
+            echo "✅ PowerShell is already installed. Skipping installation."
+          fi
 
-#           echo "Checking if Azure CLI is installed..."
-#           if ! command -v az &> /dev/null; then
-#             export DEBIAN_FRONTEND=noninteractive
-#             echo "Azure CLI not found. Installing..."
-#             sudo apt-get update -qq
-#             sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq azure-cli
-#           else
-#             echo "✅ Azure CLI is already installed. Skipping installation."
-#           fi
+          echo "Checking if Azure CLI is installed..."
+          if ! command -v az &> /dev/null; then
+            export DEBIAN_FRONTEND=noninteractive
+            echo "Azure CLI not found. Installing..."
+            sudo apt-get update -qq
+            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq azure-cli
+          else
+            echo "✅ Azure CLI is already installed. Skipping installation."
+          fi
 
-#           echo "Checking if Microsoft signing key is installed..."
-#           if [ ! -f "/usr/share/keyrings/microsoft-archive-keyring.gpg" ]; then
-#             echo "Signing key not found. Installing..."
-#             curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
-#           else
-#             echo "✅ Microsoft signing key is already installed. Skipping."
-#           fi
+          echo "Checking if Microsoft signing key is installed..."
+          if [ ! -f "/usr/share/keyrings/microsoft-archive-keyring.gpg" ]; then
+            echo "Signing key not found. Installing..."
+            curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+          else
+            echo "✅ Microsoft signing key is already installed. Skipping."
+          fi
 
-#           echo "Checking if Azure CLI repo is already added..."
-#           if ! grep -q "https://packages.microsoft.com/repos/azure-cli/" /etc/apt/sources.list.d/azure-cli.list 2>/dev/null; then
-#             echo "Azure CLI repo not found. Adding..."
-#             echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
-#                 | sudo tee /etc/apt/sources.list.d/azure-cli.list
-#           else
-#             echo "✅ Azure CLI repo already exists. Skipping."
-#           fi
+          echo "Checking if Azure CLI repo is already added..."
+          if ! grep -q "https://packages.microsoft.com/repos/azure-cli/" /etc/apt/sources.list.d/azure-cli.list 2>/dev/null; then
+            echo "Azure CLI repo not found. Adding..."
+            echo "deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+                | sudo tee /etc/apt/sources.list.d/azure-cli.list
+          else
+            echo "✅ Azure CLI repo already exists. Skipping."
+          fi
 
-#           echo "Updating and upgrading Azure CLI..."
-#           sudo apt-get update -qq
-#           sudo DEBIAN_FRONTEND="noninteractive"  apt-get install -y azure-cli
+          echo "Updating and upgrading Azure CLI..."
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND="noninteractive"  apt-get install -y azure-cli
 
-#           echo "Logging in to Azure CLI..."
-#           az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
+          echo "Logging in to Azure CLI..."
+          az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
 
-#           echo "Changing file permissions to make the script executable..."
-#           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
+          echo "Changing file permissions to make the script executable..."
+          sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
 
-#           echo "Running the PowerShell script..."
-#           if ! pwsh /home/$(vmUsername)/blob_migration.ps1; then
-#             echo "Failed to execute PowerShell script."
-#             exit 1
-#           fi
+          echo "Running the PowerShell script..."
+          if ! pwsh /home/$(vmUsername)/blob_migration.ps1; then
+            echo "Failed to execute PowerShell script."
+            exit 1
+          fi
 
 - job: CreateAlert
-  # dependsOn: DeployResources
+  dependsOn: DeployResources
   displayName: 'Create Storage Account Capacity Alert'
   steps:
   - task: AzureCLI@2
@@ -269,7 +271,7 @@ jobs:
           --resource-group $(resourceGroup) \
           --name "StorageAlerts" \
           --short-name "StorageAG" \
-          --action email "AdminEmail" "ozblech87@gmail.com"
+          --action email "AdminEmail" $(AdminEmail) \
 
   - task: AzureCLI@2
     displayName: "Create Storage Capacity Alert"
