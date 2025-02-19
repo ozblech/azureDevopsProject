@@ -9,7 +9,7 @@ variables:
 - name: azureSubscription   # Azure DevOps Service Connection name
   value: 'MyAzureServiceConnection'
 - name: resourceGroup
-  value: 'OzResourceGroup'
+  value: 'OzResourceGroup2'
 - name: location
   value: 'eastus'
 - name: sshServiceConnection
@@ -24,9 +24,47 @@ variables:
   value: 'b5692eb3-36bc-44f3-bead-3bb1b09d4117'
 
 jobs:
+- job: CreateManagedIdentity
+  displayName: 'Create User-Assigned Managed Identity'
+  steps:
+  
+  - task: AzureCLI@2
+    displayName: 'Create Managed Identity'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
+
+  - task: AzureCLI@2
+    displayName: 'Assign Managed Identity to Role'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        IDENTITY_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "id" -o tsv)
+        
+        echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
+        
+        az role assignment create \
+          --assignee-object-id $IDENTITY_ID \
+          --role "Storage Blob Data Contributor" \
+          --scope /subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup) \
+          --assignee-principal-type ServicePrincipal
 - job: DeployResources
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
+
+  - task: AzureCLI@2
+    displayName: 'Ensure Resource Group Exists'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --name $(resourceGroup) --location $(location) --output none
 
   - task: AzureCLI@2
     displayName: 'Register Microsoft.Storage Provider'
@@ -93,8 +131,6 @@ jobs:
           echo "resourceGroup: $(resourceGroup) vmName: $(vmName) vmUsername: $(vmUsername)"
           echo "Fetching VM IP..."
           VM_IP=$(az vm show -d -g $(resourceGroup) -n $(vmName) --query "publicIps" -o tsv)
-          echo "VM_IP: $VM_IP"
-
           if [ -z "$VM_IP" ]; then
             echo "ERROR: Failed to retrieve VM public IP."
             exit 1
@@ -105,8 +141,6 @@ jobs:
 
           # Copy the script to the VM using SCP
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH" || { echo "Failed to copy script"; exit 1; }
-          # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -v -i ~/.ssh/id_ed25519 "$LOCAL_SCRIPT_PATH" $(vmUsername)@$VM_IP:"$REMOTE_PATH"
-          # scp -v -i ~/.ssh/id_ed25519 $LOCAL_SCRIPT_PATH $(vmUsername)@$VM_IP:$REMOTE_PATH
 
     - task: AzureCLI@2
       displayName: 'Enable a Public DNS Name for VM'
@@ -135,7 +169,7 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."         
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117 --assignee-principal-type ServicePrincipal
+          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(subscriptionId) --assignee-principal-type ServicePrincipal
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
