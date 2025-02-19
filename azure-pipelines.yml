@@ -282,13 +282,13 @@ jobs:
           az monitor metrics alert create \
           --name "StorageCapacityAlert-$storageAccount" \
           --resource-group $(resourceGroup) \
-          --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
+          --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
           --condition "avg PercentageCapacity > 80" \
           --description "Alert when $storageAccount capacity exceeds 80%" \
           --severity 3 \
           --evaluation-frequency "PT5M" \
           --window-size "PT15M" \
-          --action "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
+          --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
         done
 
 
