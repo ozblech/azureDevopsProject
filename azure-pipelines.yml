@@ -27,7 +27,7 @@ jobs:
 - job: CreateManagedIdentity
   displayName: 'Create User-Assigned Managed Identity'
   steps:
-  
+
   - task: AzureCLI@2
     displayName: 'Ensure Resource Group Exists'
     inputs:
@@ -53,15 +53,21 @@ jobs:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-        IDENTITY_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "id" -o tsv)
-        
+        # Retrieve the correct Principal ID (objectId) of the Managed Identity
+        PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
+
+        if [ -z "$PRINCIPAL_ID" ]; then
+          echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
+          exit 1
+        fi
+
         echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
         
         az role assignment create \
-          --assignee-object-id $IDENTITY_ID \
+          --assignee $PRINCIPAL_ID \
           --role "Storage Blob Data Contributor" \
           --scope /subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup) \
-          --assignee-principal-type ServicePrincipal
+          --assignee-principal-type ServicePrincipal  
 - job: DeployResources
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
