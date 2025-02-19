@@ -29,6 +29,15 @@ jobs:
   steps:
   
   - task: AzureCLI@2
+    displayName: 'Ensure Resource Group Exists'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --name $(resourceGroup) --location $(location) --output none
+  
+  - task: AzureCLI@2
     displayName: 'Create Managed Identity'
     inputs:
       azureSubscription: $(azureSubscription)
@@ -56,15 +65,6 @@ jobs:
 - job: DeployResources
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
-
-  - task: AzureCLI@2
-    displayName: 'Ensure Resource Group Exists'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az group create --name $(resourceGroup) --location $(location) --output none
 
   - task: AzureCLI@2
     displayName: 'Register Microsoft.Storage Provider'
