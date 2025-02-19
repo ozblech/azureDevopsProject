@@ -288,7 +288,7 @@ jobs:
           --severity 3 \
           --evaluation-frequency "PT5M" \
           --window-size "PT15M" \
-          --actions "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
+          --action "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
         done
 
 
