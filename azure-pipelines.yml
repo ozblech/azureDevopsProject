@@ -64,10 +64,10 @@ jobs:
         echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
         
         az role assignment create \
-          --assignee $PRINCIPAL_ID \
-          --role "Storage Blob Data Contributor" \
-          --scope /subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup) \
-          --assignee-principal-type ServicePrincipal  
+        --assignee-object-id $PRINCIPAL_ID \
+        --role "Storage Blob Data Contributor" \
+        --scope /subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup) \
+        --assignee-principal-type ServicePrincipal
 - job: DeployResources
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
