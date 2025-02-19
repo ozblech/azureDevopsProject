@@ -284,8 +284,8 @@ jobs:
                 --name "StorageCapacityAlert-$storageAccount" \
                 --resource-group $(resourceGroup) \
                 --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-                --condition "avg(UsedCapacity) > 8000000000" \
-                --description "Alert when storage capacity exceeds 80%" \
+                --condition "avg UsedCapacity > 8000000000" \
+                --description "Alert when storage capacity exceeds 80" \
                 --severity 3 \
                 --window-size "PT1H" \
                 --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
