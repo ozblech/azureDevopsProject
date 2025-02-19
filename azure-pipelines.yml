@@ -285,7 +285,7 @@ jobs:
             --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
             --condition "avg PercentageCapacity > 80" \
             --description "Alert when $storageAccount capacity exceeds 80%" \
-            --action-group "StorageAlerts"
+            --actions "StorageAlerts"
         done
 
 
