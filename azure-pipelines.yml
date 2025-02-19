@@ -272,24 +272,24 @@ jobs:
           --action email "AdminEmail" "ozblech87@gmail.com"
 
   - task: AzureCLI@2
-  displayName: "Create Storage Capacity Alert"
-  inputs:
-    azureSubscription: $(azureSubscription)
-    scriptType: "bash"
-    scriptLocation: "inlineScript"
-    inlineScript: |
-      for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
-        az monitor metrics alert create \
-          --name "StorageCapacityAlert-$storageAccount" \
-          --resource-group $(resourceGroup) \
-          --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-          --condition "avg UsedCapacity / avg TotalCapacity * 100 > 80" \
-          --description "Alert when $storageAccount capacity exceeds 80%" \
-          --severity 3 \
-          --evaluation-frequency "PT5M" \
-          --window-size "PT15M" \
-          --action "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
-      done
+    displayName: "Create Storage Capacity Alert"
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
+          az monitor metrics alert create \
+            --name "StorageCapacityAlert-$storageAccount" \
+            --resource-group $(resourceGroup) \
+            --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
+            --condition "avg UsedCapacity / avg TotalCapacity * 100 > 80" \
+            --description "Alert when $storageAccount capacity exceeds 80%" \
+            --severity 3 \
+            --evaluation-frequency "PT5M" \
+            --window-size "PT15M" \
+            --action "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
+        done
 
 
 
