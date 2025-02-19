@@ -284,11 +284,9 @@ jobs:
             --name "StorageCapacityAlert-$storageAccount" \
             --resource-group $(resourceGroup) \
             --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-            --condition "avg UsedCapacity > 8000000000" \ # Replace with appropriate threshold
+            --condition "avg UsedCapacity > 8000000000" \  
             --description "Alert when $storageAccount capacity exceeds 80%" \
             --severity 3 \
-            --evaluation-frequency "PT5M" \
-            --window-size "PT15M" \
             --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
         done
 
