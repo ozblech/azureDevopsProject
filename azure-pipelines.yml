@@ -5,7 +5,7 @@ pool:
   name: myUbuntuAgentPool  # Ensure the agent is correctly registered in this pool
 
 variables:
-- group: azureLogin # Azure DevOps Service Connection for Azure
+- group: azureLogin # Azure DevOps Service Connection for Azure variables: AZURE_OBJECT_ID, AZURE_TENANT_ID, AZURE_APP_ID, AZURE_APP_PASSWORD, SUBSCRIPTION_ID
 - name: azureSubscription   # Azure DevOps Service Connection name
   value: 'MyAzureServiceConnection'
 - name: resourceGroup
@@ -20,8 +20,6 @@ variables:
   value: '~/.ssh/id_ed25519'
 - name: vmName
   value: 'MyLinuxVM'
-- name: subscriptionId
-  value: 'b5692eb3-36bc-44f3-bead-3bb1b09d4117'
 
 jobs:
 - job: CreateManagedIdentity
@@ -66,9 +64,11 @@ jobs:
         az role assignment create \
         --assignee-object-id $PRINCIPAL_ID \
         --role "Storage Blob Data Contributor" \
-        --scope /subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup) \
+        --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
         --assignee-principal-type ServicePrincipal
+        
 - job: DeployResources
+  dependsOn: CreateManagedIdentity
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
 
@@ -175,11 +175,11 @@ jobs:
           echo "Giving the principal the Storage Blob Data Contributor role..."         
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
-          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(subscriptionId) --assignee-principal-type ServicePrincipal
+          az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(SUBSCRIPTION_ID) --assignee-principal-type ServicePrincipal
 
           for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
             # Define the scope using the correct format
-            SCOPE="/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
+            SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             echo "Scope: $SCOPE"  # Debugging line to print scope
 
             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
