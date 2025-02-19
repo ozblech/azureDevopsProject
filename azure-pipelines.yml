@@ -283,7 +283,7 @@ jobs:
             --name "StorageCapacityAlert-$storageAccount" \
             --resource-group $(resourceGroup) \
             --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-            --condition "avg UsedCapacity / avg TotalCapacity * 100 > 80" \
+            --condition "avg UsedCapacity > 0.8 * avg TotalCapacity" \
             --description "Alert when $storageAccount capacity exceeds 80%" \
             --severity 3 \
             --evaluation-frequency "PT5M" \
