@@ -254,4 +254,27 @@ jobs:
             exit 1
           fi
 
+- job: CreateAlert
+  dependsOn: DeployResources
+  displayName: 'Create Storage Account Capacity Alert'
+  steps:
+  - task: AzureCLI@2
+    displayName: "Create Storage Capacity Alert"
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
+          az monitor metrics alert create \
+            --name "StorageCapacityAlert-$storageAccount" \
+            --resource-group $(resourceGroup) \
+            --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
+            --condition "avg PercentageCapacity > 80" \
+            --description "Alert when $storageAccount capacity exceeds 80%" \
+            --action-group "StorageAlerts"
+        done
+
+
+
 
