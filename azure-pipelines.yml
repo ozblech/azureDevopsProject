@@ -9,7 +9,7 @@ variables:
 - name: azureSubscription   # Azure DevOps Service Connection name
   value: 'MyAzureServiceConnection'
 - name: resourceGroup
-  value: 'OzResourceGroup2'
+  value: 'OzResourceGroup3'
 - name: location
   value: 'eastus'
 - name: sshServiceConnection
