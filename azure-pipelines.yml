@@ -22,108 +22,108 @@ variables:
   value: 'MyLinuxVM'
 
 jobs:
-- job: CreateManagedIdentity
-  displayName: 'Create User-Assigned Managed Identity'
-  steps:
+# - job: CreateManagedIdentity
+#   displayName: 'Create User-Assigned Managed Identity'
+#   steps:
 
-  - task: AzureCLI@2
-    displayName: 'Ensure Resource Group Exists'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az group create --name $(resourceGroup) --location $(location) --output none
+#   - task: AzureCLI@2
+#     displayName: 'Ensure Resource Group Exists'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az group create --name $(resourceGroup) --location $(location) --output none
   
-  - task: AzureCLI@2
-    displayName: 'Create Managed Identity'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
+#   - task: AzureCLI@2
+#     displayName: 'Create Managed Identity'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: 'bash'
+#       scriptLocation: 'inlineScript'
+#       inlineScript: |
+#         az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
 
-  - task: AzureCLI@2
-    displayName: 'Assign Managed Identity to Role'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        # Retrieve the correct Principal ID (objectId) of the Managed Identity
-        PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
+#   - task: AzureCLI@2
+#     displayName: 'Assign Managed Identity to Role'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: 'bash'
+#       scriptLocation: 'inlineScript'
+#       inlineScript: |
+#         # Retrieve the correct Principal ID (objectId) of the Managed Identity
+#         PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
 
-        if [ -z "$PRINCIPAL_ID" ]; then
-          echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
-          exit 1
-        fi
+#         if [ -z "$PRINCIPAL_ID" ]; then
+#           echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
+#           exit 1
+#         fi
 
-        echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
+#         echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
         
-        az role assignment create \
-        --assignee-object-id $PRINCIPAL_ID \
-        --role "Storage Blob Data Contributor" \
-        --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
-        --assignee-principal-type ServicePrincipal
+#         az role assignment create \
+#         --assignee-object-id $PRINCIPAL_ID \
+#         --role "Storage Blob Data Contributor" \
+#         --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
+#         --assignee-principal-type ServicePrincipal
         
-- job: DeployResources
-  dependsOn: CreateManagedIdentity
-  displayName: 'Deploy Resources (Network, Storage, and VM)'
-  steps:
+# - job: DeployResources
+#   dependsOn: CreateManagedIdentity
+#   displayName: 'Deploy Resources (Network, Storage, and VM)'
+#   steps:
 
-  - task: AzureCLI@2
-    displayName: 'Register Microsoft.Storage Provider'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az provider register --namespace Microsoft.Storage
-        az provider show --namespace Microsoft.Storage --query "registrationState"
+#   - task: AzureCLI@2
+#     displayName: 'Register Microsoft.Storage Provider'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: 'bash'
+#       scriptLocation: 'inlineScript'
+#       inlineScript: |
+#         az provider register --namespace Microsoft.Storage
+#         az provider show --namespace Microsoft.Storage --query "registrationState"
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Network Resources'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file network-setup.json \
-          --parameters @network-setup-parameters.json \
-          || exit 1
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Network Resources'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file network-setup.json \
+#           --parameters @network-setup-parameters.json \
+#           || exit 1
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Virtual Machine'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file linux-vm.json \
-          --parameters @linux-vm-parameters.json \
-          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
-          || exit 1
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Virtual Machine'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file linux-vm.json \
+#           --parameters @linux-vm-parameters.json \
+#           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
+#           || exit 1
 
-  - task: AzureCLI@2
-    displayName: 'Deploy Storage Account'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
-          || exit 1
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Storage Account'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file storage-accounts.json \
+#           --parameters @storage-accounts-parameters.json \
+#           || exit 1
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  # dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
@@ -255,9 +255,22 @@ jobs:
           fi
 
 - job: CreateAlert
-  dependsOn: DeployResources
+  # dependsOn: DeployResources
   displayName: 'Create Storage Account Capacity Alert'
   steps:
+  - task: AzureCLI@2
+    displayName: "Create Action Group for Storage Alerts"
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        az monitor action-group create \
+          --resource-group $(resourceGroup) \
+          --name "StorageAlerts" \
+          --short-name "StorageAG" \
+          --action email "AdminEmail" "ozblech87@gmail.com"
+
   - task: AzureCLI@2
     displayName: "Create Storage Capacity Alert"
     inputs:
