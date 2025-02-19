@@ -290,6 +290,23 @@ jobs:
                 --window-size "PT1H" \
                 --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
         done
+  - task: AzureCLI@2
+    displayName: "Create VM CPU Usage Alert"
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        # Create alert for high CPU usage on the VM
+        az monitor metrics alert create \
+            --name "HighCPUUsageAlert" \
+            --resource-group $(resourceGroup) \
+            --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
+            --condition "avg Percentage CPU > 80" \
+            --description "Alert when VM CPU usage exceeds 80%" \
+            --severity 3 \
+            --window-size "PT1H" \
+            --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
 
 
 
