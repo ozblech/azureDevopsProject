@@ -280,12 +280,15 @@ jobs:
       inlineScript: |
         for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
           az monitor metrics alert create \
-            --name "StorageCapacityAlert-$storageAccount" \
-            --resource-group $(resourceGroup) \
-            --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-            --condition "avg PercentageCapacity > 80" \
-            --description "Alert when $storageAccount capacity exceeds 80%" \
-            --actions "StorageAlerts"
+          --name "StorageCapacityAlert-$storageAccount" \
+          --resource-group $(resourceGroup) \
+          --scopes "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
+          --condition "avg PercentageCapacity > 80" \
+          --description "Alert when $storageAccount capacity exceeds 80%" \
+          --severity 3 \
+          --evaluation-frequency "PT5M" \
+          --window-size "PT15M" \
+          --actions "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
         done
 
 
