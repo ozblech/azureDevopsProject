@@ -1,2 +1,3 @@
 Select servie principal (manual)
 We need resource group and managed identity
+We need to assign roles (Contributor, User Access Administrator) to the service principal 
