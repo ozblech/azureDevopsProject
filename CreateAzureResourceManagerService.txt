@@ -1,0 +1,2 @@
+Select servie principal (manual)
+We need resource group and managed identity

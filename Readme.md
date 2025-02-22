@@ -15,7 +15,7 @@ This pipeline is designed to deploy resources to Azure, manage storage accounts,
    - Set your email address in the `AdminEmail` parameter. This email will be used for alert notifications.
 
 4. **Variable Group in Azure DevOps**:
-   - This pipeline uses a **Variable Group** named **`Variable`**.
+   - This pipeline uses a **Variable Group** named **azureLogin**.
    - The variable group must contain the following variables:
      - `AZURE_APP_ID`
      - `AZURE_OBJECT_ID`
@@ -44,7 +44,7 @@ This repository contains the following files:
    - The resource group name can be changed by editing the `resourceGroup` parameter in the pipeline:
      ```yaml
      - name: resourceGroup
-       value: 'OzResourceGroup2'  # Change this to your desired resource group name
+       value: 'OzResourceGroup'  # Change this to your desired resource group name
      ```
 
 ### 2. **SSH Service Connection**
