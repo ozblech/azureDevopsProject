@@ -245,9 +245,7 @@ jobs:
           sudo DEBIAN_FRONTEND="noninteractive"  apt-get install -y azure-cli
 
           echo "Logging in to Azure CLI..."
-          # az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
-          # try to login with managed identity
-          az login --identity --allow-no-subscriptions
+          az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
 
           echo "Changing file permissions to make the script executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
