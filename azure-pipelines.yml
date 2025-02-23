@@ -198,8 +198,6 @@ jobs:
         inlineScript: |
           # Define variables
           STORAGE_ACCOUNTS=("ozstorageaccounta" "ozstorageaccountb")
-          MANAGED_IDENTITY_OBJECT_ID=$(az identity show --name <Your_Managed_Identity_Name> --resource-group <Your_Resource_Group> --query principalId --output tsv)
-
           echo "Giving the Managed Identity the Storage Blob Data Contributor role..."         
           
           # Assign the Contributor role at the subscription level
