@@ -1,3 +1,6 @@
 Select servie principal (manual)
 We need resource group and managed identity
 We need to assign roles (Contributor, User Access Administrator) to the service principal 
+Then, if we assign this roles there is no need for Create Managed Identity and Assign Managed Identity to Role steps in the pipeline
+az role assignment create --assignee dd70c369-9b17-4aee-becc-37b66ca5ccd1 --role "User Access Administrator" --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
+az role assignment create --assignee dd70c369-9b17-4aee-becc-37b66ca5ccd1 --role Contributor --scope /subscriptions/b5692eb3-36bc-44f3-bead-3bb1b09d4117
