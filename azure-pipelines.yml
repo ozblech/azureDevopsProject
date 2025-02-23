@@ -265,10 +265,10 @@ jobs:
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND="noninteractive"  apt-get install -y azure-cli
 
-          echo "Logging in to Azure CLI..."
-          az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
+          # echo "Logging in to Azure CLI..."
+          # az login --service-principal -u "$(AZURE_APP_ID)" -p "$(AZURE_PASSWORD)" --tenant "$(AZURE_TENANT_ID)"
           echo "Logging in to azure with managed identity"
-          az login --identity -u "$(AZURE_OBJECT_ID)" --allow-no-subscriptions
+          az login --identity --allow-no-subscriptions
 
           echo "Changing file permissions to make the script executable..."
           sudo chmod +x /home/$(vmUsername)/blob_migration.ps1
