@@ -35,6 +35,9 @@
         "apiVersion": "2019-07-01",
         "location": "[parameters('location')]",
         "name": "[parameters('vmName')]",
+        "identity": {
+          "type": "SystemAssigned"
+        },
         "properties": {
           "hardwareProfile": {
             "vmSize": "[parameters('vmSize')]"
