@@ -118,7 +118,7 @@ jobs:
       inlineScript: |
         az deployment group validate \
         --resource-group $(resourceGroup) \
-        --template-file linux-vm.json\
+        --template-file linux-vm.json \
         --parameters linux-vm-parameters.json
   - task: AzureCLI@2
     displayName: 'Deploy Virtual Machine'
@@ -143,7 +143,7 @@ jobs:
       inlineScript: |
         az deployment group validate \
         --resource-group $(resourceGroup) \
-        --template-file storage-accounts.json\
+        --template-file storage-accounts.json \
         --parameters storage-accounts-parameters.json  
   - task: AzureCLI@2
     displayName: 'Deploy Storage Account'
