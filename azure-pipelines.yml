@@ -7,7 +7,7 @@ pool:
 variables:
 - group: azureLogin # Azure DevOps Service Connection for Azure variables: AZURE_OBJECT_ID, AZURE_TENANT_ID, AZURE_APP_ID, AZURE_PASSWORD, SUBSCRIPTION_ID
 - name: azureSubscription   # Azure DevOps Service Connection name
-  value: 'MyAzureServiceConnection2'
+  value: 'MyAzureServiceConnectionWithAppReg'
 - name: resourceGroup
   value: 'OzResourceGroup3'
 - name: location
