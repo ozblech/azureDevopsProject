@@ -108,18 +108,7 @@ jobs:
           --template-file network-setup.json \
           --parameters @network-setup-parameters.json \
           || exit 1
-  # Validate and Deploy Virtual Machine
-  - task: AzureCLI@2
-    displayName: 'Validate Linux VM Template'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group validate \
-        --resource-group $(resourceGroup) \
-        --template-file linux-vm.json \
-        --parameters linux-vm-parameters.json
+  # Deploy Virtual Machine
   - task: AzureCLI@2
     displayName: 'Deploy Virtual Machine'
     inputs:
