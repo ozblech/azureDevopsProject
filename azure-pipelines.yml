@@ -84,7 +84,15 @@ jobs:
       inlineScript: |
         az provider register --namespace Microsoft.Storage
         az provider show --namespace Microsoft.Storage --query "registrationState"
-
+  # Validate and Deploy Network Resources
+  - task: AzureCLI@2
+    displayName: 'Validate Network Setup Template'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        pwsh -Command "Test-AzResourceGroupDeployment -ResourceGroupName '$(resourceGroup)' -TemplateFile network-setup.json -TemplateParameterFile network-setup-parameters.json"
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
     inputs:
@@ -97,7 +105,15 @@ jobs:
           --template-file network-setup.json \
           --parameters @network-setup-parameters.json \
           || exit 1
-
+  # Validate and Deploy Virtual Machine
+  - task: AzureCLI@2
+    displayName: 'Validate Linux VM Template'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        pwsh -Command "Test-AzResourceGroupDeployment -ResourceGroupName '$(resourceGroup)' -TemplateFile linux-vm.json -TemplateParameterFile linux-vm-parameters.json -TemplateParameterOverride 'sshPublicKey=$(cat ~/.ssh/id_ed25519.pub)'"
   - task: AzureCLI@2
     displayName: 'Deploy Virtual Machine'
     inputs:
@@ -111,7 +127,15 @@ jobs:
           --parameters @linux-vm-parameters.json \
           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
           || exit 1
-
+  # Validate and Deploy Storage Account
+  - task: AzureCLI@2
+    displayName: 'Validate Storage Accounts Template'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        pwsh -Command "Test-AzResourceGroupDeployment -ResourceGroupName '$(resourceGroup)' -TemplateFile storage-accounts.json -TemplateParameterFile storage-accounts-parameters.json"
   - task: AzureCLI@2
     displayName: 'Deploy Storage Account'
     inputs:
