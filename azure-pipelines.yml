@@ -337,6 +337,7 @@ jobs:
 
 - job: CreateDashboard
   displayName: 'Create Dashboard for Monitoring'
+  dependsOn: CreateAlert
   steps:
   - task: AzureCLI@2
     displayName: 'Create Azure Dashboard'
