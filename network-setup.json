@@ -97,7 +97,7 @@
                 "protocol": "Tcp",
                 "sourcePortRange": "*",
                 "destinationPortRange": "22",
-                "sourceAddressPrefix": "YourTrustedIPRange",
+                "sourceAddressPrefix": "[parameters('yourTrustedIPRange')]",
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 100,
