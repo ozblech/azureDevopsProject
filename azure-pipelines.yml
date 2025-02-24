@@ -23,7 +23,7 @@ variables:
 - name: AdminEmail
   value: 'ozblech87@gmail.com'
 
-# jobs:
+jobs:
 # - job: CreateManagedIdentity
 #   displayName: 'Create User-Assigned Managed Identity'
 #   steps:
