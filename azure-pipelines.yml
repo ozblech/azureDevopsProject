@@ -27,7 +27,8 @@ jobs:
 - job: CreateManagedIdentity
   displayName: 'Create User-Assigned Managed Identity'
   steps:
-
+  # Azure CLI v2
+  # Run Azure CLI commands against an Azure subscription in a PowerShell Core/Shell script when running on Linux agent or PowerShell/PowerShell Core/Batch script when running on Windows agent.
   - task: AzureCLI@2
     displayName: 'Ensure Resource Group Exists'
     inputs:

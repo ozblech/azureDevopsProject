@@ -16,6 +16,12 @@
       },
       "publicIpName": {
         "type": "string"
+      },
+      "nsgName": {
+        "type": "string"
+      },
+      "yourTrustedIPRange": {
+        "type": "string"
       }
     },
     "resources": [
@@ -56,7 +62,8 @@
         "name": "[parameters('nicName')]",
         "dependsOn": [
           "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]",
-          "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+          "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+          "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
         ],
         "properties": {
           "ipConfigurations": [
@@ -69,6 +76,32 @@
                 "publicIPAddress": {
                   "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]"
                 }
+              }
+            }
+          ],
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+          }
+        }
+      },
+      {
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "apiVersion": "2021-03-01",
+        "location": "[parameters('location')]",
+        "name": "[parameters('nsgName')]",
+        "properties": {
+          "securityRules": [
+            {
+              "name": "AllowSSH",
+              "properties": {
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "YourTrustedIPRange",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Inbound"
               }
             }
           ]

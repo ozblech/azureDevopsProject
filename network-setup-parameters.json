@@ -13,6 +13,12 @@
     },
     "publicIpName": {
       "value": "MyPublicIP"
+    },
+    "nsgName": {
+      "value": "MyNetworkSecurityGroup"
+    },
+    "yourTrustedIPRange": {
+      "value": "85.64.251.0/24"
     }
   }
   
