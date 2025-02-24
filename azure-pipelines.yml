@@ -335,6 +335,19 @@ jobs:
             --window-size "PT1H" \
             --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
 
+- job: CreateDashboard
+  displayName: 'Create Dashboard for Monitoring'
+  steps:
+  - task: AzureCLI@2
+    displayName: 'Create Azure Dashboard'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az deployment group create \
+        --resource-group $(resourceGroup) \
+        --template-file dashboard.json \
 
 
 

@@ -1,0 +1,126 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-01-01/dashboard.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "type": "Microsoft.Portal/dashboards",
+        "apiVersion": "2020-09-01",
+        "name": "My_Monitor_Dashboard",
+        "location": "eastus",
+        "properties": {
+          "lenses": {
+            "0": {
+              "order": 0,
+              "parts": {
+                "0": {
+                  "position": {
+                    "x": 0,
+                    "y": 0,
+                    "rowSpan": 3,
+                    "colSpan": 6
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceType",
+                        "value": "microsoft.compute/virtualmachines"
+                      },
+                      {
+                        "name": "resourceName",
+                        "value": "MyLinuxVM"
+                      },
+                      {
+                        "name": "metricNamespace",
+                        "value": "Microsoft.Compute/virtualMachines"
+                      },
+                      {
+                        "name": "metricName",
+                        "value": "Percentage CPU"
+                      }
+                    ],
+                    "type": "Extension/Microsoft_Azure_Monitoring_ChartTile"
+                  }
+                },
+                "1": {
+                  "position": {
+                    "x": 6,
+                    "y": 0,
+                    "rowSpan": 3,
+                    "colSpan": 6
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceType",
+                        "value": "microsoft.compute/virtualmachines"
+                      },
+                      {
+                        "name": "resourceName",
+                        "value": "MyLinuxVM"
+                      },
+                      {
+                        "name": "metricNamespace",
+                        "value": "Microsoft.Compute/virtualMachines"
+                      },
+                      {
+                        "name": "metricName",
+                        "value": "Memory"
+                      }
+                    ],
+                    "type": "Extension/Microsoft_Azure_Monitoring_ChartTile"
+                  }
+                }
+              }
+            },
+            "1": {
+              "order": 1,
+              "parts": {
+                "0": {
+                  "position": {
+                    "x": 0,
+                    "y": 3,
+                    "rowSpan": 3,
+                    "colSpan": 6
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceType",
+                        "value": "microsoft.storage/storageaccounts"
+                      },
+                      {
+                        "name": "resourceName",
+                        "value": "ozstorageaccounta"
+                      },
+                      {
+                        "name": "metricNamespace",
+                        "value": "Microsoft.Storage/storageAccounts"
+                      },
+                      {
+                        "name": "metricName",
+                        "value": "UsedCapacity"
+                      }
+                    ],
+                    "type": "Extension/Microsoft_Azure_Monitoring_ChartTile"
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "model": {
+              "timeRange": {
+                "value": {
+                  "relative": {
+                    "duration": 24,
+                    "timeUnit": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+  
