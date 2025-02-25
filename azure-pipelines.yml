@@ -40,37 +40,37 @@ jobs:
       inlineScript: |
         az group create --name $(resourceGroup) --location $(location) --output none
   
-  - task: AzureCLI@2
-    displayName: 'Create Managed Identity'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
+  # - task: AzureCLI@2
+  #   displayName: 'Create Managed Identity'
+  #   inputs:
+  #     azureSubscription: $(azureSubscription)
+  #     scriptType: 'bash'
+  #     scriptLocation: 'inlineScript'
+  #     inlineScript: |
+  #       az identity create --name ozManagedIdentity1 --resource-group $(resourceGroup) --location $(location)
 
-  - task: AzureCLI@2
-    displayName: 'Assign Managed Identity to Role'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        # Retrieve the correct Principal ID (objectId) of the Managed Identity
-        PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
+  # - task: AzureCLI@2
+  #   displayName: 'Assign Managed Identity to Role'
+  #   inputs:
+  #     azureSubscription: $(azureSubscription)
+  #     scriptType: 'bash'
+  #     scriptLocation: 'inlineScript'
+  #     inlineScript: |
+  #       # Retrieve the correct Principal ID (objectId) of the Managed Identity
+  #       PRINCIPAL_ID=$(az identity show --name ozManagedIdentity1 --resource-group $(resourceGroup) --query "principalId" -o tsv)
 
-        if [ -z "$PRINCIPAL_ID" ]; then
-          echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
-          exit 1
-        fi
+  #       if [ -z "$PRINCIPAL_ID" ]; then
+  #         echo "ERROR: Failed to retrieve the Principal ID for ozManagedIdentity1"
+  #         exit 1
+  #       fi
 
-        echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
+  #       echo "Assigning 'Storage Blob Data Contributor' role to Managed Identity..."
         
-        az role assignment create \
-        --assignee-object-id $PRINCIPAL_ID \
-        --role "Storage Blob Data Contributor" \
-        --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
-        --assignee-principal-type ServicePrincipal
+  #       az role assignment create \
+  #       --assignee-object-id $PRINCIPAL_ID \
+  #       --role "Storage Blob Data Contributor" \
+  #       --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
+  #       --assignee-principal-type ServicePrincipal
         
 - job: DeployResources
   dependsOn: CreateManagedIdentity
@@ -317,7 +317,7 @@ jobs:
                 --description "Alert when storage capacity exceeds 80" \
                 --severity 3 \
                 --window-size "PT1H" \
-                --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
+                --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
         done
   - task: AzureCLI@2
     displayName: "Create Blob Transactions Anomaly Alert"
@@ -351,7 +351,7 @@ jobs:
             --description "Alert when VM CPU usage exceeds 80%" \
             --severity 3 \
             --window-size "PT1H" \
-            --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
+            --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
             --action-group $(actionGroupAlerts)
   - task: AzureCLI@2
     displayName: "Create VM Low Disk Space Alert"
