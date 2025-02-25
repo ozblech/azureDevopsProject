@@ -367,20 +367,20 @@ jobs:
   #       --condition "total LogicalDiskFreeSpace < 10%" \
   #       --description "Disk space is critically low" \
   #       --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
-  - task: AzureCLI@2
-    displayName: "Create Suspicious Traffic Alert (DDoS Protection)"
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: "bash"
-      scriptLocation: "inlineScript"
-      inlineScript: |
-        # Create alert for Suspicious Traffic Alert (DDoS Protection)
-        az monitor metrics alert create \
-        --name "DDoSAttackAlert" \
-        --resource-group $(resourceGroup) \
-        --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Network/networkSecurityGroups/MyNetworkSecurityGroup" \
-        --condition "total InboundTraffic > 100" \
-        --description "Possible DDoS attack detected"
+  # - task: AzureCLI@2
+  #   displayName: "Create Suspicious Traffic Alert (DDoS Protection)"
+  #   inputs:
+  #     azureSubscription: $(azureSubscription)
+  #     scriptType: "bash"
+  #     scriptLocation: "inlineScript"
+  #     inlineScript: |
+  #       # Create alert for Suspicious Traffic Alert (DDoS Protection)
+  #       az monitor metrics alert create \
+  #       --name "DDoSAttackAlert" \
+  #       --resource-group $(resourceGroup) \
+  #       --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Network/networkSecurityGroups/MyNetworkSecurityGroup" \
+  #       --condition "total InboundTraffic > 100" \
+  #       --description "Possible DDoS attack detected"
 - job: CreateDashboard
   displayName: 'Create Dashboard for Monitoring'
   dependsOn: CreateAlert
