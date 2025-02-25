@@ -333,8 +333,8 @@ jobs:
             --resource-group $(resourceGroup) \
             --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
             --condition "total Transactions > 10000" \
-            --description "Unexpected increase in blob transactions" \
-          done
+            --description "Unexpected increase in blob transactions"
+        done
   - task: AzureCLI@2
     displayName: "Create VM CPU Usage Alert"
     inputs:
@@ -344,15 +344,15 @@ jobs:
       inlineScript: |
         # Create alert for high CPU usage on the VM
         az monitor metrics alert create \
-            --name "HighCPUUsageAlert" \
-            --resource-group $(resourceGroup) \
-            --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
-            --condition "avg Percentage CPU > 80" \
-            --description "Alert when VM CPU usage exceeds 80%" \
-            --severity 3 \
-            --window-size "PT1H" \
-            --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
-            --action-group $(actionGroupAlerts)
+        --name "HighCPUUsageAlert" \
+        --resource-group $(resourceGroup) \
+        --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
+        --condition "avg Percentage CPU > 80" \
+        --description "Alert when VM CPU usage exceeds 80%" \
+        --severity 3 \
+        --window-size "PT1H" \
+        --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
+        --action-group $(actionGroupAlerts)
   - task: AzureCLI@2
     displayName: "Create VM Low Disk Space Alert"
     inputs:
