@@ -352,21 +352,21 @@ jobs:
         --severity 3 \
         --window-size "PT1H" \
         --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
-  - task: AzureCLI@2
-    displayName: "Create VM Low Disk Space Alert"
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: "bash"
-      scriptLocation: "inlineScript"
-      inlineScript: |
-        # Create alert for Low Disk Space Alert on the VM
-        az monitor metrics alert create \
-        --name "LowDiskSpaceAlert" \
-        --resource-group $(resourceGroup) \
-        --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
-        --condition "total LogicalDiskFreeSpace < 10%" \
-        --description "Disk space is critically low" \
-        --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
+  # - task: AzureCLI@2
+  #   displayName: "Create VM Low Disk Space Alert"
+  #   inputs:
+  #     azureSubscription: $(azureSubscription)
+  #     scriptType: "bash"
+  #     scriptLocation: "inlineScript"
+  #     inlineScript: |
+  #       # Create alert for Low Disk Space Alert on the VM
+  #       az monitor metrics alert create \
+  #       --name "LowDiskSpaceAlert" \
+  #       --resource-group $(resourceGroup) \
+  #       --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
+  #       --condition "total LogicalDiskFreeSpace < 10%" \
+  #       --description "Disk space is critically low" \
+  #       --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
   - task: AzureCLI@2
     displayName: "Create Suspicious Traffic Alert (DDoS Protection)"
     inputs:
