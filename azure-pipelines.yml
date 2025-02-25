@@ -352,7 +352,6 @@ jobs:
         --severity 3 \
         --window-size "PT1H" \
         --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
-        --action-group $(actionGroupAlerts)
   - task: AzureCLI@2
     displayName: "Create VM Low Disk Space Alert"
     inputs:
@@ -367,7 +366,7 @@ jobs:
         --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Compute/virtualMachines/$(vmName)" \
         --condition "total LogicalDiskFreeSpace < 10%" \
         --description "Disk space is critically low" \
-        --action-group $(actionGroupAlerts)
+        --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
   - task: AzureCLI@2
     displayName: "Create Suspicious Traffic Alert (DDoS Protection)"
     inputs:
