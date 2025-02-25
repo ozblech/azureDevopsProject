@@ -2,7 +2,7 @@ param (
     [string]$sourceStorageAccount = "ozstorageaccounta",
     [string]$destinationStorageAccount = "ozstorageaccountb",
     [string]$containerName = "mycontainer",
-    [int]$blobCount = 10,
+    [int]$blobCount = 100,
     [int]$throttleLimit = 20
 )
 
