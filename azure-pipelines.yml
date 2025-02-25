@@ -318,7 +318,6 @@ jobs:
                 --severity 3 \
                 --window-size "PT1H" \
                 --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/StorageAlerts"
-                --action-group $(actionGroupAlerts)
         done
   - task: AzureCLI@2
     displayName: "Create Blob Transactions Anomaly Alert"
@@ -335,7 +334,6 @@ jobs:
             --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
             --condition "total Transactions > 10000" \
             --description "Unexpected increase in blob transactions" \
-            --action-group $(actionGroupAlerts)
           done
   - task: AzureCLI@2
     displayName: "Create VM CPU Usage Alert"
