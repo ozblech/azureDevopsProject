@@ -380,8 +380,7 @@ jobs:
         --resource-group $(resourceGroup) \
         --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Network/networkSecurityGroups/MyNetworkSecurityGroup" \
         --condition "total InboundTraffic > 100MB" \
-        --description "Possible DDoS attack detected" \
-        --action-group $(actionGroupAlerts)
+        --description "Possible DDoS attack detected"
 - job: CreateDashboard
   displayName: 'Create Dashboard for Monitoring'
   dependsOn: CreateAlert
