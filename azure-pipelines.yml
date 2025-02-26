@@ -26,6 +26,8 @@ variables:
   value: 'AlertsActionGroup'
 - name: storageAccountPrefix
   value: 'ozstorageaccount'
+- name: STORAGE_ACCOUNT_COUNT
+  value: 2
 
 jobs:
 - job: CreateManagedIdentity
@@ -113,7 +115,7 @@ jobs:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        for i in {1..2}
+        for i in {1..$STORAGE_ACCOUNT_COUNT};
         do
           az deployment group create \
             --resource-group $(resourceGroup) \
@@ -169,22 +171,20 @@ jobs:
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
-          # Define variables
-          STORAGE_ACCOUNTS=("ozstorageaccounta" "ozstorageaccountb")
-
           echo "Giving the principal the Storage Blob Data Contributor role..."         
           # Assign the Contributor role at the subscription level
           echo "Assigning the Contributor role at the subscription level..."
           az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role Contributor --scope /subscriptions/$(SUBSCRIPTION_ID) --assignee-principal-type ServicePrincipal
 
-          for STORAGE_ACCOUNT in "${STORAGE_ACCOUNTS[@]}"; do
-            # Define the scope using the correct format
+          # Loop through storage accounts and assign the role
+          for i in $(seq 1 $STORAGE_ACCOUNT_COUNT); do
+            STORAGE_ACCOUNT="${STORAGE_ACCOUNT_PREFIX}${i}"
             SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
-            echo "Scope: $SCOPE"  # Debugging line to print scope
-
-            echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
-            az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { echo "Failed to assign role to $STORAGE_ACCOUNT"; exit 1; }
             
+            echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
+            az role assignment create --assignee-object-id $(AZURE_OBJECT_ID) --role "Storage Blob Data Contributor" --scope "$SCOPE" --assignee-principal-type ServicePrincipal || { 
+              echo "❌ Failed to assign role to $STORAGE_ACCOUNT"; exit 1; 
+            }
           done
 
     - task: SSH@0
