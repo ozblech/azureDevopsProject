@@ -1,45 +1,32 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "storageAccountPrefix": {
-        "type": "string",
-        "defaultValue": "ozstorageaccount",
-        "metadata": {
-          "description": "Prefix for storage account names."
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "storageAccountName": {
+          "type": "string",
+          "metadata": {
+              "description": "Name of the storage account"
+          }
       },
       "location": {
-        "type": "string",
-        "defaultValue": "eastus",
-        "metadata": {
-          "description": "Azure region for deployment."
-        }
+          "type": "string",
+          "defaultValue": "eastus",
+          "metadata": {
+              "description": "Azure region for deployment."
+          }
       }
-    },
-    "resources": [
+  },
+  "resources": [
       {
-        "type": "Microsoft.Storage/storageAccounts",
-        "apiVersion": "2022-09-01",
-        "name": "[concat(parameters('storageAccountPrefix'), 'a')]",
-        "location": "[parameters('location')]",
-        "sku": {
-          "name": "Standard_LRS"
-        },
-        "kind": "StorageV2",
-        "properties": {}
-      },
-      {
-        "type": "Microsoft.Storage/storageAccounts",
-        "apiVersion": "2022-09-01",
-        "name": "[concat(parameters('storageAccountPrefix'), 'b')]",
-        "location": "[parameters('location')]",
-        "sku": {
-          "name": "Standard_LRS"
-        },
-        "kind": "StorageV2",
-        "properties": {}
+          "type": "Microsoft.Storage/storageAccounts",
+          "apiVersion": "2022-09-01",
+          "name": "[parameters('storageAccountName')]",
+          "location": "[parameters('location')]",
+          "sku": {
+              "name": "Standard_LRS"
+          },
+          "kind": "StorageV2",
+          "properties": {}
       }
-    ]
- }
-  
+  ]
+}

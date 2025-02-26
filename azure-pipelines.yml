@@ -24,6 +24,8 @@ variables:
   value: 'ozblech87@gmail.com'
 - name: actionGroupAlerts
   value: 'AlertsActionGroup'
+- name: storageAccountPrefix
+  value: 'ozstorageaccount'
 
 jobs:
 - job: CreateManagedIdentity
@@ -103,18 +105,22 @@ jobs:
           --parameters @linux-vm-parameters.json \
           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
           || exit 1
-  # Validate and Deploy Storage Account
+  # Validate and Deploy Storage Accounts in a loop
   - task: AzureCLI@2
-    displayName: 'Deploy Storage Account'
+    displayName: Deploy Storage Accounts"
     inputs:
       azureSubscription: $(azureSubscription)
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file storage-accounts.json \
-          || exit 1
+        for i in {1..2}
+        do
+          az deployment group create \
+            --resource-group $(resourceGroup) \
+            --template-file storage-accounts.json \
+            --parameters storageAccountName="$(storageAccountPrefix)$i" \
+            || exit 1
+        done
 
 - job: BlobMigration
   dependsOn: DeployResources
