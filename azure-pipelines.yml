@@ -96,8 +96,7 @@ jobs:
       inlineScript: |
         az deployment group validate \
         --resource-group $(resourceGroup) \
-        --template-file network-setup.json \
-        --parameters network-setup-parameters.json
+        --template-file network-setup.json
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
     inputs:
@@ -299,26 +298,6 @@ jobs:
           --name $(actionGroupAlerts) \
           --short-name "GeneralAG" \
           --action email "AdminEmail" $(AdminEmail) \
-
-  - task: AzureCLI@2
-    displayName: "Create Storage Capacity Alert"
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: "bash"
-      scriptLocation: "inlineScript"
-      inlineScript: |
-        for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
-            # Create alert for when UsedCapacity exceeds 80% of TotalCapacity
-            az monitor metrics alert create \
-                --name "StorageCapacityAlert-$storageAccount" \
-                --resource-group $(resourceGroup) \
-                --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-                --condition "avg UsedCapacity > 8000000000" \
-                --description "Alert when storage capacity exceeds 80" \
-                --severity 3 \
-                --window-size "PT1H" \
-                --action "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/microsoft.insights/actionGroups/$(actionGroupAlerts)"
-        done
   - task: AzureCLI@2
     displayName: "Create Blob Transactions Anomaly Alert"
     inputs:

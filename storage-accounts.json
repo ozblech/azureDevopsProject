@@ -4,7 +4,7 @@
     "parameters": {
       "storageAccountPrefix": {
         "type": "string",
-        "defaultValue": "ozstorage",
+        "defaultValue": "ozstorageaccount",
         "metadata": {
           "description": "Prefix for storage account names."
         }
