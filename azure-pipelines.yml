@@ -76,27 +76,7 @@ jobs:
   dependsOn: CreateManagedIdentity
   displayName: 'Deploy Resources (Network, Storage, and VM)'
   steps:
-
-  - task: AzureCLI@2
-    displayName: 'Register Microsoft.Storage Provider'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        az provider register --namespace Microsoft.Storage
-        az provider show --namespace Microsoft.Storage --query "registrationState"
   # Validate and Deploy Network Resources
-  - task: AzureCLI@2
-    displayName: 'Validate Network Setup Template'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group validate \
-        --resource-group $(resourceGroup) \
-        --template-file network-setup.json
   - task: AzureCLI@2
     displayName: 'Deploy Network Resources'
     inputs:
@@ -125,17 +105,6 @@ jobs:
           || exit 1
   # Validate and Deploy Storage Account
   - task: AzureCLI@2
-    displayName: 'Validate Storage Accounts Template'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group validate \
-        --resource-group $(resourceGroup) \
-        --template-file storage-accounts.json \
-        --parameters storage-accounts-parameters.json  
-  - task: AzureCLI@2
     displayName: 'Deploy Storage Account'
     inputs:
       azureSubscription: $(azureSubscription)
@@ -145,7 +114,6 @@ jobs:
         az deployment group create \
           --resource-group $(resourceGroup) \
           --template-file storage-accounts.json \
-          --parameters @storage-accounts-parameters.json \
           || exit 1
 
 - job: BlobMigration
