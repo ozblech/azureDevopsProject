@@ -115,7 +115,7 @@ jobs:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        for i in {1..$STORAGE_ACCOUNT_COUNT};
+        for i in {1..$(STORAGE_ACCOUNT_COUNT)};
         do
           az deployment group create \
             --resource-group $(resourceGroup) \
