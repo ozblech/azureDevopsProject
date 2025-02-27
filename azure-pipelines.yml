@@ -279,14 +279,15 @@ jobs:
       scriptType: "bash"
       scriptLocation: "inlineScript"
       inlineScript: |
-        for storageAccount in "ozstorageaccounta" "ozstorageaccountb"; do
-            # Create alert for when UsedCapacity exceeds 80% of TotalCapacity
-            az monitor metrics alert create \
-            --name "BlobTransactionSpikeAlert-$storageAccount" \
-            --resource-group $(resourceGroup) \
-            --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
-            --condition "total Transactions > 10000" \
-            --description "Unexpected increase in blob transactions"
+        for i in $(seq 1 $STORAGE_ACCOUNT_COUNT); do
+          storageAccount="$(storageAccountPrefix)$i"
+          # Create alert for when UsedCapacity exceeds 80% of TotalCapacity
+          az monitor metrics alert create \
+          --name "BlobTransactionSpikeAlert-$storageAccount" \
+          --resource-group $(resourceGroup) \
+          --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$storageAccount" \
+          --condition "total Transactions > 10000" \
+          --description "Unexpected increase in blob transactions"
         done
   - task: AzureCLI@2
     displayName: "Create VM CPU Usage Alert"
