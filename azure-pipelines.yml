@@ -76,56 +76,56 @@ jobs:
   #       --scope /subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup) \
   #       --assignee-principal-type ServicePrincipal
         
-- job: DeployResources
-  dependsOn: CreateManagedIdentity
-  displayName: 'Deploy Resources (Network, Storage, and VM)'
-  steps:
-  # Validate and Deploy Network Resources
-  - task: AzureCLI@2
-    displayName: 'Deploy Network Resources'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file network-setup.json \
-          --parameters @network-setup-parameters.json \
-          || exit 1
-  # Deploy Virtual Machine
-  - task: AzureCLI@2
-    displayName: 'Deploy Virtual Machine'
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az deployment group create \
-          --resource-group $(resourceGroup) \
-          --template-file linux-vm.json \
-          --parameters @linux-vm-parameters.json \
-          --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
-          || exit 1
-  # Validate and Deploy Storage Accounts in a loop
-  - task: AzureCLI@2
-    displayName: Deploy Storage Accounts"
-    inputs:
-      azureSubscription: $(azureSubscription)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        for i in {1..$(STORAGE_ACCOUNT_COUNT)};
-        do
-          az deployment group create \
-            --resource-group $(resourceGroup) \
-            --template-file storage-accounts.json \
-            --parameters storageAccountName="$(storageAccountPrefix)$i" \
-            || exit 1
-        done
+# - job: DeployResources
+#   dependsOn: CreateManagedIdentity
+#   displayName: 'Deploy Resources (Network, Storage, and VM)'
+#   steps:
+#   # Validate and Deploy Network Resources
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Network Resources'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file network-setup.json \
+#           --parameters @network-setup-parameters.json \
+#           || exit 1
+#   # Deploy Virtual Machine
+#   - task: AzureCLI@2
+#     displayName: 'Deploy Virtual Machine'
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         az deployment group create \
+#           --resource-group $(resourceGroup) \
+#           --template-file linux-vm.json \
+#           --parameters @linux-vm-parameters.json \
+#           --parameters sshPublicKey="$(cat ~/.ssh/id_ed25519.pub)" \
+#           || exit 1
+#   # Validate and Deploy Storage Accounts in a loop
+#   - task: AzureCLI@2
+#     displayName: Deploy Storage Accounts"
+#     inputs:
+#       azureSubscription: $(azureSubscription)
+#       scriptType: bash
+#       scriptLocation: inlineScript
+#       inlineScript: |
+#         for i in {1..$(STORAGE_ACCOUNT_COUNT)};
+#         do
+#           az deployment group create \
+#             --resource-group $(resourceGroup) \
+#             --template-file storage-accounts.json \
+#             --parameters storageAccountName="$(storageAccountPrefix)$i" \
+#             || exit 1
+#         done
 
 - job: BlobMigration
-  dependsOn: DeployResources
+  # dependsOn: DeployResources
   displayName: 'Blob Migration Job'
   steps:
     - task: AzureCLI@2
@@ -178,7 +178,7 @@ jobs:
 
           # Loop through storage accounts and assign the role
           for i in $(seq 1 $STORAGE_ACCOUNT_COUNT); do
-            STORAGE_ACCOUNT=${storageAccountPrefix}${i}
+            STORAGE_ACCOUNT="$(storageAccountPrefix)${i}"
             SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             
             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
@@ -257,7 +257,7 @@ jobs:
           fi
 
 - job: CreateAlert
-  dependsOn: DeployResources
+  dependsOn: BlobMigration
   displayName: 'Create Account Alerts'
   steps:
   - task: AzureCLI@2
