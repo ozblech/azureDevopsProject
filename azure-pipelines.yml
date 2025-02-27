@@ -178,7 +178,7 @@ jobs:
 
           # Loop through storage accounts and assign the role
           for i in $(seq 1 $STORAGE_ACCOUNT_COUNT); do
-            STORAGE_ACCOUNT="${STORAGE_ACCOUNT_PREFIX}${i}"
+            STORAGE_ACCOUNT="${storageAccountPrefix}${i}"
             SCOPE="/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/$(resourceGroup)/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT"
             
             echo "🔹 Assigning role to $STORAGE_ACCOUNT..."
