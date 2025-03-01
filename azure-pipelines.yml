@@ -196,20 +196,20 @@ jobs:
           # Ensure PowerShell Core and Azure CLI are installed
           export DEBIAN_FRONTEND=noninteractive
 
-          echo "Checking if PowerShell is installed..."
-          if ! command -v pwsh &> /dev/null; then
-            export DEBIAN_FRONTEND=noninteractive
-            echo "PowerShell not found. Installing..."
-            sudo apt-get update -qq
-            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq wget apt-transport-https software-properties-common
-            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get update -qq
-            echo "Installing PowerShell..."
-            sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq powershell
-          else
-            echo "✅ PowerShell is already installed. Skipping installation."
-          fi
+          # echo "Checking if PowerShell is installed..."
+          # if ! command -v pwsh &> /dev/null; then
+          #   export DEBIAN_FRONTEND=noninteractive
+          #   echo "PowerShell not found. Installing..."
+          #   sudo apt-get update -qq
+          #   sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq wget apt-transport-https software-properties-common
+          #   wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          #   sudo dpkg -i packages-microsoft-prod.deb
+          #   sudo apt-get update -qq
+          #   echo "Installing PowerShell..."
+          #   sudo DEBIAN_FRONTEND="noninteractive" apt-get install -yq powershell
+          # else
+          #   echo "✅ PowerShell is already installed. Skipping installation."
+          # fi
 
           echo "Checking if Azure CLI is installed..."
           if ! command -v az &> /dev/null; then
