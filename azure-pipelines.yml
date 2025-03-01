@@ -221,14 +221,6 @@ jobs:
             echo "✅ Azure CLI is already installed. Skipping installation."
           fi
 
-          # echo "Checking if Microsoft signing key is installed..."
-          # if [ ! -f "/usr/share/keyrings/microsoft-archive-keyring.gpg" ]; then
-          #   echo "Signing key not found. Installing..."
-          #   curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo -H gpg --no-tty --batch --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
-          # else
-          #   echo "✅ Microsoft signing key is already installed. Skipping."
-          # fi
-
           echo "Checking if Azure CLI repo is already added..."
           if ! grep -q "https://packages.microsoft.com/repos/azure-cli/" /etc/apt/sources.list.d/azure-cli.list 2>/dev/null; then
             echo "Azure CLI repo not found. Adding..."
